@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты - InnoAuthor{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+	<div class="row mb-5">
+		<div class="col-lg-10 mx-auto">
+			<h1 class="text-center mb-5">Контакты</h1>
+
+			<div class="card mb-5">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 class="mb-4">Свяжитесь с нами</h3>
+							<form method="post" action="{% url 'startpage:contact' %}">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="name">Ваше имя*</label>
+									<input type="text" class="form-control" id="name" name="name" required>
+								</div>
+								<div class="form-group">
+									<label for="email">Email*</label>
+									<input type="email" class="form-control" id="email" name="email" required>
+								</div>
+								<div class="form-group">
+									<label for="subject">Тема*</label>
+									<input type="text" class="form-control" id="subject" name="subject">
+								</div>
+								<div class="form-group">
+									<label for="message">Сообщение*</label>
+									<textarea class="form-control" id="message" name="message" rows="5"
+										required></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary">Отправить сообщение</button>
+							</form>
+						</div>
+						<div class="col-md-6">
+							<h3 class="mb-4">Наши контакты</h3>
+							<p><i class="fas fa-map-marker-alt mr-2"></i> Москва, Россия</p>
+							<p><i class="fas fa-envelope mr-2"></i> <a
+									href="mailto:shushpanov-official@yandex.ru">shushpanov-official@yandex.ru</a></p>
+							<p><i class="fab fa-telegram mr-2"></i> <a href="https://t.me/sevendayswiththebureau"
+									target="_blank">@sevendayswiththebureau</a></p>
+							<p><i class="fab fa-vk mr-2"></i> <a href="https://vk.com/7daywithburo"
+									target="_blank">vk.com/7daywithburo</a></p>
+
+							<h4 class="mt-5 mb-3">Социальные сети</h4>
+							<div class="social-links">
+								<a href="https://t.me/sevendayswiththebureau" target="_blank"
+									class="btn btn-primary mr-2"><i class="fab fa-telegram"></i> Telegram</a>
+								<a href="https://vk.com/7daywithburo" target="_blank" class="btn btn-primary"><i
+										class="fab fa-vk"></i> ВКонтакте</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<h3 class="mb-4">Часто задаваемые вопросы</h3>
+
+					<div class="accordion" id="faqAccordion">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0">
+									<button class="btn btn-link" type="button" data-toggle="collapse"
+										data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										Как зарегистрироваться на платформе?
+									</button>
+								</h2>
+							</div>
+
+							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+								data-parent="#faqAccordion">
+								<div class="card-body">
+									Для регистрации на платформе перейдите на страницу "Регистрация", 
+									заполните необходимые поля и подтвердите свой email. 
+									После этого вы сможете пользоваться всеми функциями платформы.
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header" id="headingTwo">
+								<h2 class="mb-0">
+									<button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+										data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										Как создать проект?
+									</button>
+								</h2>
+							</div>
+							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+								data-parent="#faqAccordion">
+								<div class="card-body">
+									После входа в систему перейдите в раздел "Проекты", нажмите кнопку "Создать новый
+									проект" и заполните форму с описанием вашего проекта. Вы можете добавить фото,
+									описание и выбрать теги, чтобы другие пользователи могли легче найти ваш проект.
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header" id="headingThree">
+								<h2 class="mb-0">
+									<button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+										data-target="#collapseThree" aria-expanded="false"
+										aria-controls="collapseThree">
+										Как присоединиться к проекту?
+									</button>
+								</h2>
+							</div>
+							<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+								data-parent="#faqAccordion">
+								<div class="card-body">
+									Вы можете просматривать доступные проекты в разделе "Проекты". Чтобы присоединиться
+									к проекту, вам нужно получить приглашение от автора проекта. После получения
+									приглашения на ваш email, вы сможете принять или отклонить его в разделе "Мои
+									проекты".
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Дополнительный JS не требуется, форма отправляется стандартным POST -->
+{% endblock %}

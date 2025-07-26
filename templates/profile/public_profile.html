@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ profile_user.get_full_name|default:profile_user.username }} - Профиль{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if profile_user.avatar %}
+                    <img src="{{ profile_user.avatar.url }}" alt="{{ profile_user.username }}"
+                        class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}" alt="{{ profile_user.username }}"
+                        class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <h3>{{ profile_user.get_full_name }}</h3>
+                    <p class="text-muted">@{{ profile_user.username }}</p>
+                    {% if profile_user.email_verified %}
+                    <p><span class="badge badge-success"><i class="fa fa-check-circle"></i> Верифицированный
+                            пользователь</span></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>О пользователе</h4>
+                </div>
+                <div class="card-body">
+                    {% if profile_user.about %}
+                    <p>{{ profile_user.about|linebreaks }}</p>
+                    {% else %}
+                    <p class="text-muted">Пользователь не добавил информацию о себе.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4>Проекты пользователя</h4>
+                </div>
+                <div class="card-body">
+                    {% with authored_projects=profile_user.authored_projects.all %}
+                    {% if authored_projects %}
+                    <div class="row">
+                        {% for project in authored_projects %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                {% if project.project_photo %}
+                                <img src="{{ project.project_photo.url }}" class="card-img-top"
+                                    alt="{{ project.title }}" style="height: 140px; object-fit: cover;">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ project.title }}</h5>
+                                    <p class="card-text small">{{ project.description|truncatechars:100 }}</p>
+                                    <a href="{% url 'projects:project_detail' project_slug=project.slug %}"
+                                        class="btn btn-primary btn-sm">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">У пользователя пока нет проектов.</p>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

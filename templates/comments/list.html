@@ -1,0 +1,79 @@
+{% load static %}
+{% if comments %}
+<div class="comments-section mt-5" id="comments">
+    <h3>Комментарии ({{ comments|length }})</h3>
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="single-comment mb-4">
+            <div class="comment-header d-flex">
+                <div class="avatar mr-3">
+                    <a href="{% url 'users:public_profile' username=comment.author.username %}">
+                        {% if comment.author.avatar %}
+                            <img src="{{ comment.author.avatar.url }}" alt="{{ comment.author.username }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-avatar.png' %}" alt="{{ comment.author.username }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="comment-content flex-grow-1" style="width: 80%;">
+                    <div class="d-flex justify-content-between">
+                        <div class="user-info">
+                            <a href="{% url 'users:public_profile' username=comment.author.username %}"
+                                class="text-dark">
+                                <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                            </a>
+                            <span class="text-muted ml-2">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+                        </div>
+                        {% if request.user == comment.author or request.user.is_staff or request.user.is_superuser %}
+                        <div class="comment-actions">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                data-target="#deleteCommentModal{{ comment.id }}">
+                                <i class="fa fa-trash"></i> Удалить
+                            </button>
+
+                            <!-- Delete Comment Modal -->
+                            <div class="modal fade" id="deleteCommentModal{{ comment.id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="deleteCommentModalLabel{{ comment.id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">
+                                                Подтвердите
+                                                удаление</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Вы уверены, что хотите удалить этот комментарий?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Отмена</button>
+                                            <form action="{% url 'comments:delete_comment' comment_id=comment.id %}"
+                                                method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger">Удалить</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="comment-body mt-2" style="word-wrap: break-word;">
+                        {{ comment.text|linebreaks }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="no-comments mt-5" id="comments">
+    <h3>Комментарии</h3>
+    <p class="text-muted">Пока нет комментариев. Будьте первым!</p>
+</div>
+{% endif %}

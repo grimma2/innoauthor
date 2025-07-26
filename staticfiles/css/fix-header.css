@@ -1,0 +1,155 @@
+/* Fix for the right panel with project name, tags and donation */
+.hero__slideContent--right {
+    position: fixed;
+    right: 30px;
+    z-index: 100;
+}
+
+/* Fix for sidebar menu position */
+.side_menu {
+    position: fixed;
+    top: 0;
+    right: -360px;
+    width: 360px;
+    height: 100%;
+    z-index: 2000;
+    background: #262533;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    padding-top: 70px;
+}
+
+/* Fix for menu item text color */
+.side_menu .menu_right li a {
+    color: #ffffff;
+}
+
+.side_menu .menu_right li h2 {
+    color: #ffffff;
+}
+
+/* Fix for when the side menu is open */
+body.open .side_menu {
+    right: 0;
+}
+
+/* Header fixes */
+header {
+    height: auto !important;
+    min-height: 80px !important;
+    position: relative;
+    z-index: 1000;
+    margin-bottom: 0 !important;
+    background-color: transparent !important;
+    display: flex;
+    align-items: center;
+}
+
+header .container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+header .row {
+    height: 100%;
+    width: 100%;
+}
+
+/* Canvus menu fixes to ensure it stays above side menu and visible */
+.canvus_menu {
+    position: fixed;
+    top: 23px;
+    right: 20px;
+    z-index: 2100 !important;
+}
+
+.canvus_menu .container {
+    padding: 0;
+    width: auto;
+}
+
+.canvus_menu .float-right {
+    float: right;
+}
+
+.toggle_icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.toggle_icon span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #fff;
+    position: relative;
+}
+
+.toggle_icon span:before,
+.toggle_icon span:after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background-color: #fff;
+    left: 0;
+}
+
+.toggle_icon span:before {
+    top: -7px;
+}
+
+.toggle_icon span:after {
+    bottom: -7px;
+}
+
+/* Fix for navbar brand - position left */
+.navbar-brand {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    top: auto !important;
+    left: 15px !important;
+    box-shadow: none !important;
+    padding: 0;
+    z-index: 1050;
+}
+
+.navbar-brand img {
+    height: calc(100% - 20px) !important;
+    max-height: 100% !important;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+header .row {
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+header .col-12 {
+    text-align: left !important;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Fix content spacing */
+main.site-main {
+    padding-top: 0;
+}
+
+/* Ensure proper spacing after header */
+.section-margin {
+    margin-top: 30px;
+}

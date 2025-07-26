@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Header Test - InnAuthor</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mobile-responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+</head>
+
+<body>
+    {% include 'includes/header.html' %}
+
+    <main class="site-main">
+        <section class="section-margin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="mb-4">Test Content</h2>
+                        <p>This is a test page to verify that our header is correctly positioned and styled.</p>
+                        <p>There should be no content overlapping with the header.</p>
+                        <p>Click the burger menu in the top right to test the side menu. The toggle should remain
+                            clickable even when the side menu is open.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

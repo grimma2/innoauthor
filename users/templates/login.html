@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Вход - InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<style>
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		.form-control {
+			border-radius: 0;
+			padding: 10px;
+			font-size: 14px;
+		}
+
+		.register-link {
+			margin-top: 15px;
+			display: block;
+		}
+
+		.btn-login {
+			background: #6f42c1;
+			color: white;
+			border: none;
+			padding: 10px 30px;
+			margin-top: 10px;
+			cursor: pointer;
+			width: 100%;
+		}
+
+		.error-message {
+			color: #dc3545;
+			font-size: 14px;
+			margin-top: 5px;
+		}
+
+		.login-form label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: 500;
+		}
+
+		.login-form input {
+			width: 100%;
+			padding: 8px 12px;
+			margin-bottom: 10px;
+			border: 1px solid #ddd;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Start post-content Area -->
+	<section class="post-content-area single-post-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					<div class="comment-form">
+						<h4 class="mb-4">Вход в систему</h4>
+
+						<form class="login-form" action="{% url 'users:login' %}" method="post">
+							{% csrf_token %}
+
+							<div class="form-group">
+								<label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+								{{ form.username }}
+								{% if form.username.errors %}
+								<div class="error-message">
+									{% for error in form.username.errors %}
+									{{ error }}
+									{% endfor %}
+								</div>
+								{% endif %}
+							</div>
+
+							<div class="form-group">
+								<label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+								{{ form.password }}
+								{% if form.password.errors %}
+								<div class="error-message">
+									{% for error in form.password.errors %}
+									{{ error }}
+									{% endfor %}
+								</div>
+								{% endif %}
+							</div>
+
+							<input type="hidden" name="next" value="{{next}}" />
+
+							{% if form.non_field_errors %}
+							<div class="error-message">
+								{% for error in form.non_field_errors %}
+								{{ error }}
+								{% endfor %}
+							</div>
+							{% endif %}
+
+							{% if messages %}
+							<div class="messages">
+								{% for message in messages %}
+								<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+									{{ message }}
+								</div>
+								{% endfor %}
+							</div>
+							{% endif %}
+
+							<div class="form-group">
+								<button class="btn btn-primary btn-login" type="submit">Войти</button>
+							</div>
+
+							<div class="form-group">
+								<a href="{% url 'accounts:accounts' %}" class="register-link">Нет аккаунта?
+									Зарегистрироваться</a>
+							</div>
+
+							<div class="form-group">
+								<a href="{% url 'password_reset' %}" class="register-link">Забыли пароль?</a>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4 sidebar-widgets">
+					<div class="widget-wrap">
+
+						<div class="single-sidebar-widget user-info-widget">
+							
+							<a href="#">
+								<h4>InnoAuthor</h4>
+							</a>
+							<p>
+								Платформа для реализации инновационных проектов
+							</p>
+							<ul class="social-links">
+
+								<li><a href="https://t.me/innoauthor" target="_blank"><i
+											class='fab fa-telegram'></i></a></li>
+
+								<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a>
+								</li>
+
+								
+							</ul>
+							<p>
+								Наша платформа создает будущее вместе с вами.
+								Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+							</p>
+						</div>
+						<div class="single-sidebar-widget popular-post-widget">
+							<a href="https://pay.cloudtips.ru/p/925045f4">
+								<h4 class="popular-title">Пожертвовать</h4>
+							</a>
+
+						</div>
+						<div class="single-sidebar-widget ads-widget">
+							<a href="https://vk.com/jurfront"><img class="img-fluid" src="{% static 'img/jurfrontus.jpg'%}" alt=""></a>
+						</div>
+						<div class="single-sidebar-widget post-category-widget">
+							<a href="{% url 'startpage:contact' %}">
+								<h4 class="category-title">Заказать рекламу</h4>
+							</a>
+
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End post-content Area -->
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+	<script>
+		// Проверка отправки формы
+		document.addEventListener('DOMContentLoaded', function () {
+			const loginForm = document.querySelector('.login-form');
+			loginForm.addEventListener('submit', function (e) {
+				console.log('Form submitted');
+				// Можно добавить дополнительную валидацию здесь при необходимости
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ project.title }} - InnoAuthor</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+	
+    <style>
+        /* Стили для адаптивности на мобильных */
+        @media (max-width: 768px) {
+            .project-image {
+                height: auto !important;
+                max-height: 300px;
+            }
+
+            .project-details {
+                padding: 15px !important;
+            }
+
+            .tag-list {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .tag-list .badge {
+                margin-bottom: 5px;
+            }
+
+            .action-buttons .btn {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .action-buttons {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        /* Сделать кнопки всегда видимыми */
+        .btn {
+            opacity: 1 !important;
+            visibility: visible !important;
+            color: #fff !important;
+            /* Белый текст для контраста */
+        }
+
+        .btn-sm {
+            background-color: #007bff !important;
+            border-color: #007bff !important;
+        }
+
+        /* Стили для первичных кнопок */
+        .btn-primary {
+            background-color: #007bff !important;
+            border-color: #007bff !important;
+        }
+
+        /* Стили для кнопок действий */
+        .btn-secondary {
+            background-color: #6c757d !important;
+            border-color: #6c757d !important;
+        }
+
+        /* Стили для кнопок удаления */
+        .btn-danger {
+            background-color: #dc3545 !important;
+            border-color: #dc3545 !important;
+        }
+
+        /* Стили для кнопок успеха */
+        .btn-success {
+            background-color: #28a745 !important;
+            border-color: #28a745 !important;
+        }
+
+        /* Стили для группы кнопок */
+        .btn-group {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* Фиксация модальных окон */
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            outline: 0;
+        }
+
+        .modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 0.3rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+            outline: 0;
+        }
+
+        /* Затемнение фона при открытии модального окна */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000;
+        }
+
+        .modal-backdrop.show {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+   {% include 'includes/header.html' %}
+
+    <section class="section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'projects:projects' %}">Проекты</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+                        </ol>
+                    </nav>
+
+                    <!-- Django Messages -->
+                    {% if messages %}
+                    <div class="messages mb-4">
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'info' %}alert-info{% else %}alert-secondary{% endif %} alert-dismissible fade show"
+                            role="alert">
+                            {% if message.tags == 'success' %}
+                            <i class="fas fa-check-circle mr-2"></i>
+                            {% elif message.tags == 'error' %}
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            {% elif message.tags == 'warning' %}
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            {% elif message.tags == 'info' %}
+                            <i class="fas fa-info-circle mr-2"></i>
+                            {% else %}
+                            <i class="fas fa-bell mr-2"></i>
+                            {% endif %}
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="card mb-4">
+                        {% if project.project_photo %}
+                        <img src="{{ project.project_photo.url }}" class="card-img-top project-image"
+                            alt="{{ project.title }}" style="max-height: 400px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body project-details" style="padding: 30px;">
+                            <h1 class="card-title mb-3">{{ project.title }}</h1>
+
+                            <div class="meta-info mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="author-avatar mr-3">
+                                        {% if project.author.avatar %}
+                                        <img src="{{ project.author.avatar.url }}" alt="{{ project.author.username }}"
+                                            class="rounded-circle"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        {% else %}
+                                        <img src="{% static 'img/default-avatar.png' %}"
+                                            alt="{{ project.author.username }}" class="rounded-circle"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <span class="text-muted">
+                                            <i class="fa fa-user"></i> Автор: {{ project.author.get_full_name|default:project.author.username }}
+                                        </span>
+                                        <br>
+                                        <span class="text-muted">
+                                            <i class="fa fa-calendar"></i> Создан: {{  project.create_datetime|date:"d.m.Y H:i" }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h5>Метки:</h5>
+                                    <div class="tags mb-3">
+                                        {% for tag in project.tags.all %}
+                                        <a href="{% url 'projects:projects' %}?tag={{ tag.slug }}"
+                                            class="badge badge-primary">
+                                            {{ tag.name }}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="share-buttons text-md-right">
+                                        <h5>Поделиться:</h5>
+                                        <div class="btn-group">
+                                            <a href="https://t.me/share/url?url={{ request.scheme }}://{{ request.get_host }}{% url 'projects:project_detail' project_slug=project.slug %}&text={{ project.title }}"
+                                                target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fab fa-telegram"></i>
+                                            </a>
+                                            <a href="https://vk.com/share.php?url={{ request.scheme }}://{{ request.get_host }}{% url 'projects:project_detail' project_slug=project.slug %}&title={{ project.title }}&description={{ project.description|truncatechars:100 }}"
+                                                target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fab fa-vk"></i>
+                                            </a>
+                                            <a href="mailto:?subject={{ project.title }}&body={{ project.description|truncatechars:100 }}%0A%0A{{ request.scheme }}://{{ request.get_host }}{% url 'projects:project_detail' project_slug=project.slug %}"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-primary copy-share-link"
+                                                data-url="{{ request.scheme }}://{{ request.get_host }}{% url 'projects:project_detail' project_slug=project.slug %}">
+                                                <i class="fa fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-description mb-4">
+                                {{ project.description|linebreaks }}
+                            </div>
+
+                            <!-- Tabs Navigation -->
+                            <ul class="nav nav-tabs mb-4" id="projectTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments"
+                                        role="tab" aria-controls="comments" aria-selected="true">
+                                        <i class="fa fa-comments"></i> Комментарии
+                                    </a>
+                                </li>
+                                {% if is_team_member or is_owner %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab"
+                                        aria-controls="tasks" aria-selected="false">
+                                        <i class="fa fa-tasks"></i> Задачи
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="team-tab" data-toggle="tab" href="#team" role="tab"
+                                        aria-controls="team" aria-selected="false">
+                                        <i class="fa fa-users"></i> Команда
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="projectTabsContent">
+                                <!-- Comments Tab -->
+                                <div class="tab-pane fade show active" id="comments" role="tabpanel"
+                                    aria-labelledby="comments-tab">
+                                    <!-- Comments Section -->
+                                    {% include "comments/list.html" with comments=comments %}
+
+                                    <!-- Comment Form -->
+                                    {% include "comments/form.html" with form=comment_form %}
+                                </div>
+
+                                {% if is_team_member or is_owner %}
+                                <!-- Tasks Tab -->
+                                <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                                    <h3>Задачи проекта</h3>
+
+                                    <!-- Tasks List -->
+                                    {% if tasks %}
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Название</th>
+                                                    <th>Описание</th>
+                                                    <th>Статус</th>
+                                                    <th>Исполнитель</th>
+                                                    <th>Срок</th>
+                                                    <th>Действия</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for task in tasks %}
+                                                <tr>
+                                                    <td>{{ task.title }}</td>
+                                                    <td>{{ task.description }}</td>
+                                                    <td>
+                                                        {% if task.status == 'pending' %}
+                                                        <span class="badge badge-warning">Ожидает</span>
+                                                        {% elif task.status == 'in_progress' %}
+                                                        <span class="badge badge-info">В процессе</span>
+                                                        {% else %}
+                                                        <span class="badge badge-success">Выполнено</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% if task.assigned_to %}
+                                                        {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
+                                                        {% else %}
+                                                        <em class="text-muted">Не назначено</em>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% if task.deadline %}
+                                                        {{ task.deadline|date:"d.m.Y" }}
+                                                        {% else %}
+                                                        <em class="text-muted">Не указан</em>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <!-- Task actions -->
+                                                        <div class="btn-group btn-group-sm">
+                                                            {% if is_owner or request.user == task.assigned_to %}
+                                                            <button type="button" class="btn btn-info"
+                                                                data-toggle="modal"
+                                                                data-target="#editTaskModal{{ task.id }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            {% endif %}
+
+                                                            {% if is_owner %}
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-toggle="modal"
+                                                                data-target="#deleteTaskModal{{ task.id }}">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                            {% endif %}
+                                                        </div>
+
+                                                        <!-- Edit Task Modal -->
+                                                        <div class="modal fade" id="editTaskModal{{ task.id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="editTaskModalLabel{{ task.id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="editTaskModalLabel{{ task.id }}">
+                                                                            Редактировать задачу</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form method="post"
+                                                                        action="{% url 'projects:update_task' task.id %}">
+                                                                        {% csrf_token %}
+                                                                        <div class="modal-body">
+                                                                            {% if is_owner %}
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="title{{ task.id }}">Название</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="title{{ task.id }}" name="title"
+                                                                                    value="{{ task.title }}" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="description{{ task.id }}">Описание</label>
+                                                                                <textarea class="form-control"
+                                                                                    id="description{{ task.id }}"
+                                                                                    name="description"
+                                                                                    rows="3">{{ task.description }}</textarea>
+                                                                            </div>
+                                                                            {% endif %}
+
+                                                                            <div class="form-group">
+                                                                                <label for="status{{ task.id }}">Статус</label>
+                                                                                <select class="form-control" id="status{{ task.id }}"  name="status">
+                                                                                    <option value="pending" {% if  task.status == 'pending'  %}selected{% endif %}>Ожидает выполнения</option>
+                                                                                    <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>В процессе
+                                                                                    </option>
+                                                                                    <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Выполнено
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            {% if is_owner %}
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="assigned_to{{ task.id }}">Исполнитель</label>
+                                                                                <select class="form-control"
+                                                                                    id="assigned_to{{ task.id }}"
+                                                                                    name="assigned_to">
+                                                                                    <option value="">-- Не назначен --
+                                                                                    </option>
+                                                                                    {% for member in team_members %}
+                                                                                    <option value="{{ member.id }}" {% if task.assigned_to == member %}selected{% endif %}>
+                                                                                        {{ member.get_full_name|default:member.username }}
+                                                                                    </option>
+                                                                                    {% endfor %}
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="deadline{{ task.id }}">Срок
+                                                                                    выполнения</label>
+                                                                                <input type="date" class="form-control"
+                                                                                    id="deadline{{ task.id }}"
+                                                                                    name="deadline"
+                                                                                    value="{{ task.deadline|date:'Y-m-d' }}">
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Отмена</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Сохранить</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Delete Task Modal -->
+                                                        {% if is_owner %}
+                                                        <div class="modal fade" id="deleteTaskModal{{ task.id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="deleteTaskModalLabel{{ task.id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="deleteTaskModalLabel{{ task.id }}">
+                                                                            Удалить
+                                                                            задачу</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Вы уверены, что хотите удалить задачу "{{ task.title }}"?</p>
+                                                                        <p class="text-danger">Это действие нельзя
+                                                                            отменить.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Отмена</button>
+                                                                        <form method="post"
+                                                                            action="{% url 'projects:delete_task' task.id %}">
+                                                                            {% csrf_token %}
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Удалить</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <p class="text-muted mb-4">Для этого проекта пока нет задач.</p>
+                                    {% endif %}
+
+                                    <!-- Add Task Form (for project owner only) -->
+                                    {% if is_owner %}
+                                    <div class="add-task-form mb-4">
+                                        <h4>Добавить задачу</h4>
+                                        <form method="post" action="{% url 'projects:add_task' project.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="task_title">Название</label>
+                                                {{ task_form.title }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="task_description">Описание</label>
+                                                {{ task_form.description }}
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="task_status">Статус</label>
+                                                    {{ task_form.status }}
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="task_assigned_to">Исполнитель</label>
+                                                    {{ task_form.assigned_to }}
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="task_deadline">Срок выполнения</label>
+                                                    {{ task_form.deadline }}
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary"
+                                                style="display: inline-block; visibility: visible;">Добавить
+                                                задачу</button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+
+                                <!-- Team Tab -->
+                                <div class="tab-pane fade" id="team" role="tabpanel" aria-labelledby="team-tab">
+                                    <h3>Команда проекта</h3>
+
+                                    <div class="team-members mb-4">
+                                        <ul class="list-group">
+                                            <!-- Always show author first -->
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    {% if project.author.avatar %}
+                                                    <img src="{{ project.author.avatar.url }}"
+                                                        alt="{{ project.author.username }}" class="rounded-circle mr-2"
+                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                    {% else %}
+                                                    <img src="{% static 'img/default-avatar.png' %}"
+                                                        alt="{{ project.author.username }}" class="rounded-circle mr-2"
+                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                    {% endif %}
+                                                    <a
+                                                        href="{% url 'users:public_profile' username=project.author.username %}">
+                                                        {{ project.author.get_full_name|default:project.author.username }}
+                                                    </a>
+                                                </div>
+                                                <span class="badge badge-primary">Автор</span>
+                                            </li>
+
+                                            <!-- Show other team members -->
+                                            {% for member in team_members %}
+                                            {% if member != project.author %}
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    {% if member.avatar %}
+                                                    <img src="{{ member.avatar.url }}" alt="{{ member.username }}"
+                                                        class="rounded-circle mr-2"
+                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                    {% else %}
+                                                    <img src="{% static 'img/default-avatar.png' %}"
+                                                        alt="{{ member.username }}" class="rounded-circle mr-2"
+                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                    {% endif %}
+                                                    <a href="{% url 'users:public_profile' username=member.username %}">
+                                                        {{ member.get_full_name|default:member.username }}
+                                                    </a>
+                                                </div>
+                                                <span class="badge badge-secondary">Участник</span>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    {% if is_owner %}
+                                    <div class="invitation-form mb-4">
+                                        <h4>Пригласить участника</h4>
+                                        <form method="post" action="{% url 'projects:invite_member' project.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                {{ invitation_form.invitee_email }}
+                                                <small class="form-text text-muted">{{ invitation_form.invitee_email.help_text }}</small>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Отправить приглашение</button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="action-buttons mt-4">
+                                <a href="{% url 'projects:projects' %}" class="btn btn-secondary">
+                                    <i class="fa fa-arrow-left"></i> Назад к проектам
+                                </a>
+
+                                {% if user == project.author %}
+                                <a href="{% url 'projects:edit_project' project_id=project.id %}"
+                                    class="btn btn-primary ml-2">
+                                    <i class="fa fa-edit"></i> Редактировать
+                                </a>
+                                <button type="button" class="btn btn-danger ml-2" data-toggle="modal"
+                                    data-target="#deleteProjectModalOwner{{ project.id }}">
+                                    <i class="fa fa-trash"></i> Удалить
+                                </button>
+
+                                <!-- Delete Project Modal for Owner -->
+                                <div class="modal fade" id="deleteProjectModalOwner{{ project.id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="deleteProjectModalLabelOwner{{ project.id }}"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"
+                                                    id="deleteProjectModalLabelOwner{{ project.id }}">Подтвердите
+                                                    удаление</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Вы уверены, что хотите удалить проект "{{ project.title }}"?</p>
+                                                <p class="text-danger">Это действие нельзя отменить.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Отмена</button>
+                                                <form action="{% url 'projects:delete_project' project_id=project.id %}"
+                                                    method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% elif request.user.is_staff or request.user.is_superuser %}
+                                <a href="{% url 'projects:edit_project' project_id=project.id %}"
+                                    class="btn btn-warning ml-2">
+                                    <i class="fa fa-edit"></i> Редактировать (admin)
+                                </a>
+                                <button type="button" class="btn btn-danger ml-2" data-toggle="modal"
+                                    data-target="#deleteProjectModalAdmin{{ project.id }}">
+                                    <i class="fa fa-trash"></i> Удалить (admin)
+                                </button>
+
+                                <!-- Delete Project Modal for Admin -->
+                                <div class="modal fade" id="deleteProjectModalAdmin{{ project.id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="deleteProjectModalLabelAdmin{{ project.id }}"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"
+                                                    id="deleteProjectModalLabelAdmin{{ project.id }}">Подтвердите
+                                                    удаление (admin)</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Вы уверены, что хотите удалить проект "{{ project.title }}"?</p>
+                                                <p class="text-danger">Это действие нельзя отменить.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Отмена</button>
+                                                <form action="{% url 'projects:delete_project' project_id=project.id %}"
+                                                    method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 single-footer-widget">
+                    <h4>О InnoAuthor</h4>
+                    <p>
+                        Наша платформа создает будущее вместе с вами.
+                        Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+                    </p>
+                </div>
+                <div class="col-lg-4 col-md-6 single-footer-widget">
+                    <h4>Разделы сайта</h4>
+                    <ul>
+                        <li><a href="{% url 'indexglav:indexglav' %}">Лента</a></li>
+                        <li><a href="{% url 'projects:projects' %}">Проекты</a></li>
+                        <li><a href="{% url 'projects:my_projects' %}">Мои проекты</a></li>
+                        <li><a href="{% url 'indexglav:contact1' %}">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 single-footer-widget">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:shushpanov-official@yandex.ru">shushpanov-official@yandex.ru</a></li>
+                        <li><a href="https://t.me/sevendayswiththebureau" target="_blank">Telegram</a></li>
+                        <li><a href="https://vk.com/7daywithburo" target="_blank">ВКонтакте</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-sm-flex justify-content-between footer__bottom top-border">
+                <p>
+                    InnoAuthor &copy;
+                    <script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+                        class="fa fa-heart" aria-hidden="true"></i> производства <a href="#"
+                        target="_blank">shushpanov_official</a>
+                </p>
+                <ul class="social-icons mt-2 mt-sm-0">
+                    <li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i
+                                class='fab fa-telegram'></i></a></li>
+                    <li><a href="https://vk.com/7daywithburo" target="_blank"><i class='fab fa-vk'></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+	
+	
+
+    <script>
+        var dropToggle = $('.menu_right > li').has('ul').children('a');
+        dropToggle.on('click', function () {
+            dropToggle.not(this).closest('li').find('ul').slideUp(200);
+            $(this).closest('li').children('ul').slideToggle(200);
+            return false;
+        });
+
+        $(".toggle_icon").on('click', function () {
+            $('body').toggleClass("open");
+        });
+
+        // Обработка удаления проекта
+        $(document).ready(function () {
+            $('.btn-danger[data-id]').on('click', function () {
+                $('#deleteModal').modal('show');
+            });
+        });
+
+        // Функция для копирования ссылки
+        $(document).ready(function () {
+            $('.copy-share-link').on('click', function () {
+                const url = $(this).data('url');
+
+                // Создаем временный элемент для копирования
+                const tempInput = document.createElement('input');
+                tempInput.value = url;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                // Показываем уведомление
+                const $btn = $(this);
+                const originalHtml = $btn.html();
+                $btn.html('<i class="fa fa-check"></i>');
+                $btn.addClass('btn-success').removeClass('btn-outline-primary');
+
+                // Возвращаем исходный текст через 2 секунды
+                setTimeout(() => {
+                    $btn.html(originalHtml);
+                    $btn.addClass('btn-outline-primary').removeClass('btn-success');
+                }, 2000);
+            });
+        });
+
+        $(document).ready(function () {
+            // Инициализация всех модальных окон
+            $('.modal').each(function () {
+                $(this).modal({
+                    show: false,
+                    backdrop: true,
+                    keyboard: true
+                });
+            });
+
+            // Обработчик для кнопки закрытия
+            $('.modal .close').on('click', function (e) {
+                e.preventDefault();
+                var modal = $(this).closest('.modal');
+                modal.modal('hide');
+            });
+
+            // Обработчик для кнопки "Отмена"
+            $('.modal .btn-secondary').on('click', function (e) {
+                e.preventDefault();
+                var modal = $(this).closest('.modal');
+                modal.modal('hide');
+            });
+
+            // Обработчик для элементов с data-dismiss="modal"
+            $('[data-dismiss="modal"]').on('click', function (e) {
+                e.preventDefault();
+                var modal = $(this).closest('.modal');
+                modal.modal('hide');
+            });
+
+            // Обработчик для кнопок, открывающих модальное окно
+            $('[data-toggle="modal"]').on('click', function (e) {
+                e.preventDefault();
+                var targetModal = $($(this).data('target'));
+                targetModal.modal('show');
+            });
+        });
+    </script>
+</body>
+
+</html>

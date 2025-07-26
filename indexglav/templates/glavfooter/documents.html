@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+	{% include 'includes/header.html' %}
+
+
+	<section class="section-margin">
+		<div class="container">
+			<h3>Скачайте все документы, которые вам интересны</h3>
+
+			<a href="/static/documents/Политика конфиденциальности.docx" class="genric-btn primary" download="Политика конфиденциальности.docx">Политика конфиденциальности</a>
+		
+		<a href="/static/documents/Пользовательское соглашение.docx" class="genric-btn primary" download="Пользовательское соглашение.docx">Пользовательское соглашение</a>
+		
+		<a href="/static/documents/Согласие на обработку персональных данных.docx" class="genric-btn primary" download="Согласие на обработку персональных данных.docx">Согласие на обработку персональных данных</a>
+		
+		<br><br><br>
+		
+		<a href="/static/documents/Реквизиты владельца сайта.docx" class="genric-btn primary" download="Реквизиты владельца сайта.docx">Реквизиты владельца сайта</a>
+		
+		<a href="/static/documents/Политика обработки cookies.docx" class="genric-btn primary" download="Политика обработки cookies.docx">Политика обработки cookies</a>
+		
+		<a href="/static/documents/Согласие на получение рекламных рассылок.docx" class="genric-btn primary" download="Согласие на получение рекламных рассылок.docx">Согласие на получение рекламных рассылок</a>
+		
+		<br><br><br>
+		
+		<a href="/static/documents/грант.pptx" class="genric-btn primary" download="грант.pptx">Как получить свой первый грант</a>
+		
+		
+		<br><br><br>
+		</div>
+	</section>
+
+
+	<footer class="footer footer-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Организация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Полезные ссылки</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Для пользователей</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+							<li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Информация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="d-sm-flex justify-content-between footer__bottom top-border">
+					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						InnoAuthor &copy;
+						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
+							target="_blank">shushpanov_official</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+					<ul class="social-icons mt-2 mt-sm-0">
+
+						<li><a href="https://t.me/innoauthor" target="_blank"><i
+									class='fab fa-telegram'></i></a></li>
+
+						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+	<script>
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function () {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$(".toggle_icon").on('click', function () {
+			$('body').toggleClass("open");
+		});
+	</script>
+</body>
+
+</html>

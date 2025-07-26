@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <h2>Ваш профиль</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="img-fluid rounded-circle mb-3"
+                        style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}" alt="{{ user.username }}"
+                        class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% endif %}
+                    <h5>{{ user.get_full_name }}</h5>
+                    <p class="text-muted">@{{ user.username }}</p>
+                </div>
+
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'users:profile_general' %}"
+                        class="list-group-item list-group-item-action {% if active_tab == 'general' %}active{% endif %}">
+                        Общая информация
+                    </a>
+                    <a href="{% url 'users:profile_security' %}"
+                        class="list-group-item list-group-item-action {% if active_tab == 'security' %}active{% endif %}">
+                        Безопасность
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    {% block profile_content %}
+                    <div class="alert alert-info">
+                        Выберите раздел профиля в меню слева для редактирования ваших данных.
+                    </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

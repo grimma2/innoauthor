@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+	{% include 'includes/header.html' %}
+
+
+	<section class="about section-margin mb-5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5">
+					<div class="about__img text-center text-md-left mb-5 mb-md-0">
+						<img class="img-fluid" src="img/about.png" alt="">
+						<a href="#/" class="about__img__date text-center">
+							<h3>Сколько лет проекту</h3>
+							<p>Год <br> в работе</p>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-7 pl-xl-5">
+					<div class="section-intro">
+						<h4 class="section-intro__title">О проекте</h4>
+						<h2 class="section-intro__subtitle">Мы команда <br> Резананс 1999</h2>
+					</div>
+					<p>If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur
+						adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+						minim veniam. Eiusmod tempor incididunt ut labore et dolore magna aliqua consectetur adipisicing
+						elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p>If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur
+						adipisicing elit, sed do eiusmod tempor incididunt.</p>
+					<a class="btn btn--rightBorder mt-4" href="startsystem.html">Создать проект</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section class="overview section-margin mt-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+					<a href="projectSystem.html">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-crown"></i></span>
+							<div class="media-body">
+								<h3>Дроны доставщики</h3>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+					<a href="projectSystem.html">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-face-smile"></i></span>
+							<div class="media-body">
+								<h3>Разработка локатора</h3>
+
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+					<a href="projectSystem.html">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-user"></i></span>
+							<div class="media-body">
+								<h3>Плавающий дрон</h3>
+
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+					<a href="projectSystem.html">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-gift"></i></span>
+							<div class="media-body">
+								<h3>Космический дрон</h3>
+
+							</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+			<center>
+				<a class="btn btn--rightBorder mt-4" href="../Osnova/Sparsh Architecture - Doc/projectSEE.html">купить
+					слот на проект</a>
+			</center>
+		</div>
+	</section>
+
+
+
+
+	<section class="testimonial section-margin">
+		<div class="container">
+			<div class="section-intro">
+				<h4 class="section-intro__title">Раздел</h4>
+				<h2 class="section-intro__subtitle bottom-border">Наша администрация платформы</h2>
+			</div>
+
+			<div class="owl-carousel owl-theme testimonialCarousel">
+				<div class="item">
+					<div class="media testimonial__slide">
+						<img class="img-fluid mr-4" src="img/testimonial.png" width="120" height="125" alt="">
+						<div class="media-body">
+							<blockquote>
+								"Петров Петр Иванович."
+							</blockquote>
+							<h3>Директор по Маркетингу</h3>
+							<p>InnoAuthor</p>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</section>
+
+
+
+
+	<footer class="footer footer-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Организация</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:liderplatform1' %}">Структура платформы</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Полезные ссылки</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:workshop1' %}">Вакансии</a></li>
+						<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Для пользователей</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:documents1' %}">Документы</a></li>
+						<li><a href="{% url 'indexglav:shop1' %}">Магазин</a></li>
+						<li><a href="{% url 'indexglav:service1' %}">Услуги</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Информация</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:contact1' %}">Связаться с нами</a></li>
+					</ul>
+				</div>
+				
+			</div>
+			<div class="d-sm-flex justify-content-between footer__bottom top-border">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					InnoAuthor &copy;
+					<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+						class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://colorlib.com"
+						target="_blank">shushpanov_official</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+				<ul class="social-icons mt-2 mt-sm-0">
+
+					<li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i
+								class='fab fa-telegram'></i></a></li>
+
+					<li><a href="https://vk.com/7daywithburo" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					<li><a href="https://dzen.ru/sevendayswiththebureau" target="_blank"><i
+								class='fab fa-yandex-international'></i> </a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+	<script>
+		var testimonialCarousel = $('.testimonialCarousel');
+		testimonialCarousel.owlCarousel({
+			loop: true,
+			margin: 80,
+			startPosition: 2,
+			nav: false,
+			responsiveClass: true,
+			responsive: {
+				0: {
+					items: 1
+				},
+				1000: {
+					items: 2,
+					loop: true
+				}
+			}
+		});
+
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function () {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$(".toggle_icon").on('click', function () {
+			$('body').toggleClass("open");
+		});
+	</script>
+</body>
+
+</html>

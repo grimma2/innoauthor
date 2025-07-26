@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+    container_name: innoapp
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8000"
+    depends_on:
+      innauthor_db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_DB=innauthor_db
+      - POSTGRES_USER=innauthor_user
+      - POSTGRES_PASSWORD=innauthor_password
+      - POSTGRES_HOST=innauthor_db
+      - POSTGRES_PORT=5432
+    env_file:
+      - .env
+    networks:
+      - fastprogs_network
+
+  innauthor_db:
+    image: postgres:15
+    container_name: innauthor_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=innauthor_db
+      - POSTGRES_USER=innauthor_user
+      - POSTGRES_PASSWORD=innauthor_password
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U innauthor_user -d innauthor_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fastprogs_network
+
+networks:
+  fastprogs_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

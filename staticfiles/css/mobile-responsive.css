@@ -1,0 +1,352 @@
+/* Стили для адаптивной верстки на мобильных устройствах */
+
+@media (max-width: 768px) {
+
+    /* Общие стили */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        position: relative;
+    }
+
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .col,
+    .col-1,
+    .col-10,
+    .col-11,
+    .col-12,
+    .col-2,
+    .col-3,
+    .col-4,
+    .col-5,
+    .col-6,
+    .col-7,
+    .col-8,
+    .col-9,
+    .col-auto,
+    .col-lg,
+    .col-lg-1,
+    .col-lg-10,
+    .col-lg-11,
+    .col-lg-12,
+    .col-lg-2,
+    .col-lg-3,
+    .col-lg-4,
+    .col-lg-5,
+    .col-lg-6,
+    .col-lg-7,
+    .col-lg-8,
+    .col-lg-9,
+    .col-lg-auto,
+    .col-md,
+    .col-md-1,
+    .col-md-10,
+    .col-md-11,
+    .col-md-12,
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-7,
+    .col-md-8,
+    .col-md-9,
+    .col-md-auto,
+    .col-sm,
+    .col-sm-1,
+    .col-sm-10,
+    .col-sm-11,
+    .col-sm-12,
+    .col-sm-2,
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-sm-auto,
+    .col-xl,
+    .col-xl-1,
+    .col-xl-10,
+    .col-xl-11,
+    .col-xl-12,
+    .col-xl-2,
+    .col-xl-3,
+    .col-xl-4,
+    .col-xl-5,
+    .col-xl-6,
+    .col-xl-7,
+    .col-xl-8,
+    .col-xl-9,
+    .col-xl-auto {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Заголовки */
+    h1,
+    .h1 {
+        font-size: 1.8rem;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Кнопки */
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .btn-group .btn {
+        margin-bottom: 5px;
+        border-radius: 4px !important;
+        width: 100%;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
+    }
+
+    .btn {
+        padding: .375rem .75rem;
+        font-size: 14px;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Карточки проектов */
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    /* Боковое меню */
+    .side_menu {
+        width: 280px;
+        z-index: 2000 !important;
+        padding-top: 60px !important;
+    }
+
+    /* Верхнее меню */
+    header {
+        min-height: 70px !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        height: 70px !important;
+    }
+
+    header .container,
+    header .row {
+        height: 100% !important;
+    }
+
+    .navbar-brand {
+        float: left !important;
+        text-align: left !important;
+        left: 10px !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .navbar-brand img {
+        height: calc(100% - 15px) !important;
+        max-height: 100% !important;
+        width: auto;
+        object-fit: contain;
+    }
+
+    header .row {
+        justify-content: flex-start !important;
+        height: 100% !important;
+    }
+
+    header .col-12 {
+        text-align: left !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Канвас меню (бургер) */
+    .canvus_menu {
+        position: fixed !important;
+        top: 18px !important;
+        right: 15px !important;
+        z-index: 2100 !important;
+    }
+
+    .canvus_menu .container {
+        padding: 0 !important;
+        width: auto !important;
+    }
+
+    .canvus_menu .float-right {
+        float: right !important;
+    }
+
+    .toggle_icon {
+        width: 40px !important;
+        height: 40px !important;
+        background: rgba(255, 255, 255, 0.3) !important;
+        border-radius: 4px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .toggle_icon span {
+        display: block !important;
+        width: 22px !important;
+        height: 2px !important;
+        background-color: #fff !important;
+        position: relative !important;
+    }
+
+    .toggle_icon span:before,
+    .toggle_icon span:after {
+        content: "" !important;
+        position: absolute !important;
+        width: 22px !important;
+        height: 2px !important;
+        background-color: #fff !important;
+        left: 0 !important;
+    }
+
+    .toggle_icon span:before {
+        top: -7px !important;
+    }
+
+    .toggle_icon span:after {
+        bottom: -7px !important;
+    }
+
+    /* Content spacing */
+    main.site-main {
+        padding-top: 0;
+    }
+
+    .section-margin {
+        margin-top: 20px !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* Формы */
+    .form-control {
+        font-size: 14px;
+    }
+
+    .create-project-form {
+        padding: 15px !important;
+    }
+
+    /* Теги */
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .badge {
+        margin-bottom: 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    /* Поисковая форма */
+    .search-form .form-group {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .search-form .form-control {
+        width: 100%;
+    }
+
+    /* Фильтры и теги */
+    .filter-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .filter-container::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .filter-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 2px;
+    }
+
+    /* Футер */
+    .footer-area {
+        padding: 40px 0;
+    }
+
+    .single-footer-widget h4 {
+        margin-bottom: 15px;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer__bottom p {
+        margin-bottom: 15px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .share-buttons {
+        margin-bottom: 15px;
+    }
+
+    .share-buttons .btn-group {
+        flex-direction: row;
+    }
+
+    .share-buttons h5 {
+        font-size: 14px;
+    }
+
+    .row .col-md-6:nth-child(2) {
+        margin-top: 20px;
+    }
+}
+
+/* Дополнительные стили для выпадающего меню поделиться */
+.share-dropdown .dropdown-menu {
+    min-width: 180px;
+}
+
+.share-dropdown .dropdown-item {
+    padding: 8px 15px;
+}
+
+.share-dropdown .dropdown-item i {
+    margin-right: 8px;
+}

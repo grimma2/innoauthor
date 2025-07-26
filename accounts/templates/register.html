@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Регистрация - InnoAuthor</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 0;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            display: block;
+        }
+
+        .btn-register {
+            background: #f9cc41;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start post-content Area -->
+    <section class="post-content-area single-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="comment-form">
+                        <h4 class="mb-4">Регистрация на платформе InnoAuthor</h4>
+
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div
+                            class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        <form method="post" class="registration-form">
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}*{%
+                                    endif %}</label>
+                                {% if field.name == 'consent' %}
+                                {{ field }}
+                                <small class="form-text text-muted">
+                                    Регистрируясь, вы соглашаетесь с <a href="{% url 'startpage:soglasie' %}"
+                                        target="_blank">политикой конфиденциальности</a> и
+                                    <a href="{% url 'startpage:cookie' %}" target="_blank">политикой использования
+                                        файлов cookie</a>.
+                                </small>
+                                {% else %}
+                                {{ field }}
+                                {% endif %}
+                                {% if field.errors %}
+                                <div class="error-message">
+                                    {% for error in field.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                {% if field.help_text and field.name != 'consent' %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-register">Зарегистрироваться</button>
+                            </div>
+
+                            <div class="form-group">
+                                <a href="{% url 'users:login' %}" class="login-link">Уже есть аккаунт? Войти</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 sidebar-widgets">
+					<div class="widget-wrap">
+
+						<div class="single-sidebar-widget user-info-widget">
+							
+							<a href="#">
+								<h4>InnoAuthor</h4>
+							</a>
+							<p>
+								Платформа для реализации инновационных проектов
+							</p>
+							<ul class="social-links">
+
+								<li><a href="https://t.me/innoauthor" target="_blank"><i
+											class='fab fa-telegram'></i></a></li>
+
+								<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a>
+								</li>
+
+								
+							</ul>
+							<p>
+								Наша платформа создает будущее вместе с вами.
+								Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+							</p>
+						</div>
+						<div class="single-sidebar-widget popular-post-widget">
+							<a href="https://pay.cloudtips.ru/p/925045f4">
+								<h4 class="popular-title">Пожертвовать</h4>
+							</a>
+
+						</div>
+						<div class="single-sidebar-widget ads-widget">
+							<a href="https://vk.com/jurfront"><img class="img-fluid" src="{% static 'img/jurfrontus.jpg'%}" alt=""></a>
+						</div>
+						<div class="single-sidebar-widget post-category-widget">
+							<a href="{% url 'startpage:contact' %}">
+								<h4 class="category-title">Заказать рекламу</h4>
+							</a>
+
+						</div>
+
+
+					</div>
+				</div>
+            </div>
+        </div>
+    </section>
+    <!-- End post-content Area -->
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+</body>
+
+</html>

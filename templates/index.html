@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+		}
+
+		/* Main wrapper for the page layout */
+		.page-wrapper {
+			position: relative;
+		}
+
+		/* Position the header absolutely on top of the hero */
+		.header-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1500;
+			background: transparent !important;
+		}
+
+		/* Position the hero at the very top of the page */
+		.fullscreen-hero {
+			position: relative;
+			z-index: 1;
+			overflow: hidden;
+			min-height: 100vh;
+			top: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.hero {
+			height: 100vh;
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero .owl-carousel,
+		.hero__slide {
+			height: 100%;
+		}
+
+		.hero__slide img {
+			height: 100%;
+			object-fit: cover;
+			width: 100%;
+		}
+
+		.canvus_menu {
+			position: fixed;
+			top: 23px;
+			right: 20px;
+			z-index: 2100 !important;
+		}
+
+		/* Force header to be fully transparent in index page */
+		header {
+			background-color: transparent !important;
+			background: none !important;
+			border: none !important;
+			box-shadow: none !important;
+		}
+
+		header * {
+			z-index: 1500;
+		}
+
+		/* Отступ для первой секции после hero */
+		.about.section-margin {
+			margin-top: 100px;
+		}
+
+		/* Remove toggle_icon span styling, keep only buttons */
+		.btn--rightBorder {
+			display: inline-block;
+			margin-top: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page-wrapper">
+		<!-- Header with menu buttons - higher z-index -->
+		<div class="header-wrapper">
+			{% include 'includes/header.html' %}
+		</div>
+
+		<!-- Fullscreen hero that goes behind header -->
+		<div class="fullscreen-hero">
+			<div class="hero">
+				<div class="owl-carousel owl-theme heroCarousel">
+					<div class="item">
+						<div class="hero__slide">
+							<img src="{% static 'img/baner1.png'%}" alt="">
+							
+						</div>
+					</div>
+					<div class="item">
+						<div class="hero__slide">
+							<img src="{% static 'img/baner2.png'%}" alt="">
+							
+						</div>
+					</div>
+					<div class="item">
+						<div class="hero__slide">
+							<img src="{% static 'img/baner3.png'%}" alt="">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="about section-margin mb-5">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-5">
+						<div class="about__img text-center text-md-left mb-5 mb-md-0">
+							<img class="img-fluid" src="{% static 'img/mike.png'%}"  style="border: 3px solid #f9cc41;" alt="">
+							<a href="#/" class="about__img__date text-center">
+								<h5>Желаю вашему проекту вырасти и стать нашим общим будущим.</h5>
+								<i>Создатель InnoAuthor <br> Шушпанов Михаил Константинович</i>
+							</a>
+						</div>
+					</div>
+					<div class="col-md-7 pl-xl-5">
+						<div class="section-intro">
+						
+							<h2 class="section-intro__subtitle">Добро пожаловать в InnoAuthor</h2>
+						</div>
+						<p>Добро пожаловать в InnoAuthor — уникальное пространство, созданное для тех, кто стремится воплотить свои инновационные идеи в жизнь и изменить окружающий мир к лучшему. Наша платформа объединяет талантливых и амбициозных людей, готовых делиться своими знаниями, опытом и энергией, чтобы вместе создавать проекты, которые действительно имеют значение. Здесь каждый участник получает не только возможность реализовать свои творческие замыслы, но и поддержку единомышленников, которые понимают важность интеллектуальной собственности и ценят авторские права, что особенно важно для успешного развития инновационного бизнеса. InnoAuthor — это место, где ваши идеи находят надежную опору, где вы можете развивать свои навыки, получать обратную связь и вдохновение, а также расширять свои горизонты, участвуя в обсуждениях и совместных проектах. Мы верим, что инновации рождаются в атмосфере доверия и сотрудничества, и именно поэтому создаем сообщество, в котором каждый голос услышан, а каждая идея имеет шанс стать реальностью. Присоединяйтесь к нам, чтобы вместе строить будущее, полное новых возможностей и открытий, где ваши творческие замыслы превращаются в успешные проекты, способные изменить жизнь к лучшему. InnoAuthor — это не просто платформа, это ваш партнер на пути к успеху и развитию, где инновации становятся частью повседневной жизни и движут прогресс вперед.</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+		<section class="overview">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-crown"></i></span>
+							<div class="media-body">
+								<h3>Доступ</h3>
+								<p>К широкой эксклюзивной информации</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-face-smile"></i></span>
+							<div class="media-body">
+								<h3>Проекты</h3>
+								<p>И идеи, которые способны воодушевить</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-user"></i></span>
+							<div class="media-body">
+								<h3>Эксперты</h3>
+								<p>Предоставят консультацию по проекту</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
+						<div class="media align-items-center overview__single">
+							<span class="overview__single__icon"><i class="ti-gift"></i></span>
+							<div class="media-body">
+								<h3>Получи</h3>
+								<p>Презентацию как выиграть грант</p><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="portfolio section-margin">
+			<div class="container">
+				<div class="section-intro">
+					<h4 class="section-intro__title">мы для вас</h4>
+					<h2 class="section-intro__subtitle bottom-border">Расширяем ваши возможности</h2>
+				</div>
+
+				<div class="row align-items-end pb-md-5 mb-4">
+					<div class="col-md-7 mb-4 mb-md-0">
+						<div class="portfolio__img">
+							<img class="img-fluid" src="{% static 'img/command.png'%}" alt="">
+						</div>
+					</div>
+					<div class="col-md-5 mb-5 pl-xl-5">
+						<h4 class="section-intro__title left-border">С нами</h4>
+						<h2 class="section-intro__subtitle small">Собирай команду</h2>
+						<p>Если ты один в своем проекте. Это не значит, что ты один в поле воин. Найди единомышленников
+						</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+				</div>
+
+				<div class="row align-items-end pb-md-5 mb-4">
+					<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
+						<h4 class="section-intro__title left-border">С нами</h4>
+						<h2 class="section-intro__subtitle small">Создавай проект с 0</h2>
+						<p>Даже если ты не знаешь как сделать, ты сможешь послушать совет со стороны.</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+					<div class="col-md-7 mb-4 mb-md-0 order-1 order-md-2">
+						<div class="portfolio__img">
+							<img class="img-fluid" src="{% static 'img/Conversations.png'%}" alt="">
+						</div>
+					</div>
+				</div>
+
+				<div class="row align-items-end pb-md-5 mb-4">
+					<div class="col-md-7 mb-4 mb-md-0">
+						<div class="portfolio__img">
+							<img class="img-fluid" src="{% static 'img/zashita.png'%}" alt="">
+						</div>
+					</div>
+
+					<div class="col-md-5 mb-5 pl-xl-5">
+						<h4 class="section-intro__title left-border">С нами</h4>
+						<h2 class="section-intro__subtitle small">Получай защиту</h2>
+						<p>Если ты думаешь, что твою идею украдут, то знай, существует принцип первоисточника и заявив о
+							своей идее у нас. Ты можешь сослаться на свой первоисточник на нашей платформе.</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+				</div>
+
+				<div class="row align-items-end pb-md-5 mb-4">
+					<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
+						<h4 class="section-intro__title left-border">С нами</h4>
+						<h2 class="section-intro__subtitle small">Привлекай инвестиции</h2>
+						<p>Гранты, вклады, пожертвования, только представь сколько денег может стать твоими. Стоит
+							только
+							приложить усилия.</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+
+					<div class="col-md-7 order-1 order-md-2 mb-4 mb-md-0">
+						<div class="portfolio__img">
+							<img class="img-fluid" src="{% static 'img/Finance.png'%}" alt="">
+						</div>
+					</div>
+				</div>
+
+				<div class="row align-items-end pb-md-5 mb-4">
+					<div class="col-md-7 mb-4 mb-md-0">
+						<div class="portfolio__img">
+							<img class="img-fluid" src="{% static 'img/win.png'%}" alt="">
+						</div>
+					</div>
+
+					<div class="col-md-5 mb-5 pl-xl-5">
+						<h4 class="section-intro__title left-border">С нами</h4>
+						<h2 class="section-intro__subtitle small">Ты всегда победитель</h2>
+						<p>Даже если ты не сможешь получить финансирования. Всегда можно использовать нашу платформу для
+							демонстрации проектов. Так же можно запросить у нас сертификат от наших экспертов</p>
+						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+				</div>
+
+
+			</div>
+		</section>
+
+
+		<section class="tips tips-bg">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-7 mb-4 mb-lg-0">
+						<h2 class="section-intro__subtitle">Готов присоединиться?</h2>
+						<p>Тогда скорее регистрируйся и не забудь про свою команду</p>
+					</div>
+					<div class="col-lg-5 text-center text-lg-right">
+						<a class="btn btn-dark btn--leftBorder btn--rightBorder" href="{% url 'accounts:accounts' %}">Регистрация</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<footer class="footer footer-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Организация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Полезные ссылки</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Для пользователей</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+							<li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Информация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="d-sm-flex justify-content-between footer__bottom top-border">
+					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						InnoAuthor &copy;
+						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
+							target="_blank">shushpanov_official</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+					<ul class="social-icons mt-2 mt-sm-0">
+
+						<li><a href="https://t.me/innoauthor" target="_blank"><i
+									class='fab fa-telegram'></i></a></li>
+
+						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+
+
+		<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+		<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+		<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+		<script>
+			var testimonialCarousel = $('.testimonialCarousel');
+			testimonialCarousel.owlCarousel({
+				loop: true,
+				margin: 80,
+				startPosition: 2,
+				nav: false,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1
+					},
+					1000: {
+						items: 2,
+						loop: true
+					}
+				}
+			});
+
+			var heroCarousel = $('.heroCarousel');
+			heroCarousel.owlCarousel({
+				loop: true,
+				margin: 10,
+				nav: false,
+				startPosition: 1,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1
+					}
+				}
+			});
+
+			var dropToggle = $('.menu_right > li').has('ul').children('a');
+			dropToggle.on('click', function () {
+				dropToggle.not(this).closest('li').find('ul').slideUp(200);
+				$(this).closest('li').children('ul').slideToggle(200);
+				return false;
+			});
+
+			$(".toggle_icon").on('click', function () {
+				$('body').toggleClass("open");
+			});
+
+		</script>
+	</div>
+</body>
+
+</html>

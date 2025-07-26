@@ -1,0 +1,82 @@
+{% load static %}
+<!-- ================Offcanvus Menu Area =================-->
+
+<!--================End Offcanvus Menu Area =================-->
+
+<!--================Canvus Menu Area =================-->
+<div class="canvus_menu">
+    <div class="container">
+        <div class="float-right" style="right: 1px !important;">
+            <div class="toggle_icon" style="right: 3px !important; top: 0px !important; height: 100px; width: 100px"
+                title="Menu Bar">
+                <span style="right: 40px !important;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--================End Canvus Menu Area =================-->
+
+<!-- Side Menu -->
+<div class="side_menu">
+    <ul class="list menu_right" style="top: 35%;">
+        <li>
+            <h2 class="">InnoAuthor</h2>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li>
+            <a href="{% url 'users:profile' %}">Профиль</a>
+        </li>
+        <li>
+            <a href="{% url 'indexglav:indexglav' %}">Лента</a>
+        </li>
+        <li>
+            <a href="{% url 'projects:projects' %}">Проекты</a>
+        </li>
+        <li>
+            <a href="{% url 'startpage:service' %}">Услуги</a>
+        </li>
+        <li>
+            <a href="{% url 'projects:my_projects' %}">Мои проекты{% if pending_invitations_count > 0 %} <span
+                    class="badge badge-primary">{{ pending_invitations_count }}</span>{% endif %}</a>
+        </li>
+        <li>
+            <a href="{% url 'startpage:shop' %}">Магазин</a>
+        </li>
+        <li>
+            <a href="{% url 'startpage:liderplatform' %}">О приложении</a>
+        </li>
+        <li>
+            <a href="{% url 'startpage:documents' %}">Документы</a>
+        </li>
+        <li>
+            <a href="{% url 'startpage:contact' %}">Контакты</a>
+        </li>
+        <li>
+            <a href="https://pay.cloudtips.ru/p/925045f4" class="primary-btn">Вклады</a>
+        </li>
+        <li>
+            <a href="{% url 'exite:exite' %}">Выйти</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'users:login' %}">Войти</a>
+        </li>
+        <li>
+            <a href="{% url 'accounts:accounts' %}">Регистрация</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+<!-- Header -->
+<header
+    style="height: auto; min-height: 80px; position: relative; z-index: 100; margin-bottom: 30px; background: transparent !important; border: none; box-shadow: none;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <br>
+            </div>
+        </div>
+    </div>
+</header>

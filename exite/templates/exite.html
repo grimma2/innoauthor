@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+</head>
+<body>
+
+	
+	<!--================End Offcanvus Menu Area =================-->
+
+	<!--================Canvus Menu Area =================-->
+	
+	<!--================End Canvus Menu Area =================-->
+  
+
+	<!-- Start post-content Area -->
+	<section class="post-content-area single-post-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					
+					
+					
+					<div class="comment-form">
+						<h4 class="text-white">Вы уверены, что хотите выйти?</h4>
+						<form>
+							
+							
+							<a href="{% url 'indexglav:logout' %}" class="primary-btn">Да</a>
+							<a href="{% url 'indexglav:indexglav' %}" class="primary-btn">Нет</a>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4 sidebar-widgets">
+					<div class="widget-wrap">
+						
+						<div class="single-sidebar-widget user-info-widget">
+							<img src="img/logo.png" alt="">
+							<a href="#"><h4>InnoAuthor</h4></a>
+							<p>
+								Платформа для реализации инновационных 
+							</p>
+							<ul class="social-links">
+								
+								<li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i class='fab fa-telegram' ></i></a></li>
+
+	<li><a href="https://vk.com/7daywithburo" target="_blank"><i class='fab fa-vk'></i>	</a></li>
+
+	<li><a href="https://dzen.ru/sevendayswiththebureau" target="_blank"><i class='fab fa-yandex-international' ></i>	</a></li>
+							</ul>
+							<p>
+								Наша платформа создает будущее вместе с вами. 
+								Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+							</p>
+						</div>
+						<div class="single-sidebar-widget popular-post-widget">
+							<a href="https://pay.cloudtips.ru/p/925045f4"><h4 class="popular-title">Пожертвовать</h4></a>
+							
+						</div>
+						<div class="single-sidebar-widget ads-widget">
+							<a href="#"><img class="img-fluid" src="img/jurfrontus.jpg" alt=""></a>
+						</div>
+						<div class="single-sidebar-widget post-category-widget">
+							<a href="mailto:shushpanov-official@yandex.ru?subject=Вопрос по Рекламе"><h4 class="category-title">Заказать рекламу</h4></a>
+							
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End post-content Area -->
+
+
+	<!-- start footer Area -->
+	
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>	
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+	<script>
+
+		var heroCarousel = $('.heroCarousel');
+		heroCarousel.owlCarousel({
+		loop:true,
+		margin:10,
+		nav: false,
+		startPosition: 1,
+		responsiveClass:true,
+		responsive:{
+			0:{
+				items:1
+			}
+		}
+		});
+
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function() {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$( ".toggle_icon" ).on('click', function() {
+			$( 'body' ).toggleClass( "open" );
+		});
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+	{% include 'includes/header.html' %}
+
+
+	<section class="about section-margin mb-5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5">
+					<div class="about__img text-center text-md-left mb-5 mb-md-0">
+						<img class="img-fluid" src="img/mike.png" alt="">
+						<a href="#/" class="about__img__date text-center">
+							<h3>5</h3>
+							<p>Лет <br> Создаем проекты будущего</p>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-7 pl-xl-5">
+					<div class="section-intro">
+						<h4 class="section-intro__title">Про нашу команду</h4>
+						<h2 class="section-intro__subtitle">Наш проект был <br> создан в 2019</h2>
+					</div>
+					<p>За это время мы значительно смогли расширить свои возможности и теперь готовы поделиться со всем
+						миром нашим успехом.</p>
+					<p>Мы готовы сотрудничать и совместными усилиями прийти к победе. Главное не оставлять свои идеи и
+						бороться за них до конца</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+
+
+
+	<section class="testimonial section-margin">
+		<div class="container">
+			<div class="section-intro">
+				<h4 class="section-intro__title">Раздел</h4>
+				<h2 class="section-intro__subtitle bottom-border">Наша администрация платформы</h2>
+			</div>
+
+			<div class="owl-carousel owl-theme testimonialCarousel">
+				<div class="item">
+					<div class="media testimonial__slide">
+						<img class="img-fluid mr-4" src="img/testimonial.png" width="120" height="125" alt="">
+						<div class="media-body">
+							<blockquote>
+								“Петров Петр Иванович.”
+							</blockquote>
+							<h3>Директор по Маркетингу</h3>
+							<p>InnoAuthor</p>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</section>
+
+
+	<div class="progress-table-wrap">
+		<div class="progress-table">
+			<h3>Страны в которых мы работаем:</h3>
+			<div class="table-head">
+				<div class="serial">#</div>
+				<div class="country">Countries</div>
+
+				<div class="visit">Visits</div>
+				<div class="percentage">Percentages</div>
+			</div>
+			<div class="table-row">
+				<div class="serial">01</div>
+				<div class="country"> <img src="img/elements/f1.jpg" alt="flag">Russia</div>
+				<div class="visit">3000</div>
+				<div class="percentage">
+					<div class="progress">
+
+						<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="50"
+							aria-valuemin="80" aria-valuemax="50"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<footer class="footer footer-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Организация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Полезные ссылки</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Для пользователей</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+							<li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Информация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="d-sm-flex justify-content-between footer__bottom top-border">
+					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						InnoAuthor &copy;
+						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
+							target="_blank">shushpanov_official</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+					<ul class="social-icons mt-2 mt-sm-0">
+
+						<li><a href="https://t.me/innoauthor" target="_blank"><i
+									class='fab fa-telegram'></i></a></li>
+
+						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+	<script>
+		var testimonialCarousel = $('.testimonialCarousel');
+		testimonialCarousel.owlCarousel({
+			loop: true,
+			margin: 80,
+			startPosition: 2,
+			nav: false,
+			responsiveClass: true,
+			responsive: {
+				0: {
+					items: 1
+				},
+				1000: {
+					items: 2,
+					loop: true
+				}
+			}
+		});
+
+		var heroCarousel = $('.heroCarousel');
+		heroCarousel.owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: false,
+			startPosition: 1,
+			responsiveClass: true,
+			responsive: {
+				0: {
+					items: 1
+				}
+			}
+		});
+
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function () {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$(".toggle_icon").on('click', function () {
+			$('body').toggleClass("open");
+		});
+
+	</script>
+</body>
+
+</html>

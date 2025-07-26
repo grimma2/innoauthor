@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+	{% include 'includes/header.html' %}
+
+	<br><br><br><br>
+
+	<section class="section-margin">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-4 col-lg-3 mb-4 mb-md-0">
+					<div class="media contact-info">
+						<span class="contact-info__icon"><i class="lnr lnr-home"></i></span>
+						<div class="media-body">
+							<h3>Москва Российская Федерация</h3>
+							<p>Ул Авиамоторная 10</p>
+						</div>
+					</div>
+					<div class="media contact-info">
+						<span class="contact-info__icon"><i class="lnr lnr-phone-handset"></i></span>
+						<div class="media-body">
+							<h3><a href="tel:79771611006">+7 (977) 161 1006</a></h3>
+							<p>Звоните с 9:00 до 18:00 по МСК</p>
+						</div>
+					</div>
+					<div class="media contact-info">
+						<span class="contact-info__icon"><i class="lnr lnr-envelope"></i></span>
+						<div class="media-body">
+							<h3><a href="mailto:shushpanov-official@yandex.ru">shushpanov-official@yandex.ru</a></h3>
+							<p>Отправляйте запрос в любое время!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 col-lg-9">
+					<form action="#/" class="form-contact">
+						<div class="row">
+							<div class="col-lg-5">
+								<div class="form-group">
+									<input class="form-control" name="name" type="text" placeholder="Логин" required>
+								</div>
+								<div class="form-group">
+									<input class="form-control" name="email" type="email" placeholder="Ваша почта"
+										required>
+								</div>
+								<div class="form-group">
+									<input class="form-control" name="subject" type="text" placeholder="Тема обращения">
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="form-group">
+									<textarea class="form-control different-control w-100" name="textarea" id="textarea"
+										cols="30" rows="6" placeholder="Текст обращения"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group text-center text-md-right">
+							<button type="submit" class="btn active btn--leftBorder">Отправить сообщение</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<footer class="footer footer-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Организация</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:liderplatform1' %}">Структура платформы</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Полезные ссылки</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:workshop1' %}">Вакансии</a></li>
+						<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Для пользователей</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:documents1' %}">Документы</a></li>
+						<li><a href="{% url 'indexglav:shop1' %}">Магазин</a></li>
+						<li><a href="{% url 'indexglav:service1' %}">Услуги</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+					<h3 class="footer__title">Информация</h3>
+					<ul class="footer__link">
+						<li><a href="{% url 'indexglav:contact1' %}">Связаться с нами</a></li>
+					</ul>
+				</div>
+				
+			</div>
+			<div class="d-sm-flex justify-content-between footer__bottom top-border">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					InnoAuthor &copy;
+					<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+						class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://colorlib.com"
+						target="_blank">shushpanov_official</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+				<ul class="social-icons mt-2 mt-sm-0">
+
+					<li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i
+								class='fab fa-telegram'></i></a></li>
+
+					<li><a href="https://vk.com/7daywithburo" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					<li><a href="https://dzen.ru/sevendayswiththebureau" target="_blank"><i
+								class='fab fa-yandex-international'></i> </a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+
+	<script>
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function () {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$(".toggle_icon").on('click', function () {
+			$('body').toggleClass("open");
+		});
+	</script>
+</body>
+
+</html>

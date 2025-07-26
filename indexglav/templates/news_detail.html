@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ post.namepost }} - InnoAuthor</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+</head>
+
+<body>
+    {% include 'includes/header.html' %}
+
+    <main class="site-main">
+        <section class="post-detail-area section-margin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Post Navigation -->
+                        <nav aria-label="breadcrumb" class="mb-4">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'indexglav:indexglav' %}">Лента</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ post.namepost }}</li>
+                            </ol>
+                        </nav>
+
+                        <div class="single-post row">
+                            <div class="col-lg-12">
+                                <div class="feature-img mb-4">
+                                    {% if post.post_photo %}
+                                    <img src="{{ post.post_photo.url }}" class="img-fluid" alt="Изображение новости">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 meta-details">
+                                <div class="user-details row">
+                                    <p class="user-name col-lg-12 col-md-12 col-6">
+                                        <a href="#">{{ post.humanpost }}</a>
+                                        <span class="lnr lnr-user"></span>
+                                    </p>
+                                    <p class="date col-lg-12 col-md-12 col-6">
+                                        <a href="#">{{ post.postdate|date:"d.m.Y H:i" }}</a>
+                                        <span class="lnr lnr-calendar-full"></span>
+                                    </p>
+                                    <div class="col-lg-12 col-md-12 col-6">
+                                        <span class="lnr lnr-tag"></span>
+                                        {% for tag in post.tags.all %}
+                                        <a href="{% url 'indexglav:indexglav' %}?tag={{ tag.slug }}" class="tag-link">
+                                            {{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-9">
+                                <h1 class="mt-20 mb-20">{{ post.namepost }}</h1>
+                                <div class="content">
+                                    {{ post.soderjanie|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation -->
+                        <div class="navigation-area">
+                            <div class="row">
+                                <div
+                                    class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                    <a href="{% url 'indexglav:indexglav' %}" class="primary-btn">
+                                        <i class="fas fa-arrow-left"></i> Вернуться к списку
+                                    </a>
+                                </div>
+                                <div
+                                    class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                    <div class="social-links">
+                                        <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ post.namepost }}"
+                                            target="_blank">
+                                            <i class="fab fa-telegram"></i>
+                                        </a>
+                                        <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}"
+                                            target="_blank">
+                                            <i class="fab fa-vk"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related Posts -->
+                        {% if related_posts %}
+                        <div class="related-posts mt-5">
+                            <h4 class="mb-4">Похожие новости</h4>
+                            <div class="row">
+                                {% for related in related_posts %}
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card mb-4">
+                                        {% if related.post_photo %}
+                                        <img class="card-img-top" src="{{ related.post_photo.url }}"
+                                            alt="{{ related.namepost }}">
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ related.namepost }}</h5>
+                                            <p class="card-text">{{ related.soderjanie|truncatechars:100 }}</p>
+                                            <a href="{% url 'indexglav:news_detail' related.slug %}"
+                                                class="btn btn-primary btn-sm">Читать</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Comments Section -->
+                        {% include "comments/list.html" with comments=comments %}
+
+                        <!-- Comment Form -->
+                        {% include "comments/form.html" with form=comment_form %}
+                    </div>
+
+                    <div class="col-lg-4 sidebar-widgets">
+                        <div class="widget-wrap">
+                            <div class="single-sidebar-widget user-info-widget">
+                                <img src="{% static 'img/logo.png' %}" alt="">
+                                <a href="#">
+                                    <h4>InnAuthor</h4>
+                                </a>
+                                <p>
+                                    Платформа для реализации инновационных проектов
+                                </p>
+                                <ul class="social-links">
+                                    <li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i
+                                                class='fab fa-telegram'></i></a></li>
+                                    <li><a href="https://vk.com/7daywithburo" target="_blank"><i
+                                                class='fab fa-vk'></i></a>
+                                    </li>
+                                    <li><a href="https://dzen.ru/sevendayswiththebureau" target="_blank"><i
+                                                class='fab fa-yandex-international'></i></a></li>
+                                </ul>
+                                <p>
+                                    Наша платформа создает будущее вместе с вами.
+                                    Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+                                </p>
+                            </div>
+                            <div class="single-sidebar-widget popular-post-widget">
+                                <h4 class="popular-title">Популярные теги</h4>
+                                <div class="popular-post-list">
+                                    {% for tag in tags %}
+                                    <div class="single-post-list">
+                                        <a href="{% url 'indexglav:indexglav' %}?tag={{ tag.slug }}" class="tag-link">
+                                            {{ tag.name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="single-sidebar-widget ads-widget">
+                                <a href="#"><img class="img-fluid" src="{% static 'img/jurfrontus.jpg' %}" alt=""></a>
+                            </div>
+                            <div class="single-sidebar-widget post-category-widget">
+                                <a href="mailto:shushpanov-official@yandex.ru?subject=Вопрос по Рекламе">
+                                    <h4 class="category-title">Заказать рекламу</h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+    <script>
+        var dropToggle = $('.menu_right > li').has('ul').children('a');
+        dropToggle.on('click', function () {
+            dropToggle.not(this).closest('li').find('ul').slideUp(200);
+            $(this).closest('li').children('ul').slideToggle(200);
+            return false;
+        });
+
+        $(".toggle_icon").on('click', function () {
+            $('body').toggleClass("open");
+        });
+    </script>
+</body>
+
+</html>

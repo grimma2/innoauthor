@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>InnoAuthor</title>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/mobile-responsive.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+	<style>
+	</style>
+</head>
+
+<body>
+	{% include 'includes/header.html' %}
+
+	<main class="site-main">
+		<!-- Add search and filter section -->
+		<section class="mb-4">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<form method="get" class="search-form">
+							<div class="input-group">
+								<input type="text" name="search" class="form-control" placeholder="Поиск новостей..."
+									value="{{ search_query }}">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6 text-md-right mt-3 mt-md-0">
+						<div class="filter-tags">
+							<a href="{% url 'indexglav:indexglav' %}"
+								class="btn {% if not current_tag %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">Все</a>
+							{% for tag in tags %}
+							<a href="?tag={{ tag.slug }}{% if search_query %}&search={{ search_query }}{% endif %}"
+								class="btn {% if current_tag == tag.slug %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">{{ tag.name }}</a>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Latest News -->
+		<section class="news-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<!-- News List -->
+						<div class="news-list mb-5">
+							{% if messages %}
+							<div class="alerts mb-4">
+								{% for message in messages %}
+								<div
+									class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show">
+									{{ message }}
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								{% endfor %}
+							</div>
+							{% endif %}
+
+							{% if not vivodnews %}
+							<div class="alert alert-info">
+								Новости не найдены
+							</div>
+							{% endif %}
+
+							{% for i in vivodnews %}
+
+							<div class="single-post row">
+								<div class="col-lg-12">
+									<div class="feature-img">
+										{% if i.post_photo %}
+										<img src="{{ i.post_photo.url }}" class="img-fluid" alt="Post Image"
+											style="width: 200%; height: 300px; object-fit: cover;">
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-lg-3  col-md-3 meta-details">
+
+									<div class="user-details row mt-4">
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{ i.humanpost }}</a>
+											<span class="lnr lnr-user"></span>
+										</p>
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ i.postdate|date:"d.m.Y H:i" }}</a> <span class="lnr lnr-calendar-full"></span></p>
+										<div class="col-lg-12 col-md-12 col-6">
+											<span class="lnr lnr-tag"></span>
+											{% for tag in i.tags.all %}
+											<a href="?tag={{ tag.slug }}" class="tag-link">{{ tag.name }}</a>
+											{% if not forloop.last %}, {% endif %}
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-9 col-md-9">
+									<h3 class="mt-20 mb-20 text-white">{{ i.namepost }}</h3>
+									<p class="excert">
+										{{ i.soderjanie }}
+									</p>
+									<a href="{% url 'indexglav:news_detail' i.slug %}" class="primary-btn">Узнать
+										больше</a>
+								</div>
+							
+							</div>
+							<hr>
+							{% endfor %}
+
+							{% if is_paginated %}
+							<nav class="blog-pagination justify-content-center d-flex">
+								<ul class="pagination">
+									{% if page_obj.has_previous %}
+									<li class="page-item">
+										<a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_tag %}tag={{ current_tag }}&{% endif %}page={{ page_obj.previous_page_number }}"
+											class="page-link" aria-label="Previous">
+											<span aria-hidden="true">
+												<span class="lnr lnr-chevron-left"></span>
+											</span>
+										</a>
+									</li>
+									{% endif %}
+
+									{% for num in paginator.page_range %}
+									{% if num == page_obj.number %}
+									<li class="page-item active"><a
+											href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_tag %}tag={{ current_tag }}&{% endif %}page={{ num }}"
+											class="page-link">{{ num }}</a></li>
+									{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item"><a
+											href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_tag %}tag={{ current_tag }}&{% endif %}page={{ num }}"
+											class="page-link">{{ num }}</a></li>
+										{% endif %}
+										{% endfor %}
+
+										{% if page_obj.has_next %}
+										<li class="page-item">
+											<a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_tag %}tag={{ current_tag }}&{% endif %}page={{ page_obj.next_page_number }}"
+												class="page-link" aria-label="Next">
+												<span aria-hidden="true">
+													<span class="lnr lnr-chevron-right"></span>
+												</span>
+											</a>
+										</li>
+										{% endif %}
+								</ul>
+							</nav>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-lg-4 sidebar-widgets">
+						<div class="widget-wrap">
+							
+							<div class="single-sidebar-widget user-info-widget">
+								<img src="img/logo.png" alt="">
+								<a href="#">
+									<h4>InnoAuthor</h4>
+								</a>
+								<p>
+									Платформа для реализации инновационных
+								</p>
+								<ul class="social-links">
+
+									<li><a href="https://t.me/innoauthor" target="_blank"><i
+												class='fab fa-telegram'></i></a></li>
+
+									<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i>
+										</a>
+									</li>
+
+									
+								</ul>
+								<p>
+									Наша платформа создает будущее вместе с вами.
+									Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+								</p>
+							</div>
+							<div class="single-sidebar-widget popular-post-widget">
+								<h4 class="popular-title">Популярные теги</h4>
+								<div class="popular-post-list">
+									{% for tag in tags %}
+									<div class="single-post-list">
+										<a href="?tag={{ tag.slug }}" class="tag-link">{{ tag.name }}</a>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+
+							<div class="single-sidebar-widget post-category-widget">
+								<a href="{% url 'startpage:contact' %}">
+									<h4 class="category-title">Заказать рекламу</h4>
+								</a>
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer footer-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Организация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Полезные ссылки</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Для пользователей</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+							<li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Информация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="d-sm-flex justify-content-between footer__bottom top-border">
+					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						InnoAuthor &copy;
+						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
+							target="_blank">shushpanov_official</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+					<ul class="social-icons mt-2 mt-sm-0">
+
+						<li><a href="https://t.me/innoauthor" target="_blank"><i
+									class='fab fa-telegram'></i></a></li>
+
+						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js' %}"></script>
+
+	<script>
+		var heroCarousel = $('.heroCarousel');
+		heroCarousel.owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: false,
+			startPosition: 1,
+			responsiveClass: true,
+			responsive: {
+				0: {
+					items: 1
+				}
+			}
+		});
+
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+		dropToggle.on('click', function () {
+			dropToggle.not(this).closest('li').find('ul').slideUp(200);
+			$(this).closest('li').children('ul').slideToggle(200);
+			return false;
+		});
+
+		$(".toggle_icon").on('click', function () {
+			$('body').toggleClass("open");
+		});
+
+		// Дополнительный скрипт для исправления позиционирования элементов
+		$(document).ready(function () {
+			// Проверяем размер экрана
+			function checkViewport() {
+				var windowWidth = $(window).width();
+				if (windowWidth <= 768) {
+					// Добавляем дополнительный отступ для контента на мобильных устройствах
+					$('body').addClass('mobile-view');
+
+					// Перестраиваем элементы в карточках новостей
+					$('.single-post').each(function () {
+						var $post = $(this);
+						var $featureImg = $post.find('.feature-img').parent();
+						var $metaDetails = $post.find('.meta-details');
+						var $content = $post.find('.col-lg-9.col-md-9');
+
+						// Переставляем элементы
+						$featureImg.prependTo($post);
+						$content.insertAfter($featureImg);
+						$metaDetails.insertAfter($featureImg);
+					});
+				} else {
+					$('body').removeClass('mobile-view');
+				}
+			}
+
+			// Запускаем при загрузке
+			checkViewport();
+
+			// Запускаем при изменении размера экрана
+			$(window).resize(function () {
+				checkViewport();
+			});
+		});
+	</script>
+
+	<style>
+		.tag-link {
+			color: #007bff;
+			text-decoration: none;
+		}
+
+		.tag-link:hover {
+			text-decoration: underline;
+		}
+
+		.tags-wrapper {
+			margin-bottom: 20px;
+		}
+	</style>
+</body>
+
+</html>
