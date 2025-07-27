@@ -32,19 +32,23 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
-
+print(ALLOWED_HOSTS)
 
 CSRF_TRUSTED_ORIGINS = [
     'https://innoauthor.ru',
     'https://www.innoauthor.ru',
+    'http://77.233.221.78:8080'
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Для разработки всегда добавляем localhost и 0.0.0.0
 if DEBUG:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0'])
+    CSRF_TRUSTED_ORIGINS.extend(['http://localhost:8080'])
 
+
+if not DEBUG:
+    print('not DEBUG')
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+else:
+    print('DEBUG')
 
 # Application definition
 
@@ -176,9 +180,9 @@ AUTH_USER_MODEL = 'users.User'
 
 # Email settings
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Replace with your email
