@@ -33,6 +33,14 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://innoauthor.ru',
+    'https://www.innoauthor.ru',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Для разработки всегда добавляем localhost и 0.0.0.0
 if DEBUG:
     ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0'])
