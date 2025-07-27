@@ -44,12 +44,7 @@ if DEBUG:
     CSRF_TRUSTED_ORIGINS.extend(['http://localhost:8080'])
 
 
-if not DEBUG:
-    print('not DEBUG')
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-else:
-    print('DEBUG')
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
