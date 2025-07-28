@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'projects.middleware.InvitationMiddleware',
 ]
 
 ROOT_URLCONF = 'InnAuthor.urls'
@@ -169,6 +170,7 @@ else:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'startpage:indexglav'
+LOGIN_URL = 'users:login'
 
 # Custom User model
 AUTH_USER_MODEL = 'users.User'

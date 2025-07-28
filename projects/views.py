@@ -383,14 +383,6 @@ def invite_member(request, project_id):
 
 @login_required
 def accept_invitation(request, token):
-    # Check if user is authenticated
-    if not request.user.is_authenticated:
-        # Store the token in session and redirect to login
-        request.session['invitation_token'] = token
-        request.session['invitation_action'] = 'accept'
-        messages.info(request, 'Пожалуйста, войдите в систему, чтобы принять приглашение.')
-        return redirect('users:login')
-        
     invitation = get_object_or_404(ProjectInvitation, token=token, status='pending')
     
     # Ensure the invitation is for the logged-in user
@@ -415,14 +407,6 @@ def accept_invitation(request, token):
 
 @login_required
 def decline_invitation(request, token):
-    # Check if user is authenticated
-    if not request.user.is_authenticated:
-        # Store the token in session and redirect to login
-        request.session['invitation_token'] = token
-        request.session['invitation_action'] = 'decline'
-        messages.info(request, 'Пожалуйста, войдите в систему, чтобы отклонить приглашение.')
-        return redirect('users:login')
-        
     invitation = get_object_or_404(ProjectInvitation, token=token, status='pending')
     
     # Ensure the invitation is for the logged-in user
@@ -451,10 +435,10 @@ def verify_invitation(request):
     
     invitation = get_object_or_404(ProjectInvitation, token=token, status='pending')
     
-    # If user is not logged in, redirect to login
+    # If user is not logged in, redirect to login with next parameter
     if not request.user.is_authenticated:
         messages.info(request, 'Пожалуйста, войдите в систему, чтобы принять приглашение.')
-        return redirect('users:login')
+        return redirect(f'{reverse("users:login")}?next={request.path}?token={token}')
     
     # If invitation has an invitee set, check if it matches current user
     if invitation.invitee and invitation.invitee != request.user:
