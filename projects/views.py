@@ -438,7 +438,7 @@ def verify_invitation(request):
     # If user is not logged in, redirect to login with next parameter
     if not request.user.is_authenticated:
         messages.info(request, 'Пожалуйста, войдите в систему, чтобы принять приглашение.')
-        return redirect(f'{reverse("users:login")}?next={request.path}?token={token}')
+        return redirect(f'{reverse("users:login")}?next={request.path}')
     
     # If invitation has an invitee set, check if it matches current user
     if invitation.invitee and invitation.invitee != request.user:
