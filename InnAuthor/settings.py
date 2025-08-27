@@ -179,4 +179,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Replace with your email
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Replace with your password
 
-DEFAULT_FROM_EMAIL = f'InnAuthor <{EMAIL_HOST_USER}>'
+DEFAULT_FROM_EMAIL = f'InnoAuthor <{EMAIL_HOST_USER}>'
