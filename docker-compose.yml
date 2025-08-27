@@ -6,7 +6,7 @@ services:
       context: .
     container_name: innoapp
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "gunicorn --bind 0.0.0.0:8000 --workers 3 InnAuthor.wsgi:application"
     volumes:
       - /var/www/innoauthor/media:/app/media
       - /var/www/innoauthor/static:/app/static

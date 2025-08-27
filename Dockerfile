@@ -26,5 +26,5 @@ COPY . /app/
 # Открываем порт 8000 для доступа к приложению
 EXPOSE 8000
 
-# Команда запуска сервера разработки Django
-CMD ["python", "manage.py", "runserver"]
+# Команда запуска продакшн-сервера Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "InnAuthor.wsgi:application"]
