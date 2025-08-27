@@ -18,21 +18,6 @@ class LoginUser(LoginView):
     extra_context = {'title': 'Авторизация'}
     
     def get_success_url(self):
-        # Check if there's an invitation token in the session
-        if 'invitation_token' in self.request.session and 'invitation_action' in self.request.session:
-            token = self.request.session['invitation_token']
-            action = self.request.session['invitation_action']
-            
-            # Clear the session values
-            del self.request.session['invitation_token']
-            del self.request.session['invitation_action']
-            
-            # Redirect to the appropriate invitation action
-            if action == 'accept':
-                return reverse('projects:accept_invitation', kwargs={'token': token})
-            elif action == 'decline':
-                return reverse('projects:decline_invitation', kwargs={'token': token})
-        
         # Default redirect to the homepage
         return reverse_lazy('indexglav:indexglav')
         
