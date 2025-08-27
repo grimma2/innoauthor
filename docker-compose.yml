@@ -6,12 +6,10 @@ services:
       context: .
     container_name: innoapp
     command: >
-      sh -c "python manage.py collectstatic --noinput &&
-             python manage.py makemigrations &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - /var/www/innoauthor/media:/app/media
+      - /var/www/innoauthor/static:/app/static
     ports:
       - "8080:8000"
     depends_on:
