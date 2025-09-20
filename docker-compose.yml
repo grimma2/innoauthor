@@ -5,8 +5,8 @@ services:
     build:
       context: .
     container_name: innoapp
-          command: >
-        sh -c "gunicorn --bind 0.0.0.0:8000 --workers 3 --log-level info --access-logfile - --error-logfile - InnAuthor.wsgi:application"
+    command: >
+      sh -c "gunicorn --bind 0.0.0.0:8000 --workers 3 --log-level info --access-logfile - --error-logfile - InnAuthor.wsgi:application"
     volumes:
       - /var/www/innoauthor/media:/app/media
       - /var/www/innoauthor/static:/app/static
