@@ -46,7 +46,7 @@ def accounts(request):
             
             # Send verification email
             send_mail(
-                subject='Подтверждение регистрации на InnAuthor',
+                subject='Подтверждение регистрации на InnoAuthor',
                 message=plain_message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email],
