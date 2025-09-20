@@ -692,47 +692,55 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer-area section-gap">
+    <footer class="footer footer-bg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 single-footer-widget">
-                    <h4>О InnoAuthor</h4>
-                    <p>
-                        Наша платформа создает будущее вместе с вами.
-                        Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
-                    </p>
-                </div>
-                <div class="col-lg-4 col-md-6 single-footer-widget">
-                    <h4>Разделы сайта</h4>
-                    <ul>
-                        <li><a href="{% url 'indexglav:indexglav' %}">Лента</a></li>
-                        <li><a href="{% url 'projects:projects' %}">Проекты</a></li>
-                        <li><a href="{% url 'projects:my_projects' %}">Мои проекты</a></li>
-                        <li><a href="{% url 'indexglav:contact1' %}">Контакты</a></li>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Организация</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4 col-md-6 single-footer-widget">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li><a href="mailto:shushpanov-official@yandex.ru">shushpanov-official@yandex.ru</a></li>
-                        <li><a href="https://t.me/sevendayswiththebureau" target="_blank">Telegram</a></li>
-                        <li><a href="https://vk.com/7daywithburo" target="_blank">ВКонтакте</a></li>
-                    </ul>
-                </div>
-            </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Полезные ссылки</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+                        <li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
 
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Для пользователей</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+                        <li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+                        <li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Информация</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+                    </ul>
+                </div>
+                
+            </div>
             <div class="d-sm-flex justify-content-between footer__bottom top-border">
-                <p>
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     InnoAuthor &copy;
                     <script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
-                        class="fa fa-heart" aria-hidden="true"></i> производства <a href="#"
+                        class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
                         target="_blank">shushpanov_official</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
                 <ul class="social-icons mt-2 mt-sm-0">
-                    <li><a href="https://t.me/sevendayswiththebureau" target="_blank"><i
+
+                    <li><a href="https://t.me/innoauthor" target="_blank"><i
                                 class='fab fa-telegram'></i></a></li>
-                    <li><a href="https://vk.com/7daywithburo" target="_blank"><i class='fab fa-vk'></i></a></li>
+
+                    <li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+                
                 </ul>
             </div>
         </div>
