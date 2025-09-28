@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приглашение в проект на InnoAuthor</title>
+    <title>Приглашение в проект на ИнноАвтор</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,14 +62,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://yourdomain.com/static/img/logo.png" alt="InnoAuthor Logo" class="logo">
+            <img src="https://yourdomain.com/static/img/logo.png" alt="ИнноАвтор Logo" class="logo">
             <h1>Приглашение в проект</h1>
         </div>
 
         <div class="content">
             <p>Здравствуйте!</p>
             <p>Пользователь <strong>{{ inviter.get_full_name|default:inviter.username }}</strong> приглашает вас
-                присоединиться к проекту <strong>{{ project.title }}</strong> на платформе InnoAuthor.</p>
+                присоединиться к проекту <strong>{{ project.title }}</strong> на платформе ИнноАвтор.</p>
 
             <p>Описание проекта:</p>
             <p><em>{{ project.description|truncatewords:50 }}</em></p>
@@ -85,7 +85,7 @@
 
         <div class="footer">
             <p>Это автоматическое письмо. Пожалуйста, не отвечайте на него.</p>
-            <p>&copy; InnoAuthor. Все права защищены.</p>
+            <p>&copy; ИнноАвтор. Все права защищены.</p>
         </div>
     </div>
 </body>
