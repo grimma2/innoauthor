@@ -456,7 +456,7 @@ button {
 
 .side_menu .menu_right li ul li a {
   font-size: 14px;
-  color: #fff;
+  color: #11213B;
   text-transform: capitalize;
   transition: all 0.3s ease 0s;
   -webkit-transition: all 0.3s ease 0s;
@@ -725,11 +725,11 @@ button {
   font-size: 13px;
   height: 40px;
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #11213B;
 }
 
 .form-subscribe .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: #11213B;
 }
 
 .form-subscribe .btn-append {
@@ -756,7 +756,7 @@ button {
   height: 40px;
   padding-left: 18px;
   font-size: 13px;
-  color: #ffffff;
+  color: #11213B;
 }
 
 .form-contact .different-control {
@@ -773,7 +773,7 @@ button {
 
 .social-icons li a {
   display: block;
-  color: #ffffff;
+  color: #11213B;
 }
 
 .social-icons li a:hover {
@@ -798,7 +798,7 @@ button {
 
 .service__single h3 {
   font-size: 1.3125rem;
-  color: #fff;
+  color: #11213B;
   font-weight: 300;
   margin-bottom: 20px;
 }
