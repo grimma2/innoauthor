@@ -1192,7 +1192,7 @@ button {
 }
 
 .widget-wrap {
-  background: #3c3b48;
+  background: #ffffff;
   padding: 20px 0px;
 }
 
@@ -1533,7 +1533,7 @@ button {
 .single-post-area .quotes {
   margin-top: 20px;
   padding: 30px;
-  background-color: #3c3b48;
+  background-color: #ffffff;
   box-shadow: -20.84px 21.58px 30px 0px rgba(68, 68, 68, 0.1);
 }
 
@@ -1638,7 +1638,7 @@ button {
 }
 
 .comments-area {
-  background: #3c3b48;
+  background: #ffffff;
   padding: 50px 20px;
   margin-top: 50px;
 }
@@ -1718,7 +1718,7 @@ button {
 }
 
 .comment-form {
-  background: #3c3b48;
+  background: #ffffff;
   text-align: center;
   padding: 50px 20px;
   margin-top: 50px;
