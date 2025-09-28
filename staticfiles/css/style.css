@@ -1285,7 +1285,7 @@ button {
 }
 
 .widget-wrap .user-info-widget .social-links li a {
-  color: #fff;
+  color: #11213B;
   padding: 10px;
   font-size: 14px;
   transition: all 0.3s ease 0s;
@@ -1378,7 +1378,7 @@ button {
 }
 
 .widget-wrap .post-category-widget .cat-list li a {
-  color: #ffffff;
+  color: #11213B;
 }
 
 .widget-wrap .post-category-widget .cat-list li:hover {
@@ -1408,7 +1408,7 @@ button {
 
 .widget-wrap .newsletter-widget .bbtns {
   background: #FF9027;
-  color: #fff;
+  color: #11213B;
   font-size: 12px;
   font-weight: 500;
   padding: 8px 20px;
@@ -1416,7 +1416,7 @@ button {
 }
 
 .widget-wrap .newsletter-widget .input-group-text {
-  background: #fff;
+  background: #11213B;
   border-radius: 0px;
   vertical-align: top;
 }
@@ -1860,7 +1860,7 @@ button {
 }
 
 .about-generic-area {
-  background: #fff;
+  background: #11213B;
 }
 
 .about-generic-area p {
