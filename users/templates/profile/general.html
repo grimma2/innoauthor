@@ -14,17 +14,18 @@
     {% csrf_token %}
 
     <div class="row mb-3">
-	<font color="#11213B">
+
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group"><font color="#11213B">
                 <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                 {{ form.username }}
                 {% if form.username.errors %}
                 <div class="text-danger">{{ form.username.errors }}</div>
                 {% endif %}
+				</font>
             </div>
         </div>
-		</font>
+		
     </div>
 
     <div class="row mb-3">
