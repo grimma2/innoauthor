@@ -252,7 +252,7 @@
 
                             <!-- Tabs Navigation -->
                             <ul class="nav nav-tabs mb-4" id="projectTabs" role="tablist">
-							<font color="#11213B">
+
                                 <li class="nav-item">
                                     <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments"
                                         role="tab" aria-controls="comments" aria-selected="true">
@@ -273,7 +273,6 @@
                                         <i class="fa fa-users"></i> Команда
                                     </a>
                                 </li>
-								</font>
                             </ul>
 
                             <!-- Tab Content -->
@@ -281,11 +280,13 @@
                                 <!-- Comments Tab -->
                                 <div class="tab-pane fade show active" id="comments" role="tabpanel"
                                     aria-labelledby="comments-tab">
+									<font color="#11213B">
                                     <!-- Comments Section -->
                                     {% include "comments/list.html" with comments=comments %}
 
                                     <!-- Comment Form -->
                                     {% include "comments/form.html" with form=comment_form %}
+									</font>
                                 </div>
 
                                 {% if is_team_member or is_owner %}
