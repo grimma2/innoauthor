@@ -211,7 +211,7 @@
 
                             <div class="row mt-4">
                                 <div class="col-md-6">
-                                    <h5>Метки:</h5>
+                                    <h5><font color="#11213B">Метки:</font></h5>
                                     <div class="tags mb-3">
                                         {% for tag in project.tags.all %}
                                         <a href="{% url 'projects:projects' %}?tag={{ tag.slug }}"
@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="share-buttons text-md-right">
-                                        <h5>Поделиться:</h5>
+                                        <h5><font color="#11213B">Поделиться:</font></h5>
                                         <div class="btn-group">
                                             <a href="https://t.me/share/url?url={{ request.scheme }}://{{ request.get_host }}{% url 'projects:project_detail' project_slug=project.slug %}&text={{ project.title }}"
                                                 target="_blank" class="btn btn-sm btn-outline-primary">
@@ -247,7 +247,7 @@
                             </div>
 
                             <div class="project-description mb-4">
-                                {{ project.description|linebreaks }}
+                                <font color="#11213B">{{ project.description|linebreaks }}</font>
                             </div>
 
                             <!-- Tabs Navigation -->
