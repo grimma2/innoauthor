@@ -3129,8 +3129,8 @@ h6 {
 
 /* Стили для первичных кнопок */
 .btn-primary {
-  background-color: #007bff !important;
-  border-color: #007bff !important;
+  background-color: #FF9027 !important;
+  border-color: #FF9027 !important;
 }
 
 /* Стили для кнопок действий */
@@ -3182,16 +3182,16 @@ h6 {
 }
 
 .btn-outline-primary {
-  color: #007bff;
+  color: #FF9027;
   background-color: transparent;
   background-image: none;
-  border-color: #007bff;
+  border-color: #FF9027;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #FF9027;
+  border-color: #FF9027;
 }
 
 .btn-sm {
@@ -3272,19 +3272,19 @@ header {
 /* ---------- Исправление видимости кнопок на светлом фоне ---------- */
 /* Синяя обводка + синий текст */
 .btn-outline-primary {
-  color: #007bff !important;
-  border-color: #007bff !important;
+  color: #FF9027 !important;
+  border-color: #FF9027 !important;
   background-color: transparent !important;
 }
 
 .btn-outline-primary:hover {
   color: #fff !important;
-  background-color: #007bff !important;
+  background-color: #FF9027 !important;
 }
 
 /* Ссылочные кнопки (FAQ, аккордеоны и др.) */
 .btn-link {
-  color: #007bff !important;
+  color: #FF9027 !important;
 }
 
 .btn-link:hover {
