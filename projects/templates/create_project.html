@@ -41,7 +41,7 @@
                     <form method="post" enctype="multipart/form-data" class="create-project-form">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="title">Название проекта*</label>
+                            <label for="title"><font color="#11213B">Название проекта*</font></label>
                             <input type="text" class="form-control" id="title" name="title" required maxlength="50" {% if form_data %}value="{{ form_data.title }}" {% endif %}>
                             <small class="form-text text-muted">
                                 Осталось символов: <span id="titleCharsLeft">50</span> из 50
@@ -49,20 +49,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание проекта*</label>
+                            <label for="description"><font color="#11213B">Описание проекта*</font></label>
                             <textarea class="form-control" id="description" name="description" rows="6"
                                 required>{% if form_data %}{{ form_data.description }}{% endif %}</textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="project_photo">Фото проекта</label>
+                            <label for="project_photo"><font color="#11213B">Фото проекта</font></label>
                             <input type="file" class="form-control-file" id="project_photo" name="project_photo"
                                 accept="image/*">
                             <small class="form-text text-muted">Рекомендуемый размер: 800x600 пикселей</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="tags">Теги</label>
+                            <label for="tags"><font color="#11213B">Теги</font></label>
                             <select class="form-control select2-tags" id="tags" name="tags" multiple>
                                 {% for tag in tags %}
                                 <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
@@ -74,7 +74,7 @@
 
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="is_private" name="is_private" {% if form_data and form_data.is_private %}checked{% endif %}>
-                            <label class="form-check-label" for="is_private">Приватный</label>
+                            <label class="form-check-label" for="is_private"><font color="#11213B">Приватный</font></label>
                         </div>
 
                         <div class="form-group">
