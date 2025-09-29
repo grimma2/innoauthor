@@ -139,50 +139,55 @@
 					</div>
 				</div>
 				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-
-						<div class="single-sidebar-widget user-info-widget">
+						<div class="widget-wrap">
 							
-							<a href="#">
-								<h4>ИнноАвтор</h4>
-							</a>
-							<p>
-								Платформа для реализации инновационных проектов
-							</p>
-							<ul class="social-links">
-
-								<li><a href="https://t.me/innoauthor" target="_blank"><i
-											class='fab fa-telegram'></i></a></li>
-
-								<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a>
-								</li>
-
+							<div class="single-sidebar-widget user-info-widget">
+							<font color="#11213B">
 								
-							</ul>
-							<p>
-								Наша платформа создает будущее вместе с вами.
-								Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
-							</p>
-						</div>
-						<div class="single-sidebar-widget popular-post-widget">
-							<a href="https://pay.cloudtips.ru/p/925045f4">
-								<h4 class="popular-title">Пожертвовать</h4>
-							</a>
+
+								<a href="#">
+									<h2><font color="#11213B">ИнноАвтор</font></h2>
+								</a>
+								<p>
+									Платформа для реализации инновационных
+								</p>
+								<ul class="social-links">
+
+									<li><a href="https://t.me/innoauthor" target="_blank"><i
+												class='fab fa-telegram'></i></a></li>
+
+									<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i>
+										</a>
+									</li>
+
+									
+								</ul>
+								<p>
+									Наша платформа создает будущее вместе с вами.
+									Наша цель сплотить лучших ученых, бизнесменов, изобретателей в одном сервисе.
+								</p>
+								</font>
+							</div>
+							<div class="single-sidebar-widget popular-post-widget">
+								<h4 class="popular-title">Популярные теги</h4>
+								<div class="popular-post-list">
+									{% for tag in tags %}
+									<div class="single-post-list">
+										<a href="?tag={{ tag.slug }}" class="tag-link">{{ tag.name }}</a>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+
+							<div class="single-sidebar-widget post-category-widget">
+								<a href="{% url 'startpage:contact' %}">
+									<h4 class="category-title">Заказать рекламу</h4>
+								</a>
+							</div>
+
 
 						</div>
-						<div class="single-sidebar-widget ads-widget">
-							<a href="https://vk.com/jurfront"><img class="img-fluid" src="{% static 'img/jurfrontus.jpg'%}" alt=""></a>
-						</div>
-						<div class="single-sidebar-widget post-category-widget">
-							<a href="{% url 'startpage:contact' %}">
-								<h4 class="category-title">Заказать рекламу</h4>
-							</a>
-
-						</div>
-
-
 					</div>
-				</div>
 			</div>
 		</div>
 	</section>
