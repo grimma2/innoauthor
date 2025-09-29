@@ -323,19 +323,19 @@
                                                         <span class="badge badge-success">Выполнено</span>
                                                         {% endif %}
                                                     </td>
-                                                    <td>
+                                                    <td><font color="#11213B">
                                                         {% if task.assigned_to %}
                                                         {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
                                                         {% else %}
                                                         <em class="text-muted">Не назначено</em>
-                                                        {% endif %}
+                                                        {% endif %}</font>
                                                     </td>
-                                                    <td>
+                                                    <td><font color="#11213B">
                                                         {% if task.deadline %}
                                                         {{ task.deadline|date:"d.m.Y" }}
                                                         {% else %}
                                                         <em class="text-muted">Не указан</em>
-                                                        {% endif %}
+                                                        {% endif %}</font>
                                                     </td>
                                                     <td>
                                                         <!-- Task actions -->
@@ -366,8 +366,8 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title"
-                                                                            id="editTaskModalLabel{{ task.id }}">
-                                                                            Редактировать задачу</h5>
+                                                                            id="editTaskModalLabel{{ task.id }}"><font color="#11213B">
+                                                                            Редактировать задачу</font></h5>
                                                                         <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
