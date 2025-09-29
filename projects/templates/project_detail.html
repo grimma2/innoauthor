@@ -143,7 +143,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'projects:projects' %}">Проекты</a></li>
-                            <font color="#11213B"><li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li></font>
+                            <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
                         </ol>
                     </nav>
 
@@ -179,7 +179,7 @@
                             alt="{{ project.title }}" style="max-height: 400px; object-fit: cover;">
                         {% endif %}
                         <div class="card-body project-details" style="padding: 30px;">
-                            <h1 class="card-title mb-3">{{ project.title }}</h1>
+                            <h1 class="card-title mb-3"><font color="#11213B">{{ project.title }}</font></h1>
 
                             <div class="meta-info mb-4">
                                 <div class="d-flex align-items-center mb-2">
