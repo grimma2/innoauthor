@@ -496,7 +496,7 @@
                                     <!-- Add Task Form (for project owner only) -->
                                     {% if is_owner %}
                                     <div class="add-task-form mb-4">
-                                        <h4>Добавить задачу</h4>
+                                        <h4><font color="#11213B">Добавить задачу</font></h4>
                                         <form method="post" action="{% url 'projects:add_task' project.id %}">
                                             {% csrf_token %}
                                             <div class="form-group">
