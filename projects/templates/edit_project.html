@@ -51,7 +51,7 @@
                     <form method="post" enctype="multipart/form-data" class="edit-project-form">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="title">Название проекта*</label>
+                            <label for="title"><font color="#11213B">Название проекта*</font></label>
                             <input type="text" class="form-control" id="title" name="title" required maxlength="50"
                                 value="{% if form_data %}{{ form_data.title }}{% else %}{{ project.title }}{% endif %}">
                             <small class="form-text text-muted">
@@ -60,13 +60,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание проекта*</label>
+                            <label for="description"><font color="#11213B">Описание проекта*</font></label>
                             <textarea class="form-control" id="description" name="description" rows="6"
                                 required>{% if form_data %}{{ form_data.description }}{% else %}{{ project.description }}{% endif %}</textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="project_photo">Фото проекта</label>
+                            <label for="project_photo"><font color="#11213B">Фото проекта</font></label>
                             {% if project.project_photo %}
                             <div class="mb-2">
                                 <img src="{{ project.project_photo.url }}" alt="{{ project.title }}"
@@ -81,8 +81,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="tags">Теги</label>
-                            <select class="form-control select2-tags" id="tags" name="tags" multiple>
+                            <label for="tags"><font color="#11213B">Теги</font></label>
+                            <select class="form-control select2-tags" id="tags" name="tags" multiple><font color="#11213B">
                                 {% for tag in tags %}
                                 <option value="{{ tag.id }}" 
 										{% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}
@@ -95,6 +95,7 @@
 									>
                                 </option>
                                 {% endfor %}
+								</font>
                             </select>
                             <small class="form-text text-muted">Выберите один или несколько тегов для вашего
                                 проекта</small>
