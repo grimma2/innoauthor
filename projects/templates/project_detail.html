@@ -379,14 +379,14 @@
                                                                             {% if is_owner %}
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="title{{ task.id }}">Название</label>
+                                                                                    for="title{{ task.id }}"><font color="#11213B">Название</font></label>
                                                                                 <input type="text" class="form-control"
                                                                                     id="title{{ task.id }}" name="title"
                                                                                     value="{{ task.title }}" required>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="description{{ task.id }}">Описание</label>
+                                                                                    for="description{{ task.id }}"><font color="#11213B">Описание</font></label>
                                                                                 <textarea class="form-control"
                                                                                     id="description{{ task.id }}"
                                                                                     name="description"
@@ -395,7 +395,7 @@
                                                                             {% endif %}
 
                                                                             <div class="form-group">
-                                                                                <label for="status{{ task.id }}">Статус</label>
+                                                                                <label for="status{{ task.id }}"><font color="#11213B">Статус</font></label>
                                                                                 <select class="form-control" id="status{{ task.id }}"  name="status">
                                                                                     <option value="pending" {% if  task.status == 'pending'  %}selected{% endif %}>Ожидает выполнения</option>
                                                                                     <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>В процессе
@@ -408,7 +408,7 @@
                                                                             {% if is_owner %}
                                                                             <div class="form-group">
                                                                                 <label
-                                                                                    for="assigned_to{{ task.id }}">Исполнитель</label>
+                                                                                    for="assigned_to{{ task.id }}"><font color="#11213B">Исполнитель</font></label>
                                                                                 <select class="form-control"
                                                                                     id="assigned_to{{ task.id }}"
                                                                                     name="assigned_to">
@@ -423,8 +423,8 @@
                                                                             </div>
 
                                                                             <div class="form-group">
-                                                                                <label for="deadline{{ task.id }}">Срок
-                                                                                    выполнения</label>
+                                                                                <label for="deadline{{ task.id }}"><font color="#11213B">Срок
+                                                                                    выполнения</font></label>
                                                                                 <input type="date" class="form-control"
                                                                                     id="deadline{{ task.id }}"
                                                                                     name="deadline"
