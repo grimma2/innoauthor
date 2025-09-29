@@ -71,12 +71,12 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="comment-form">
-						<h4 class="mb-4">Вход в систему</h4>
+						<h4 class="mb-4"><font color="#11213B">Вход в систему</font></h4>
 
 						<form class="login-form" action="{% url 'users:login' %}" method="post">
 							{% csrf_token %}
 
-							<div class="form-group">
+							<div class="form-group"><font color="#11213B">
 								<label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
 								{{ form.username }}
 								{% if form.username.errors %}
@@ -86,9 +86,11 @@
 									{% endfor %}
 								</div>
 								{% endif %}
+								
+								</font>
 							</div>
 
-							<div class="form-group">
+							<div class="form-group"><font color="#11213B">
 								<label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 								{{ form.password }}
 								{% if form.password.errors %}
@@ -98,6 +100,7 @@
 									{% endfor %}
 								</div>
 								{% endif %}
+								</font>
 							</div>
 
 							<input type="hidden" name="next" value="{{next}}" />
