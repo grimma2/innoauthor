@@ -311,8 +311,8 @@
                                             <tbody>
                                                 {% for task in tasks %}
                                                 <tr>
-                                                    <td>{{ task.title }}</td>
-                                                    <td>{{ task.description }}</td>
+                                                    <font color="#11213B"><td>{{ task.title }}</td>
+                                                    <td>{{ task.description }}</td></font>
                                                     <td>
                                                         {% if task.status == 'pending' %}
                                                         <span class="badge badge-warning">Ожидает</span>
