@@ -195,7 +195,9 @@
 									{{ project.title }}
 								</a>
 							</h5>
+							<font color="#11213B">
 							<p class="card-text">{{ project.description|truncatewords:30 }}</p>
+							</font>
 							<div class="meta-info mb-3">
 								<small class="text-muted">
 									<i class="fa fa-user"></i> {{ project.author.get_full_name|default:project.author.username }}
