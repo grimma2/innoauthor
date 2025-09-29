@@ -82,7 +82,7 @@
         }
 
         .btn-register {
-            background: linear-gradient(135deg, #6f42c1, #6f42c1);
+            background: #FF9027;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -315,7 +315,7 @@
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="id_consent">
                                             Я согласен на обработку моих персональных данных в соответствии с
-                                            <a href="{% url 'startpage:cookie' %}" target="_blank">Политикой использования cookie</a> и
+                                            <br><a href="{% url 'startpage:cookie' %}" target="_blank">Политикой использования cookie</a> и
                                             <a href="{% url 'startpage:soglasie' %}" target="_blank">Согласием на обработку персональных данных</a>
                                         </label>
                                         {% if form.consent.errors %}
