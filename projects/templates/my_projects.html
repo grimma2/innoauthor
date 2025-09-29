@@ -113,17 +113,17 @@
                                     </div>
                                     <div class="invitation-content flex-grow-1">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{ invitation.project.title }}</h5>
-                                            <small>{{ invitation.sent_at|date:"d.m.Y" }}</small>
+                                            <h5 class="mb-1"><font color="#11213B">{{ invitation.project.title }}</font></h5>
+                                            <small><font color="#11213B">{{ invitation.sent_at|date:"d.m.Y" }}</font></small>
                                         </div>
-                                        <p class="mb-1">{{ invitation.project.description|truncatechars:150 }}</p>
+                                        <p class="mb-1"><font color="#11213B">{{ invitation.project.description|truncatechars:150 }}</font></p>
                                         <div class="user-info mb-2">
                                             <strong>Автор: <a
                                                     href="{% url 'users:public_profile' username=invitation.project.author.username %}">
                                                     {{ invitation.project.author.get_full_name|default:invitation.project.author.username }}
                                                 </a></strong>
                                             {% if invitation.project.author.about %}
-                                            <p class="small text-muted">{{ invitation.project.author.about|truncatechars:100 }}</p>
+                                            <p class="small text-muted"><font color="#11213B">{{ invitation.project.author.about|truncatechars:100 }}</font></p>
                                             {% endif %}
                                         </div>
                                         <div class="mt-3">
