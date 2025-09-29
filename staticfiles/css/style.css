@@ -546,7 +546,7 @@ hr {
   color: #fff;
   padding: .5rem 1.6rem;
   position: relative;
-  background: transparent;
+  background: #FF9027;
 }
 
 .btn--rightBorder:after {
