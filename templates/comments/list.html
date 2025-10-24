@@ -20,9 +20,9 @@
                         <div class="user-info">
                             <a href="{% url 'users:public_profile' username=comment.author.username %}"
                                 class="text-dark">
-                                <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                                <strong><font color="#fffff">{{ comment.author.get_full_name|default:comment.author.username }}</font></strong>
                             </a>
-                            <span class="text-muted ml-2">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+                            <span class="text-muted ml-2"><font color="#ffffff">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
                         </div>
                         {% if request.user == comment.author or request.user.is_staff or request.user.is_superuser %}
                         <div class="comment-actions">
@@ -37,15 +37,15 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">
+                                            <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}"><font color="#11213B">
                                                 Подтвердите
-                                                удаление</h5>
+                                                удаление</font></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Вы уверены, что хотите удалить этот комментарий?
+                                            <font color="#11213B">Вы уверены, что хотите удалить этот комментарий?</font>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
