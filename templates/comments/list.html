@@ -22,7 +22,7 @@
                                 class="text-dark">
                                 <strong><font color="#007bff">{{ comment.author.get_full_name|default:comment.author.username }}</font></strong>
                             </a>
-                            <span class="text-muted ml-2"><font color="#00000">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
+                            <span class="text-muted ml-2"><font color="#504f5b">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
                         </div>
                         {% if request.user == comment.author or request.user.is_staff or request.user.is_superuser %}
                         <div class="comment-actions">
