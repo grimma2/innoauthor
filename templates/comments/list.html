@@ -20,7 +20,7 @@
                         <div class="user-info">
                             <a href="{% url 'users:public_profile' username=comment.author.username %}"
                                 class="text-dark">
-                                <strong><font color="#11213B">{{ comment.author.get_full_name|default:comment.author.username }}</font></strong>
+                                <strong><font color="#007bff">{{ comment.author.get_full_name|default:comment.author.username }}</font></strong>
                             </a>
                             <span class="text-muted ml-2"><font color="#11213B">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
                         </div>
