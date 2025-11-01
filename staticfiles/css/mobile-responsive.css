@@ -279,7 +279,7 @@
     }
 
     .search-form .form-control {
-        width: 0%;
+        width: 100%;
     }
 
     /* Фильтры и теги */
