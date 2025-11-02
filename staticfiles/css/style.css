@@ -310,12 +310,12 @@ hr {
 }
 
 .canvus_menu .toggle_icon.blog span {
-  background: #ffffff;
+  background: #000000;
 }
 
 .canvus_menu .toggle_icon.blog span:after,
 .canvus_menu .toggle_icon.blog span:before {
-  background: #ffffff;
+  background: #000000;
 }
 
 .side_menu {
