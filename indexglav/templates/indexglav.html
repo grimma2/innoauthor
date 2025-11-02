@@ -276,33 +276,71 @@
 		</footer>
 
 
-	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
-<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js' %}"></script>
 
-<script>
-$(document).ready(function() {
-    // Обработчик клика по пунктам меню с подменю
-    var dropToggle = $('.menu_right > li').has('ul').children('a');
-    dropToggle.on('click', function() {
-        dropToggle.not(this).closest('li').find('ul').slideUp(200);
-        $(this).closest('li').children('ul').slideToggle(200);
-        return false;
-    });
+	<script>
+		var heroCarousel = $('.heroCarousel');
+		heroCarousel.owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: false,
+			startPosition: 1,
+			responsiveClass: true,
+			responsive: {
+				0: {
+					items: 1
+				}
+			}
+		});
 
-    // Обработчик для toggle иконки меню (бургер)
-    $(".toggle_icon").on('click', function() {
-        $('body').toggleClass("open");
-    });
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
+			dropToggle.on('click', function() {
+				dropToggle.not(this).closest('li').find('ul').slideUp(200);
+				$(this).closest('li').children('ul').slideToggle(200);
+				return false;
+			});
 
-    // Инициализация Bootstrap вкладок без конфликтов
-    // Убираем действие по умолчанию у ссылок вкладок и вызываем метод .tab('show')
-    $('.nav-tabs a').click(function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-});
-</script>
+			$( ".toggle_icon" ).on('click', function() {
+				$( 'body' ).toggleClass( "open" );
+			});
 
+		// Дополнительный скрипт для исправления позиционирования элементов
+		$(document).ready(function () {
+			// Проверяем размер экрана
+			function checkViewport() {
+				var windowWidth = $(window).width();
+				if (windowWidth <= 768) {
+					// Добавляем дополнительный отступ для контента на мобильных устройствах
+					$('body').addClass('mobile-view');
+
+					// Перестраиваем элементы в карточках новостей
+					$('.single-post').each(function () {
+						var $post = $(this);
+						var $featureImg = $post.find('.feature-img').parent();
+						var $metaDetails = $post.find('.meta-details');
+						var $content = $post.find('.col-lg-9.col-md-9');
+
+						// Переставляем элементы
+						$featureImg.prependTo($post);
+						$content.insertAfter($featureImg);
+						$metaDetails.insertAfter($featureImg);
+					});
+				} else {
+					$('body').removeClass('mobile-view');
+				}
+			}
+
+			// Запускаем при загрузке
+			checkViewport();
+
+			// Запускаем при изменении размера экрана
+			$(window).resize(function () {
+				checkViewport();
+			});
+		});
+	</script>
 
 	<style>
 		.tag-link {
