@@ -238,27 +238,17 @@
     <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
     <script>
-        var dropToggle = $('.menu_right > li').has('ul').children('a');
-        dropToggle.on('click', function () {
-            dropToggle.not(this).closest('li').find('ul').slideUp(200);
-            $(this).closest('li').children('ul').slideToggle(200);
-            return false;
-        });
+			var dropToggle = $('.menu_right > li').has('ul').children('a');
+				dropToggle.on('click', function() {
+					dropToggle.not(this).closest('li').find('ul').slideUp(200);
+					$(this).closest('li').children('ul').slideToggle(200);
+					return false;
+				});
 
-        $(".toggle_icon").on('click', function () {
-            $('body').toggleClass("open");
-        });
-
-        // Обновленный обработчик для кнопок удаления
-        $(document).ready(function () {
-            $('.btn-danger[data-project-id]').on('click', function () {
-                var projectId = $(this).data('project-id');
-                var deleteForm = document.getElementById('deleteForm');
-                deleteForm.action = "/projects/delete/" + projectId + "/";
-                $('#deleteModal').modal('show');
-            });
-        });
-    </script>
+				$( ".toggle_icon" ).on('click', function() {
+					$( 'body' ).toggleClass( "open" );
+				});
+	</script>
 
     <style>
         /* Стили для кнопок и карточек проектов */
