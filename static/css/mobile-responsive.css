@@ -219,7 +219,7 @@
         display: block !important;
         width: 22px !important;
         height: 2px !important;
-
+        background-color: #fff !important;
         position: relative !important;
     }
 
