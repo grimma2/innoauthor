@@ -239,6 +239,7 @@
     <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
     <script>
+    $(document).ready(function() {
         var dropToggle = $('.menu_right > li').has('ul').children('a');
         dropToggle.on('click', function () {
             dropToggle.not(this).closest('li').find('ul').slideUp(200);
@@ -250,16 +251,10 @@
             $('body').toggleClass("open");
         });
 
-        // Обновленный обработчик для кнопок удаления
-        $(document).ready(function () {
-            $('.btn-danger[data-project-id]').on('click', function () {
-                var projectId = $(this).data('project-id');
-                var deleteForm = document.getElementById('deleteForm');
-                deleteForm.action = "/projects/delete/" + projectId + "/";
-                $('#deleteModal').modal('show');
-            });
-        });
-    </script>
+        // остальной ваш дополнительный JS оставьте без изменений
+    });
+</script>
+
 
     <style>
         /* Стили для кнопок и карточек проектов */
