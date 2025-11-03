@@ -169,16 +169,7 @@
 								</p>
 								</font>
 							</div>
-							<div class="single-sidebar-widget popular-post-widget">
-								<h4 class="popular-title">Популярные теги</h4>
-								<div class="popular-post-list">
-									{% for tag in tags %}
-									<div class="single-post-list">
-										<a href="?tag={{ tag.slug }}" class="tag-link">{{ tag.name }}</a>
-									</div>
-									{% endfor %}
-								</div>
-							</div>
+							
 
 							<div class="single-sidebar-widget post-category-widget">
 								<a href="{% url 'startpage:contact' %}">
