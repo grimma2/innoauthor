@@ -29,7 +29,9 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+#DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG = os.getenv('DEBUG', 'False').strip().lower() in ['true', '1', 'yes']
+
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
