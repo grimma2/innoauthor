@@ -209,7 +209,12 @@
                                     <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
                                 </div>
                             </div>
-							<button class="btn btn-primary">Вступить</button>
+							<!--
+							<form method="post" action="{% url 'projects:send_application' project.id %}">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-primary">Вступить</button>
+							</form>
+							-->
 
                             <div class="row mt-4">
                                 <div class="col-md-6">
