@@ -44,6 +44,16 @@
                             {% endif %}
                         </a>
                     </li>
+					<li class="nav-item">
+                        <a class="nav-link" id="invitations-tab" data-toggle="tab" href="#invitations" role="tab"
+                            aria-controls="invitations" aria-selected="false">
+                            Заявки
+                            {% if pending_invitations %}
+                            <span class="badge badge-primary">{{ pending_invitations.count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+				
                 </ul>
 
                 <div class="tab-content" id="myTabContent">

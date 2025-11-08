@@ -209,19 +209,7 @@
                                     <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
                                 </div>
                             </div>
-							{% if is_owner %}
-                                    <div class="invitation-form mb-4">
-                                        
-                                        <form method="post" action="{% url 'projects:invite_member' project.id %}">
-                                            {% csrf_token %}
-                                            <div class="form-group">
-                                                {{ invitation_form.invitee_email }}
-                                                <small class="form-text text-muted">{{ invitation_form.invitee_email.help_text }}</small>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Вступить</button>
-                                        </form>
-                                    </div>
-                                    {% endif %}
+							<button class="btn btn-primary">Вступить</button>
 
                             <div class="row mt-4">
                                 <div class="col-md-6">
