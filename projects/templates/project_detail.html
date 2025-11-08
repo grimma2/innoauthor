@@ -197,7 +197,7 @@
                                     </div>
                                     <div>
                                         <span class="text-muted">
-                                            <i class="fa fa-user"></i> Автор: {{ project.author.get_full_name|default:project.author.username }}
+                                            <i class="fa fa-user"></i> Автор:<a href="{% url 'users:public_profile' project.author.username %}"> {{ project.author.get_full_name|default:project.author.username }}</a>
                                         </span>
                                         <br>
                                         <span class="text-muted">
