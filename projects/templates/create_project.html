@@ -66,7 +66,7 @@
                             <label for="tags"><font color="#11213B">Теги</font></label>
                             <select class="form-control select2-tags" id="tags" name="tags" multiple>
                                 {% for tag in tags %}
-                                <font color="#11213B"><option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option></font>
+                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
                                 {% endfor %}
                             </select>
                             <small class="form-text text-muted">Выберите один или несколько тегов для вашего
