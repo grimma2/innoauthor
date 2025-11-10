@@ -1049,7 +1049,7 @@ hr {
 }
 
 .post-content-area .single-post .meta-details .tags li a {
-  color: #11213B;
+  color: #fff;
   transition: all 0.3s ease 0s;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
