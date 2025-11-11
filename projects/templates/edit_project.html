@@ -83,20 +83,10 @@
 
                         <div class="form-group">
                             <label for="tags"><font color="#11213B">Теги</font></label>
-                            <select class="form-control select2-tags" id="tags" name="tags" multiple><font color="#11213B">
+                            <select class="form-control select2-tags" id="tags" name="tags" multiple>
                                 {% for tag in tags %}
-                                <option value="{{ tag.id }}" 
-										{% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}
-											selected
-										{% else %}
-											{% if tag in project.tags.all %}
-												selected
-											{% endif %}
-										{% endif %}
-									>
-                                </option>
+                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
                                 {% endfor %}
-								</font>
                             </select>
                             <small class="form-text text-muted">Выберите один или несколько тегов для вашего
                                 проекта</small>
@@ -228,6 +218,10 @@
     </script>
 
     <style>
+		body {
+			color: #FF9027; 
+		}
+			
         .edit-project-form {
             background: #fff;
             padding: 30px;
