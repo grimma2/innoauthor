@@ -152,19 +152,7 @@
 				</div>
 			</div>
 			
-			<form method="post" enctype="multipart/form-data" class="create-project-form">
-			<!-- Tags filter -->
-			<div class="form-group">
-				<label for="tags"><font color="#11213B">Теги</font></label>
-				<select class="form-control select2-tags" id="tags" name="tags" multiple>
-					{% for tag in tags %}
-					<option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
-					{% endfor %}
-				</select>
-				<small class="form-text text-muted">Выберите один или несколько тегов для вашего
-					проекта</small>
-            </div>
-			</form>
+			
 
 			<!-- Status filter -->
 			<div class="row mb-4">
