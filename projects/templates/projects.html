@@ -135,22 +135,16 @@
 			</div>
 
 			<!-- Tags filter -->
-			<div class="row mb-4">
-				<div class="col-12">
-					<div class="tags-wrapper">
-						<a href="{% url 'projects:projects' %}"
-							class="btn {% if not current_tag %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
-							Все теги
-						</a>
-						{% for tag in tags %}
-						<a href="?tag={{ tag.slug }}{% if current_status %}&status={{ current_status }}{% endif %}"
-							class="btn {% if current_tag == tag.slug %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
-							{{ tag.name }}
-						</a>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
+			<div class="form-group">
+                            <label for="tags"><font color="#11213B">Теги</font></label>
+                            <select class="form-control select2-tags" id="tags" name="tags" multiple>
+                                {% for tag in tags %}
+                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">Выберите один или несколько тегов для вашего
+                                проекта</small>
+                        </div>
 
 			<!-- Status filter -->
 			<div class="row mb-4">
