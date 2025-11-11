@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
 </head>
 
-<body>
+<body color="#6c757d">
     {% include 'includes/header.html' %}
 
     <section class="section-margin">
@@ -66,7 +66,7 @@
                             <label for="tags"><font color="#11213B">Теги</font></label>
                             <select class="form-control select2-tags" id="tags" name="tags" multiple>
                                 {% for tag in tags %}
-                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}><font color="#11213B"><p>{{ tag.name }}</p></font></option>
+                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
                                 {% endfor %}
                             </select>
                             <small class="form-text text-muted">Выберите один или несколько тегов для вашего
