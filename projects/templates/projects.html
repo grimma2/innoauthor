@@ -136,15 +136,15 @@
 
 			<!-- Tags filter -->
 			<div class="form-group">
-                            <label for="tags"><font color="#11213B">Теги</font></label>
-                            <select class="form-control select2-tags" id="tags" name="tags" multiple>
-                                {% for tag in tags %}
-                                <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <small class="form-text text-muted">Выберите один или несколько тегов для вашего
-                                проекта</small>
-                        </div>
+				<label for="tags"><font color="#11213B">Теги</font></label>
+				<select class="form-control select2-tags" id="tags" name="tags" multiple>
+					{% for tag in tags %}
+					<option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
+					{% endfor %}
+				</select>
+				<small class="form-text text-muted">Выберите один или несколько тегов для вашего
+					проекта</small>
+            </div>
 
 			<!-- Status filter -->
 			<div class="row mb-4">
@@ -402,6 +402,13 @@
 					keyboard: true
 				});
 			});
+			
+			// Инициализация Select2
+            $('.select2-tags').select2({
+                placeholder: "Выберите теги",
+                allowClear: true
+            });
+
 
 			// Обработчик для кнопки закрытия
 			$('.modal .close').on('click', function (e) {
@@ -464,6 +471,14 @@
 	</script>
 
 	<style>
+		.select2-container--default .select2-selection--multiple {
+            border: 1px solid #ced4da;
+        }
+
+        .select2-container .select2-selection--multiple {
+            min-height: 38px;
+        }
+	
 		/* Стили для кнопок и карточек проектов */
 		.card {
 			transition: all 0.3s ease;
