@@ -141,12 +141,11 @@
 			<div class="form-group">
   <label for="tags"><font color="#11213B">Теги</font></label>
   <select class="form-control select2-tags" id="tags" name="tags" multiple>
-    <option value="" {% if not current_tag %}selected{% endif %}>Все теги</option>
     {% for tag in tags %}
-    <option value="{{ tag.slug }}" {% if current_tag == tag.slug %}selected{% endif %}>{{ tag.name }}</option>
+    <option value="{{ tag.id }}" {% if form_data and tag.id|stringformat:"i" in form_data.tag_ids %}selected{% endif %}>{{ tag.name }}</option>
     {% endfor %}
   </select>
-  <small class="form-text text-muted">Выберите один или несколько тегов для фильтрации</small>
+  <small class="form-text text-muted">Выберите один или несколько тегов для вашего проекта</small>
 </div>
 
 			
