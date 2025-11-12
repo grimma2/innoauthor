@@ -134,15 +134,24 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="tags"><font color="#11213B">Теги</font></label>
-				<select class="form-control select2-tags" id="tags" name="tags" multiple>
-					<option value="" {% if not current_tag %}selected{% endif %}>Все теги</option>
+			<!-- Tags filter dropdown -->
+			<div class="dropdown mb-4">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="tagsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					{% if current_tag %}
+						{{ tags|get_tag_name:current_tag }}
+					{% else %}
+						Все теги
+					{% endif %}
+				</button>
+				<div class="dropdown-menu" aria-labelledby="tagsDropdown">
+					<a class="dropdown-item {% if not current_tag %}active{% endif %}" href="{% url 'projects:projects' %}">Все теги</a>
 					{% for tag in tags %}
-					<option value="{{ tag.slug }}" {% if current_tag == tag.slug %}selected{% endif %}>{{ tag.name }}</option>
+						<a class="dropdown-item {% if current_tag == tag.slug %}active{% endif %}"
+						   href="?tag={{ tag.slug }}{% if current_status %}&status={{ current_status }}{% endif %}">
+							{{ tag.name }}
+						</a>
 					{% endfor %}
-				</select>
-				<small class="form-text text-muted">Выберите один или несколько тегов для фильтрации</small>
+				</div>
 			</div>
 
 			
