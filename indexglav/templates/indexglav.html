@@ -45,16 +45,23 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-md-6 text-md-right mt-3 mt-md-0">
-						<div class="filter-tags">
-							<a href="{% url 'indexglav:indexglav' %}"
-								class="btn {% if not current_tag %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">Все</a>
-							{% for tag in tags %}
-							<a href="?tag={{ tag.slug }}{% if search_query %}&search={{ search_query }}{% endif %}"
-								class="btn {% if current_tag == tag.slug %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">{{ tag.name }}</a>
-							{% endfor %}
-						</div>
-					</div>
+					<div class="row mb-4">
+			  <div class="col-12">
+				<div class="tags-wrapper">
+				  <form method="get">
+					<select class="form-control select2-tags" name="tag" onchange="this.form.submit()">
+					  <option value="" {% if not current_tag %}selected{% endif %}>Все теги</option>
+					  {% for tag in tags %}
+						<option value="{{ tag.slug }}" {% if current_tag == tag.slug %}selected{% endif %}>{{ tag.name }}</option>
+					  {% endfor %}
+					</select>
+					{% if current_status %}
+					  <input type="hidden" name="status" value="{{ current_status }}">
+					{% endif %}
+				  </form>
+				</div>
+			  </div>
+			</div>
 				</div>
 			</div>
 		</section>
@@ -305,6 +312,12 @@
 			$( ".toggle_icon" ).on('click', function() {
 				$( 'body' ).toggleClass( "open" );
 			});
+			
+	// Инициализация Select2
+		$('.select2-tags').select2({
+			placeholder: "Выберите теги",
+			allowClear: true
+		});
 
 		// Дополнительный скрипт для исправления позиционирования элементов
 		$(document).ready(function () {
@@ -355,6 +368,14 @@
 		.tags-wrapper {
 			margin-bottom: 20px;
 		}
+		
+		.select2-container--default .select2-selection--multiple {
+            border: 1px solid #ced4da;
+        }
+
+        .select2-container .select2-selection--multiple {
+            min-height: 38px;
+        }
 	</style>
 </body>
 
