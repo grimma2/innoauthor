@@ -50,23 +50,6 @@
 			</div>
 		</section>
 		
-		<div class="row mb-4">
-					  <div class="col-12">
-						<div class="tags-wrapper">
-						  <form method="get">
-							<select class="form-control select2-tags" name="tag" onchange="this.form.submit()">
-							  <option value="" {% if not current_tag %}selected{% endif %}>Все теги</option>
-							  {% for tag in tags %}
-								<option value="{{ tag.slug }}" {% if current_tag == tag.slug %}selected{% endif %}>{{ tag.name }}</option>
-							  {% endfor %}
-							</select>
-							{% if current_status %}
-							  <input type="hidden" name="status" value="{{ current_status }}">
-							{% endif %}
-						  </form>
-						</div>
-					  </div>
-					</div>
 
 		<!-- Latest News -->
 		<section class="news-area">
@@ -315,11 +298,7 @@
 				$( 'body' ).toggleClass( "open" );
 			});
 			
-	// Инициализация Select2
-		$('.select2-tags').select2({
-			placeholder: "Выберите теги",
-			allowClear: true
-		});
+	
 
 		// Дополнительный скрипт для исправления позиционирования элементов
 		$(document).ready(function () {
