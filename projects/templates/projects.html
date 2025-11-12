@@ -138,7 +138,7 @@
 			  <div class="col-12">
 				<div class="tags-wrapper">
 				  <form method="get">
-					<select name="tag" onchange="this.form.submit()">
+					<select class="form-control select2-tags" name="tag" onchange="this.form.submit()">
 					  <option value="" {% if not current_tag %}selected{% endif %}>Все теги</option>
 					  {% for tag in tags %}
 						<option value="{{ tag.slug }}" {% if current_tag == tag.slug %}selected{% endif %}>{{ tag.name }}</option>
