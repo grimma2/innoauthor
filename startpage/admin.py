@@ -8,8 +8,4 @@ class ContactMessageAdmin(admin.ModelAdmin):
     search_fields = ("name", "email", "subject", "message")
     
 
-@admin.register(Complaint)
-class ComplaintAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user', 'status', 'created_at']
-    list_filter = ['status', 'created_at']
-    search_fields = ['title', 'description']
+
