@@ -33,13 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').strip().lower() in ['true', '1', 'yes']
 
 
-ALLOWED_HOSTS = [
-    'innoauthor.ru',
-    'www.innoauthor.ru', 
-    'localhost',
-    '127.0.0.1',
-]
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '*').split(' ')
 
