@@ -21,3 +21,28 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.name} — {self.subject[:50] if self.subject else self.message[:50]}"
 
+# НОВАЯ МОДЕЛЬ ЖАЛОБ - добавьте это
+class Complaint(models.Model):
+    """Жалобы пользователей"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    title = models.CharField("Заголовок", max_length=200)
+    description = models.TextField("Описание жалобы")
+    status = models.CharField(
+        "Статус", 
+        max_length=20, 
+        choices=[
+            ('new', 'Новая'),
+            ('in_progress', 'В работе'),
+            ('closed', 'Закрыта')
+        ],
+        default='new'
+    )
+    created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Жалоба"
+        verbose_name_plural = "Жалобы"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.title} ({self.get_status_display()})"
