@@ -30,12 +30,16 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-DEBUG = os.getenv('DEBUG', 'True').strip().lower() in ['true', '1', 'yes']
+DEBUG = os.getenv('DEBUG', 'False').strip().lower() in ['true', '1', 'yes']
 
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '*').split(' ')
+CSRF_TRUSTED_ORIGINS = [
+    'https://example.com',
+    'https://subdomain.example.com',
+    'http://localhost:8000',
+]
 
 if DEBUG:
     CSRF_TRUSTED_ORIGINS.extend(['http://localhost:8080'])
