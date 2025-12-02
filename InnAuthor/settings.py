@@ -33,13 +33,15 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').strip().lower() in ['true', '1', 'yes']
 
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://example.com',
-    'https://subdomain.example.com',
-    'http://localhost:8000',
+ALLOWED_HOSTS = [
+    'innoauthor.ru',
+    'www.innoauthor.ru', 
+    'localhost',
+    '127.0.0.1',
 ]
+
+
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '*').split(' ')
 
 if DEBUG:
     CSRF_TRUSTED_ORIGINS.extend(['http://localhost:8080'])
