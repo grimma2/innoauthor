@@ -208,6 +208,14 @@
                                 <div class="mb-2">
                                     <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
                                 </div>
+								<a href=""
+									class="btn btn-warning btn-sm">
+									<i class="fa fa-edit"></i> Отправить заявку
+								</a>
+								<a href=""
+									class="btn btn-warning btn-sm">
+									<i class="fa fa-edit"></i> Жалоба
+								</a>
                             </div>
 							
 
@@ -221,16 +229,7 @@
                                             {{ tag.name }}
                                         </a>
                                         {% endfor %}
-                                    </div>
-									<a href=""
-									class="btn btn-warning btn-sm">
-									<i class="fa fa-edit"></i> Отправить заявку
-								</a>
-								<a href=""
-									class="btn btn-warning btn-sm">
-									<i class="fa fa-edit"></i> Жалоба
-								</a>
-								
+                                    </div>							
                                 </div>
                                 <div class="col-md-6">
                                     <div class="share-buttons text-md-right">
