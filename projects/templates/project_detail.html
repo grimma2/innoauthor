@@ -208,17 +208,6 @@
                                 <div class="mb-2">
                                     <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
                                 </div>
-								<a href=""
-									class="btn btn-warning btn-sm">
-									<i class="fa fa-edit"></i> Отправить заявку
-								</a>
-								<form method="post" action="{% url 'projects:complaint_create' project.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-warning btn-sm">
-        <i class="fa fa-edit"></i> Жалоба
-    </button>
-</form>
-
                             </div>
 							
 
@@ -232,7 +221,7 @@
                                             {{ tag.name }}
                                         </a>
                                         {% endfor %}
-                                    </div>							
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="share-buttons text-md-right">

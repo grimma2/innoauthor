@@ -3,12 +3,8 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from indexglav.models import Tag
 from uuid import uuid4
-from django.contrib.auth import get_user_model
-
 
 User = get_user_model()
-
-
 
 class ProjectInvitation(models.Model):
     STATUS_CHOICES = [
@@ -86,22 +82,3 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# В конец models.py (ПОСЛЕ ContactMessage)
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-class Complaint(models.Model):
-    project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name="Проект")  # Ваша модель Project
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField("Заголовок", max_length=200)
-    description = models.TextField("Текст")
-    status = models.CharField(max_length=20, default='new', choices=[('new','Новая'),('closed','Закрыта')])
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Жалоба на {self.project}"
-
-# В models.py замените:
-project = models.CharField("Проект", max_length=200)  # Временно строка вместо ForeignKey
