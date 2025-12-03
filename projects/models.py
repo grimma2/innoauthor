@@ -3,8 +3,12 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from indexglav.models import Tag
 from uuid import uuid4
+from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
+
+
 
 class ProjectInvitation(models.Model):
     STATUS_CHOICES = [
@@ -98,3 +102,6 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f"Жалоба на {self.project}"
+
+# В models.py замените:
+project = models.CharField("Проект", max_length=200)  # Временно строка вместо ForeignKey
