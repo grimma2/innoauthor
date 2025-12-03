@@ -32,3 +32,13 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'project__title')
     raw_id_fields = ('project', 'created_by', 'assigned_to')
     date_hierarchy = 'created_at'
+
+
+from django.contrib import admin
+from .models import Complaint  # Импорт вашей новой модели
+
+@admin.register(Complaint)
+class ComplaintAdmin(admin.ModelAdmin):
+    list_display = ['project', 'title', 'status', 'created_at']  # Столбец с проектом
+    list_filter = ['status', 'project']
+    search_fields = ['title', 'project__name']  # Поиск по проекту

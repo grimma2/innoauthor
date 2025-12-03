@@ -212,10 +212,13 @@
 									class="btn btn-warning btn-sm">
 									<i class="fa fa-edit"></i> Отправить заявку
 								</a>
-								<a href=""
-									class="btn btn-warning btn-sm">
-									<i class="fa fa-edit"></i> Жалоба
-								</a>
+								<form method="post" action="{% url 'projects:complaint_create' project.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-warning btn-sm">
+        <i class="fa fa-edit"></i> Жалоба
+    </button>
+</form>
+
                             </div>
 							
 
