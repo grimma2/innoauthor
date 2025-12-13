@@ -90,17 +90,23 @@ def projects(request):
 @login_required
 @login_required
 def my_projects(request):
-    authored_projects = Project.objects.filter(author=request.user)
-    team_projects = Project.objects.filter(
-        invitations__invitee=request.user,
-        invitations__status='accepted'
+    # Проекты, где я автор или принятый участник
+    projects_list = Project.objects.filter(
+        Q(author=request.user) |
+        Q(invitations__invitee=request.user, invitations__status='accepted')
     ).distinct()
+
+    # Приглашения ко мне
     pending_invitations = ProjectInvitation.objects.filter(
-        invitee=request.user, status='pending'
+        invitee=request.user,
+        status='pending'
     )
-    project_applications = ProjectApplication.objects.filter(project__author=request.user)
-    
-    projects_list = (authored_projects | team_projects).distinct()
+
+    # Заявки в мои проекты
+    project_applications = ProjectApplication.objects.filter(
+        project__author=request.user
+    )
+
     return render(request, 'my_projects.html', {
         'projects': projects_list,
         'pending_invitations': pending_invitations,
