@@ -31,16 +31,13 @@ from .models import (
 User = get_user_model()
 
 def cyrillic_slugify(s):
-    """
-    Переводит строку с кириллицей в латиницу и применяет slugify
-    """
-    # Транслитерация из кириллицы в латиницу
+    """Переводит строку с кириллицей в латиницу и применяет slugify"""
     if s:
         s = translit(s, 'ru', reversed=True)
-        # Применение стандартного slugify
         s = slugify(s)
         return s
     return ''
+
 
 def projects(request):
     """Отображение списка проектов"""
@@ -597,29 +594,6 @@ def project_complaint(request, project_id):
         return redirect('projects:project_detail', project_slug=project.slug)
     return render(request, 'project_complaint.html', {'project': project})
 
-@login_required
-def accept_application(request, application_id):
-    application = get_object_or_404(ProjectApplication, id=application_id)
-    if request.user != application.project.author:
-        messages.error(request, 'Нет прав')
-        return redirect('projects:my_projects')
-    
-    # Добавляем в команду
-    application.project.team.add(application.applicant)
-    application.delete()
-    messages.success(request, f'{application.applicant.username} принят в проект!')
-    return redirect('projects:my_projects')
-
-@login_required
-def reject_application(request, application_id):
-    application = get_object_or_404(ProjectApplication, id=application_id)
-    if request.user != application.project.author:
-        messages.error(request, 'Нет прав')
-        return redirect('projects:my_projects')
-    
-    application.delete()
-    messages.info(request, 'Заявка отклонена')
-    return redirect('projects:my_projects')
 
 
 @login_required
@@ -645,19 +619,6 @@ def project_application(request, project_id):
     
     return render(request, 'project_application.html', {'project': project})
 
-@login_required
-def project_complaint(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    if request.method == 'POST':
-        reason = request.POST.get('reason')
-        ProjectComplaint.objects.create(
-            project=project, 
-            complainant=request.user, 
-            reason=reason
-        )
-        messages.success(request, 'Жалоба отправлена администратору!')
-        return redirect('projects:project_detail', project_slug=project.slug)
-    return render(request, 'project_complaint.html', {'project': project})
 
 @login_required
 def accept_application(request, application_id):
