@@ -209,6 +209,12 @@
                                         </span>
                                     </div>
                                 </div>
+							
+								
+                                <div class="mb-2">
+                                    <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
+                                </div>
+								
 								<div class="mt-4 d-flex gap-3">
     <a href="{% url 'projects:project_application' project.id %}"
        class="btn btn-primary">
@@ -220,12 +226,9 @@
         Пожаловаться на проект
     </a>
 </div>
-
 								
-                                <div class="mb-2">
-                                    <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
-                                </div>
                             </div>
+							
 							
 
                             <div class="row mt-4">
