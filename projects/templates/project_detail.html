@@ -147,6 +147,17 @@
                             <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
                         </ol>
                     </nav>
+					
+					<!-- Кнопки жалобы и заявки -->
+					<div class="mt-4">
+						<a href="{% url 'projects:project_application' project.id %}" class="btn btn-success">
+							<i class="fa fa-handshake"></i> Подать заявку
+						</a>
+						<a href="{% url 'projects:project_complaint' project.id %}" class="btn btn-warning mr-2">
+							<i class="fa fa-exclamation-triangle"></i> Подать жалобу
+						</a>
+					</div>
+
 
                     <!-- Django Messages -->
                     {% if messages %}

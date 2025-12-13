@@ -82,3 +82,43 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class ProjectComplaint(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='complaints')
+    complainant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_complaints')
+    reason = models.TextField(verbose_name='Причина жалобы')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = 'Жалоба на проект'
+        verbose_name_plural = 'Жалобы на проекты'
+    
+    def __str__(self):
+        return f'Жалоба на {self.project.title} от {self.complainant.username}'
+
+
+class ProjectApplication(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='applications')
+    applicant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_applications')
+    message = models.TextField(blank=True, verbose_name='Сопроводительное сообщение')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = 'Заявка в проект'
+        verbose_name_plural = 'Заявки в проекты'
+    
+    def __str__(self):
+        return f'Заявка от {self.applicant.username} в "{self.project.title}"'
+
+class ProjectComplaint(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='complaints')
+    complainant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_complaints')
+    reason = models.TextField(verbose_name='Причина жалобы')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = 'Жалоба на проект'
+        verbose_name_plural = 'Жалобы на проекты'
+    
+    def __str__(self):
+        return f'Жалоба на "{self.project.title}" от {self.complainant.username}'

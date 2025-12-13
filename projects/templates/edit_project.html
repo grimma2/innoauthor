@@ -95,10 +95,60 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save"></i> Сохранить изменения
                             </button>
+							
+							<!-- НОВЫЕ КНОПКИ -->
+<div class="mt-4 p-3 border rounded bg-light">
+    <h5><i class="fa fa-users text-primary"></i> Действия с проектом</h5>
+    <div class="btn-group">
+        <a href="{% url 'projects:project_application' project.id %}" class="btn btn-success btn-lg">
+            <i class="fa fa-handshake"></i> Подать заявку
+        </a>
+        <a href="{% url 'projects:project_complaint' project.id %}" class="btn btn-warning btn-lg ml-2">
+            <i class="fa fa-exclamation-triangle"></i> Подать жалобу
+        </a>
+    </div>
+</div>
                             <a href="{% url 'projects:project_detail' project_slug=project.slug %}"
                                 class="btn btn-secondary">
                                 <i class="fa fa-times"></i> Отмена
                             </a>
+							
+							<!-- РАЗДЕЛ УЧАСТНИКОВ -->
+<div class="mt-5">
+    <h3 class="mb-4" style="color: #11213B;"><i class="fa fa-users"></i> Участники команды</h3>
+    {% if team_members %}
+        <div class="row">
+            {% for member in team_members %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            {% if member.avatar %}
+                                <img src="{{ member.avatar.url }}" class="rounded-circle mb-2" style="width: 80px; height: 80px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'img/default-avatar.png' %}" class="rounded-circle mb-2" style="width: 80px; height: 80px;">
+                            {% endif %}
+                            <h6>{{ member.get_full_name|default:member.username }}</h6>
+                            <small class="text-muted">{{ member.email }}</small>
+                            {% if user == project.author %}
+                                <form method="post" action="{% url 'projects:remove_team_member' project.id member.id %}" style="display: inline;" onsubmit="return confirm('Удалить {{ member.username }} из команды?')">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm mt-2">
+                                        <i class="fa fa-trash"></i> Удалить
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fa fa-info-circle"></i> В команде пока нет участников
+        </div>
+    {% endif %}
+</div>
+
                         </div>
                     </form>
                 </div>

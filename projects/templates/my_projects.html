@@ -31,32 +31,46 @@
 
                 <!-- Tabs for projects and invitations -->
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab"
-                            aria-controls="projects" aria-selected="true">Проекты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="invitations-tab" data-toggle="tab" href="#invitations" role="tab"
-                            aria-controls="invitations" aria-selected="false">
-                            Приглашения
-                            {% if pending_invitations %}
-                            <span class="badge badge-primary">{{ pending_invitations.count }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-					<!--
-					<li class="nav-item">
-                        <a class="nav-link" id="invitations-tab" data-toggle="tab" href="#invitations" role="tab"
-                            aria-controls="invitations" aria-selected="false">
-                            Заявки
-                            {% if pending_invitations %}
-                            <span class="badge badge-primary">{{ pending_invitations.count }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-					-->
-				
-                </ul>
+    <li class="nav-item">
+        <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab">Проекты</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="invitations-tab" data-toggle="tab" href="#invitations" role="tab">
+            Приглашения {% if pending_invitations %}<span class="badge badge-primary">{{ pending_invitations|length }}</span>{% endif %}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="applications-tab" data-toggle="tab" href="#applications" role="tab">
+            Заявки {% if project_applications %}<span class="badge badge-info">{{ project_applications|length }}</span>{% endif %}
+        </a>
+		<!-- НОВАЯ ВКЛАДКА ЗДЕСЬ (после блока приглашений) -->
+<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
+    {% if project_applications %}
+        <div class="list-group mb-4">
+            {% for application in project_applications %}
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ application.project.title }}</h5>
+                        <small>{{ application.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                    <p class="mb-2">{{ application.message|truncatechars:100 }}</p>
+                    <div class="mt-2">
+                        <a href="{% url 'projects:accept_application' application.id %}" class="btn btn-success btn-sm">Принять</a>
+                        <a href="{% url 'projects:reject_application' application.id %}" class="btn btn-danger btn-sm">Отклонить</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fa fa-info-circle"></i> Заявок пока нет
+        </div>
+    {% endif %}
+</div>
+
+    </li>
+</ul>
+
 
                 <div class="tab-content" id="myTabContent">
                     <!-- Projects Tab -->

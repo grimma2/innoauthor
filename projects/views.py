@@ -83,29 +83,25 @@ def projects(request):
     })
 
 @login_required
+@login_required
 def my_projects(request):
-    # Get projects where user is author
     authored_projects = Project.objects.filter(author=request.user)
-    
-    # Get projects where user is a team member
     team_projects = Project.objects.filter(
         invitations__invitee=request.user,
         invitations__status='accepted'
-    )
-    
-    # Get pending invitations
+    ).distinct()
     pending_invitations = ProjectInvitation.objects.filter(
-        invitee=request.user,
-        status='pending'
+        invitee=request.user, status='pending'
     )
+    project_applications = ProjectApplication.objects.filter(project__author=request.user)
     
-    # Combine all projects without duplicates
     projects_list = (authored_projects | team_projects).distinct()
-    
     return render(request, 'my_projects.html', {
         'projects': projects_list,
         'pending_invitations': pending_invitations,
+        'project_applications': project_applications,
     })
+
 
 @login_required
 def create_project(request):
@@ -253,7 +249,7 @@ def project_detail(request, project_slug):
 def edit_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     
-    # Check if user is author or admin
+    # Проверка прав доступа
     if not (request.user == project.author or request.user.is_staff or request.user.is_superuser):
         messages.error(request, 'У вас нет прав для редактирования этого проекта')
         return redirect('projects:project_detail', project_slug=project.slug)
@@ -263,42 +259,61 @@ def edit_project(request, project_id):
         description = request.POST.get('description')
         project_photo = request.FILES.get('project_photo')
         tag_ids = request.POST.getlist('tags')
+        budget = request.POST.get('budget')
+        budget = int(budget) if budget else None
         
-        # Check if title exists and is different from current project
+        # Проверка уникальности названия
         if title and title != project.title and Project.objects.filter(title=title).exists():
-            messages.error(request, 'Проект с таким названием уже существует. Пожалуйста, выберите другое название.')
+            messages.error(request, 'Проект с таким названием уже существует.')
             tags = Tag.objects.all()
             return render(request, 'edit_project.html', {
                 'project': project,
                 'tags': tags,
+                'formdata': {
+                    'title': title,
+                    'description': description,
+                    'budget': budget,
+                    'tag_ids': tag_ids
+                },
+                'team_members': project.team.all()  # ← НОВОЕ
             })
         
+        # Обновление полей
         if title:
             project.title = title
-        
         if description:
             project.description = description
-        
         if project_photo:
             project.project_photo = project_photo
+        if budget is not None:
+            project.budget = budget
         
-        # Only update slug if title changed
         if title and title != project.title:
             project.slug = cyrillic_slugify(title)
         
         project.save()
-        
         if tag_ids:
             project.tags.set(tag_ids)
         
         messages.success(request, 'Проект успешно обновлен!')
         return redirect('projects:project_detail', project_slug=project.slug)
     
+    # GET запрос - показываем форму
     tags = Tag.objects.all()
-    return render(request, 'edit_project.html', {
+    team_members = project.team.all()  # ← НОВОЕ
+    
+    context = {
         'project': project,
         'tags': tags,
-    })
+        'formdata': {
+            'title': project.title,
+            'description': project.description,
+            'budget': project.budget,
+        },
+        'team_members': team_members  # ← НОВОЕ - передаем участников в шаблон
+    }
+    return render(request, 'edit_project.html', context)
+
 
 @login_required
 def invite_member(request, project_id):
@@ -534,3 +549,128 @@ def delete_task(request, task_id):
         messages.success(request, 'Задача успешно удалена.')
     
     return redirect('projects:project_detail', project_slug=project.slug)
+    
+    
+
+@login_required
+def project_application(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.user == project.author or request.user in project.team.all():
+        messages.warning(request, 'Вы уже участник этого проекта')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    if ProjectApplication.objects.filter(project=project, applicant=request.user).exists():
+        messages.warning(request, 'Заявка уже подана')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    if request.method == 'POST':
+        message = request.POST.get('message', '')
+        ProjectApplication.objects.create(
+            project=project, 
+            applicant=request.user, 
+            message=message
+        )
+        messages.success(request, 'Заявка отправлена владельцу проекта!')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    return render(request, 'project_application.html', {'project': project})
+
+@login_required
+def project_complaint(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == 'POST':
+        reason = request.POST.get('reason')
+        ProjectComplaint.objects.create(
+            project=project, 
+            complainant=request.user, 
+            reason=reason
+        )
+        messages.success(request, 'Жалоба отправлена администратору!')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    return render(request, 'project_complaint.html', {'project': project})
+
+@login_required
+def accept_application(request, application_id):
+    application = get_object_or_404(ProjectApplication, id=application_id)
+    if request.user != application.project.author:
+        messages.error(request, 'Нет прав')
+        return redirect('projects:my_projects')
+    
+    # Добавляем в команду
+    application.project.team.add(application.applicant)
+    application.delete()
+    messages.success(request, f'{application.applicant.username} принят в проект!')
+    return redirect('projects:my_projects')
+
+@login_required
+def reject_application(request, application_id):
+    application = get_object_or_404(ProjectApplication, id=application_id)
+    if request.user != application.project.author:
+        messages.error(request, 'Нет прав')
+        return redirect('projects:my_projects')
+    
+    application.delete()
+    messages.info(request, 'Заявка отклонена')
+    return redirect('projects:my_projects')
+
+
+@login_required
+def project_application(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.user == project.author or request.user in project.team.all():
+        messages.warning(request, 'Вы уже участник этого проекта')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    if ProjectApplication.objects.filter(project=project, applicant=request.user).exists():
+        messages.warning(request, 'Заявка уже подана')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    if request.method == 'POST':
+        message = request.POST.get('message', '')
+        ProjectApplication.objects.create(
+            project=project, 
+            applicant=request.user, 
+            message=message
+        )
+        messages.success(request, 'Заявка отправлена владельцу проекта!')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
+    return render(request, 'project_application.html', {'project': project})
+
+@login_required
+def project_complaint(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == 'POST':
+        reason = request.POST.get('reason')
+        ProjectComplaint.objects.create(
+            project=project, 
+            complainant=request.user, 
+            reason=reason
+        )
+        messages.success(request, 'Жалоба отправлена администратору!')
+        return redirect('projects:project_detail', project_slug=project.slug)
+    return render(request, 'project_complaint.html', {'project': project})
+
+@login_required
+def accept_application(request, application_id):
+    application = get_object_or_404(ProjectApplication, id=application_id)
+    if request.user != application.project.author:
+        messages.error(request, 'Нет прав')
+        return redirect('projects:my_projects')
+    
+    # Добавляем в команду
+    application.project.team.add(application.applicant)
+    application.delete()
+    messages.success(request, f'{application.applicant.username} принят в проект!')
+    return redirect('projects:my_projects')
+
+@login_required
+def reject_application(request, application_id):
+    application = get_object_or_404(ProjectApplication, id=application_id)
+    if request.user != application.project.author:
+        messages.error(request, 'Нет прав')
+        return redirect('projects:my_projects')
+    
+    application.delete()
+    messages.info(request, 'Заявка отклонена')
+    return redirect('projects:my_projects')

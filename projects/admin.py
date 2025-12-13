@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Project, ProjectInvitation, Task
+from .models import Project, ProjectInvitation, Task, ProjectApplication, ProjectComplaint
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -32,3 +32,20 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'project__title')
     raw_id_fields = ('project', 'created_by', 'assigned_to')
     date_hierarchy = 'created_at'
+
+@admin.register(ProjectComplaint)
+class ProjectComplaintAdmin(admin.ModelAdmin):
+    list_display = ['project', 'complainant', 'created_at']
+    list_filter = ['created_at']
+    actions = ['delete_projects']
+
+    def delete_projects(self, request, queryset):
+        for complaint in queryset:
+            complaint.project.delete()
+        self.message_user(request, 'Проекты удалены по жалобам')
+    delete_projects.short_description = 'Удалить проекты по жалобам'
+
+@admin.register(ProjectApplication)
+class ProjectApplicationAdmin(admin.ModelAdmin):
+    list_display = ['project', 'applicant', 'created_at', 'message']
+    list_filter = ['created_at']
