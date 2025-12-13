@@ -18,7 +18,14 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.paginator import PageNotAnInteger, EmptyPage
-from .models import Project, ProjectInvitation, Task, ProjectApplication, ProjectComplaint
+from .models import (
+    Project,
+    ProjectInvitation,
+    Task,
+    ProjectApplication,
+    ProjectComplaint,
+)
+
 
 
 User = get_user_model()
