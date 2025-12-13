@@ -150,12 +150,16 @@
 					
 					<!-- Кнопки жалобы и заявки -->
 					<div class="mt-4">
-						<a href="{% url 'projects:project_application' project.id %}">
-							Подать заявку
-						</a>
-							<a href="{% url 'projects:project_complaint' project.id %}">
-								Пожаловаться на проект
-							</a>
+						{# кнопка подать заявку #}
+<a href="{% url 'projects:project_application' project.id %}">
+    Подать заявку
+</a>
+
+{# кнопка пожаловаться #}
+<a href="{% url 'projects:project_complaint' project.id %}">
+    Пожаловаться на проект
+</a>
+
 					</div>
 
 
