@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Project, ProjectInvitation, Task
 from indexglav.models import Tag
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -19,6 +18,8 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.paginator import PageNotAnInteger, EmptyPage
+from .models import Project, ProjectInvitation, Task, ProjectApplication, ProjectComplaint
+
 
 User = get_user_model()
 
