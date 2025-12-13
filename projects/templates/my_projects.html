@@ -50,8 +50,8 @@
             {% for application in project_applications %}
                 <div class="list-group-item">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ application.project.title }}</h5>
-                        <small>{{ application.created_at|date:"d.m.Y" }}</small>
+                        <h5 class="mb-1"><font color="#11213B">{{ application.project.title }}</font></h5>
+                        <small><font color="#11213B">{{ application.created_at|date:"d.m.Y" }}</font></small>
                     </div>
                     <p class="mb-2">{{ application.message|truncatechars:100 }}</p>
                     <div class="mt-2">
