@@ -5,13 +5,13 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h4>Заявка в проект "{{ project.title }}"</h4>
+                    <h4><font color="#11213B">Заявка в проект "{{ project.title }}"</font></h4>
                 </div>
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label>Сообщение владельцу (необязательно)</label>
+                            <label><font color="#11213B">Сообщение владельцу (необязательно)</font></label>
                             <textarea name="message" class="form-control" rows="4" placeholder="Расскажите о вашем опыте..."></textarea>
                         </div>
                         <div class="form-group">
