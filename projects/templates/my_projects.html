@@ -45,27 +45,27 @@
         </a>
 		<!-- НОВАЯ ВКЛАДКА ЗДЕСЬ (после блока приглашений) -->
 <div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
-    {% if project_applications %}
-        <div class="list-group mb-4">
-            {% for application in project_applications %}
-                <div class="list-group-item">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"><font color="#11213B">{{ application.project.title }}</font></h5>
-                        <small><font color="#11213B">{{ application.created_at|date:"d.m.Y" }}</font></small>
-                    </div>
-                    <p class="mb-2">{{ application.message|truncatechars:100 }}</p>
-                    <div class="mt-2">
-                        <a href="{% url 'projects:accept_application' application.id %}" class="btn btn-success btn-sm">Принять</a>
-                        <a href="{% url 'projects:reject_application' application.id %}" class="btn btn-danger btn-sm">Отклонить</a>
-                    </div>
-                </div>
-            {% endfor %}
+    {% for application in project_applications %}
+    <div class="application-item">
+        <div><strong>Проект:</strong> {{ application.project.title }}</div>
+        <div><strong>Отправитель:</strong> {{ application.applicant.username }}</div>
+        {# если есть first_name/last_name, можно так: #}
+        {# <div><strong>Отправитель:</strong> {{ application.applicant.get_full_name|default:application.applicant.username }}</div> #}
+        <div><strong>Сообщение:</strong> {{ application.message }}</div>
+
+        <div class="mt-2">
+            <a href="{% url 'projects:accept_application' application.id %}" class="btn btn-sm btn-success">
+                Принять
+            </a>
+            <a href="{% url 'projects:reject_application' application.id %}" class="btn btn-sm btn-outline-danger">
+                Отклонить
+            </a>
         </div>
-    {% else %}
-        <div class="alert alert-info">
-            <i class="fa fa-info-circle"></i> Заявок пока нет
-        </div>
-    {% endif %}
+    </div>
+{% empty %}
+    <p>Заявок пока нет.</p>
+{% endfor %}
+
 </div>
 
     </li>
