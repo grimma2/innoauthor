@@ -1,4 +1,5 @@
-from .models import ProjectInvitation
+from .models import ProjectInvitation, ProjectApplication
+
 
 def pending_invitations(request):
     """
