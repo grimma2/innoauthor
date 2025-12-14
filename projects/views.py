@@ -660,7 +660,7 @@ def public_profile(request, username):
     
     
 @login_required
-def removemember(request, project_id, member_id):
+def removemember(request, project_id, member_id):  # ✅ Правильные имена
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(User, id=member_id)
     
@@ -668,14 +668,14 @@ def removemember(request, project_id, member_id):
         messages.error(request, 'Только владелец проекта может удалять участников.')
         return redirect('projects:projectdetail', project_slug=project.slug)
     
-    if member == project.author:
+    if member == project.author:  # ✅ Правильное сравнение
         messages.error(request, 'Нельзя удалить владельца проекта.')
         return redirect('projects:projectdetail', project_slug=project.slug)
     
-    # Удаляем приглашение (если есть)
+    # ✅ Удаляем принятое приглашение
     ProjectInvitation.objects.filter(
         project=project, invitee=member, status='accepted'
     ).delete()
     
-    messages.success(request, f'{member.username} удален из команды.')
+    messages.success(request, f'Участник {member.username} удален из команды.')
     return redirect('projects:projectdetail', project_slug=project.slug)
