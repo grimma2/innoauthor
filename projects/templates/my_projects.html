@@ -44,7 +44,11 @@
             Заявки {% if project_applications %}<span class="badge badge-info">{{ project_applications|length }}</span>{% endif %}
         </a>
 		<!-- НОВАЯ ВКЛАДКА ЗДЕСЬ (после блока приглашений) -->
-			<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
+			\
+
+    </li>
+</ul>
+<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
 				{% for application in project_applications %}
 				<div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
 						<div><strong><font color="#11213B">Проект:</font></strong><font color="#11213B"> {{ application.project.title }}</font></div>
@@ -69,9 +73,6 @@
 
 
 			</div>
-
-    </li>
-</ul>
 
 
                 <div class="tab-content" id="myTabContent">
