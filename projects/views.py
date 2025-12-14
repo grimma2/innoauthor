@@ -649,7 +649,7 @@ def accept_application(request, application_id):
         return redirect('projects:my_projects')
     
     # Добавляем в команду
-    application.project.teammembers.add(application.applicant)
+    application.project.team_members.add(application.applicant)
     application.delete()
     messages.success(request, f'{application.applicant.username} принят в проект!')
     return redirect('projects:my_projects')
