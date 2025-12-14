@@ -204,54 +204,57 @@ def contact1(request):
 
 # Добавляем представление для детального просмотра проекта
 def project_detail(request, project_slug):
+    """Отображение детальной страницы проекта"""
     project = get_object_or_404(Project, slug=project_slug)
     
+    # Get comments for this project
     content_type = ContentType.objects.get_for_model(Project)
-    comments = Comment.objects.filter(
-        content_type=content_type, 
-        object_id=project.id
-    ).order_by('-created_at')
+    comments = Comment.objects.filter(content_type=content_type, object_id=project.id)
     
-    isowner = request.user == project.author
-    isteammember = False
+    # Check permissions
+    is_owner = request.user == project.author
     
-    # ✅ ИСПРАВЛЕННАЯ логика команды
-    teammembers = User.objects.filter(
-        Q(id=project.author.id) | 
-        Q(projectinvitations__project=project, projectinvitations__status='accepted')
-    ).distinct()
+    # Get team members
+    team_members = User.objects.filter(
+        Q(invitations__project=project, invitations__status='accepted') | 
+        Q(id=project.author.id)
+    )
     
-    if request.user == project.author or request.user in teammembers:
-        isteammember = True
+    is_team_member = request.user in team_members
     
+    # Get tasks for this project
     tasks = None
-    taskform = None
-    if isteammember or isowner:
-        tasks = Task.objects.filter(project=project).order_by('-created_at')
-        if isowner:
-            taskform = TaskForm(project=project)
+    task_form = None
+    if is_team_member or is_owner:
+        tasks = Task.objects.filter(project=project)
+        
+        # Prepare task form if user is the owner
+        if is_owner:
+            task_form = TaskForm(project=project)
     
-    invitationform = None
-    if isowner:
-        invitationform = InvitationForm()
+    # Prepare invitation form if user is the owner
+    invitation_form = None
+    if is_owner:
+        invitation_form = InvitationForm()
     
-    commentform = CommentForm()
-    commentform_action = f"/comments/projects/{project.id}/comment/"
+    # Prepare comment form
+    comment_form = CommentForm()
+    comment_form_action = f'/comments/projects/{project.id}/comment/'
     
     context = {
         'project': project,
         'comments': comments,
-        'commentform': commentform,
-        'commentform_action': commentform_action,
-        'isowner': isowner,
-        'isteammember': isteammember,
-        'teammembers': teammembers,
-        'invitationform': invitationform,
+        'comment_form': comment_form,
+        'comment_form_action': comment_form_action,
+        'is_owner': is_owner,
+        'is_team_member': is_team_member,
+        'team_members': team_members,
+        'invitation_form': invitation_form,
         'tasks': tasks,
-        'taskform': taskform,
+        'task_form': task_form,
     }
     
-    return render(request, 'projects/project_detail.html', context)
+    return render(request, 'project_detail.html', context)
 
 @login_required
 def edit_project(request, project_id):
@@ -656,25 +659,4 @@ def public_profile(request, username):
     return render(request, 'users/profile.html', context)
     
     
-@login_required
-def removemember(request, project_id, member_id):
-    project = get_object_or_404(Project, id=project_id)
-    member = get_object_or_404(User, id=member_id)
     
-    if request.user != project.author:
-        messages.error(request, 'Только владелец проекта может удалять участников.')
-        return redirect('projects:projectdetail', project_slug=project.slug)
-    
-    if member == project.author:
-        messages.error(request, 'Нельзя удалить владельца проекта.')
-        return redirect('projects:projectdetail', project_slug=project.slug)
-    
-    # Удаляем принятое приглашение
-    ProjectInvitation.objects.filter(
-        project=project, 
-        invitee=member, 
-        status='accepted'
-    ).delete()
-    
-    messages.success(request, f'Участник {member.username} удален из команды!')
-    return redirect('projects:projectdetail', project_slug=project.slug)
