@@ -10,5 +10,5 @@ urlpatterns = [
     path('profile/general/', views.profile_general, name='profile_general'),
     path('profile/security/', views.profile_security, name='profile_security'),
     path('user/<str:username>/', views.public_profile, name='public_profile'),
-    path('profile/<str:username>/', views.profile, name='profile_by_username'),
+    path('profile/<str:username>/', views.public_profile, name='public_profile'),
 ]

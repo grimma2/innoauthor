@@ -649,3 +649,11 @@ def reject_application(request, application_id):
     application.delete()
     messages.info(request, 'Заявка отклонена')
     return redirect('projects:my_projects')
+
+
+def public_profile(request, username):
+    user_obj = get_object_or_404(User, username=username)
+    context = {
+        'profile_user': user_obj,
+    }
+    return render(request, 'users/profile.html', context)

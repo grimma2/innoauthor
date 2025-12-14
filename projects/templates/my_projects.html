@@ -51,7 +51,7 @@
 
 						<div>
 							<strong>Отправитель:</strong>
-							<a href="{% url 'users:profile_by_username' application.applicant.username %}">
+							<a href="{% url 'users:public_profile' application.applicant.username %}">
 								{{ application.applicant.username }}
 							</a>
 						</div>
