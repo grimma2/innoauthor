@@ -676,3 +676,14 @@ def removeteammember(request, project_id, user_id):
         return redirect('projects:project_detail', project_slug=project.slug)
     
     return redirect('projects:project_detail', project_slug=project.slug)
+
+
+@login_required
+def leave_team(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.user in project.team_members.all() and request.user != project.author:
+        project.team_members.remove(request.user)
+        messages.success(request, 'Вы успешно вышли из команды проекта.')
+    else:
+        messages.error(request, 'У вас нет прав для выхода из этой команды.')
+    return redirect('projects:project_detail', project_slug=project.slug)

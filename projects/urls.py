@@ -52,6 +52,8 @@ urlpatterns = [
     path('contact1/', views.contact1, name='contact1'),
     
     path('project/<int:project_id>/removeteammember/<int:user_id>/', views.removeteammember, name='removeteammember'),
+    path('project/<int:project_id>/leave/', views.leave_team, name='leave_team'),
+
 
 
 
