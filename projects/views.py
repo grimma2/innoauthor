@@ -642,12 +642,13 @@ def project_application(request, project_id):
 
 
 @login_required
-def acceptapplication(request, application_id):  # ← ИЗМЕНИТЬ: убрать подчеркивание
+def accept_application(request, application_id):
     application = get_object_or_404(ProjectApplication, id=application_id)
     if request.user != application.project.author:
         messages.error(request, "Только владелец проекта может принимать заявки.")
         return redirect('projects:my_projects')
-    application.project.team.add(application.applicant)
+    
+    application.project.teammembers.add(application.applicant)
     application.delete()
     messages.success(request, f"{application.applicant.username} добавлен в команду!")
     return redirect('projects:my_projects')
@@ -687,11 +688,12 @@ def removeteammember(request, project_id, user_id):
         return redirect('projects:project_detail', project_slug=project.slug)
     
     if request.method == 'POST':
-        project.team.remove(user_to_remove)
+        project.teammembers.remove(user_to_remove)
         messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
         return redirect('projects:project_detail', project_slug=project.slug)
     
     return redirect('projects:project_detail', project_slug=project.slug)
+
 
 
 @login_required
