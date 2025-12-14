@@ -202,59 +202,56 @@ def service1(request):
 def contact1(request):
     return render(request, 'glavfooter/contact.html')
 
-# Добавляем представление для детального просмотра проекта
-def project_detail(request, project_slug):
-    """Отображение детальной страницы проекта"""
+#def projectdetail(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
     
-    # Get comments for this project
     content_type = ContentType.objects.get_for_model(Project)
-    comments = Comment.objects.filter(content_type=content_type, object_id=project.id)
+    comments = Comment.objects.filter(
+        content_type=content_type, 
+        object_id=project.id
+    ).order_by('-created_at')
     
-    # Check permissions
-    is_owner = request.user == project.author
+    isowner = request.user == project.author
+    isteammember = False
     
-    # Get team members
-    team_members = User.objects.filter(
-        Q(invitations__project=project, invitations__status='accepted') | 
-        Q(id=project.author.id)
-    )
+    # ✅ ИСПРАВЛЕННАЯ логика команды
+    teammembers = User.objects.filter(
+        Q(id=project.author.id) | 
+        Q(projectinvitations__project=project, projectinvitations__status='accepted')
+    ).distinct()
     
-    is_team_member = request.user in team_members
+    if request.user == project.author or request.user in teammembers:
+        isteammember = True
     
-    # Get tasks for this project
     tasks = None
-    task_form = None
-    if is_team_member or is_owner:
-        tasks = Task.objects.filter(project=project)
-        
-        # Prepare task form if user is the owner
-        if is_owner:
-            task_form = TaskForm(project=project)
+    taskform = None
+    if isteammember or isowner:
+        tasks = Task.objects.filter(project=project).order_by('-created_at')
+        if isowner:
+            taskform = TaskForm(project=project)
     
-    # Prepare invitation form if user is the owner
-    invitation_form = None
-    if is_owner:
-        invitation_form = InvitationForm()
+    invitationform = None
+    if isowner:
+        invitationform = InvitationForm()
     
-    # Prepare comment form
-    comment_form = CommentForm()
-    comment_form_action = f'/comments/projects/{project.id}/comment/'
+    commentform = CommentForm()
+    commentform_action = f"/comments/projects/{project.id}/comment/"
     
     context = {
         'project': project,
         'comments': comments,
-        'comment_form': comment_form,
-        'comment_form_action': comment_form_action,
-        'is_owner': is_owner,
-        'is_team_member': is_team_member,
-        'team_members': team_members,
-        'invitation_form': invitation_form,
+        'commentform': commentform,
+        'commentform_action': commentform_action,
+        'isowner': isowner,
+        'isteammember': isteammember,
+        'teammembers': teammembers,
+        'invitationform': invitationform,
         'tasks': tasks,
-        'task_form': task_form,
+        'taskform': taskform,
     }
     
-    return render(request, 'project_detail.html', context)
+    return render(request, 'projects/project_detail.html', context)
+
 
 @login_required
 def edit_project(request, project_id):
