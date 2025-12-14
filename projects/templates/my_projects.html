@@ -47,39 +47,43 @@
 			<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
     <div class="row">
         <div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
-    {% for application in project_applications %}
-        <div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
-            <div><strong>Проект:</strong> {{ application.project.title }}</div>
+    {% f<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
+    {% if project_applications %}
+        {% for application in project_applications %}
+            <div class="bg-white p-3 mb-3 rounded shadow-sm">
+                <div><strong>Проект:</strong> {{ application.project.title }}</div>
 
-            <div class="mt-1">
-                <strong>Отправитель:</strong>
-                <a href="{% url 'users:public_profile' application.applicant.username %}">
-                    {{ application.applicant.username }}
-                </a>
-            </div>
-
-            {% if application.message %}
-                <div class="mt-2" style="max-height: 120px; overflow-y: auto;">
-                    <strong>Сообщение:</strong><br>
-                    {{ application.message }}
+                <div class="mt-1">
+                    <strong>Отправитель:</strong>
+                    <a href="{% url 'users:public_profile' application.applicant.username %}">
+                        {{ application.applicant.username }}
+                    </a>
                 </div>
-            {% endif %}
 
-            <div class="mt-3 d-flex gap-2">
-                <a href="{% url 'projects:accept_application' application.id %}"
-                   class="btn btn-sm btn-success flex-fill">
-                    Принять
-                </a>
-                <a href="{% url 'projects:reject_application' application.id %}"
-                   class="btn btn-sm btn-outline-danger flex-fill">
-                    Отклонить
-                </a>
+                {% if application.message %}
+                    <div class="mt-2" style="max-height: 150px; overflow-y: auto;">
+                        <strong>Сообщение:</strong><br>
+                        {{ application.message }}
+                    </div>
+                {% endif %}
+
+                <div class="mt-3 d-flex gap-2">
+                    <a href="{% url 'projects:accept_application' application.id %}"
+                       class="btn btn-sm btn-success flex-fill">
+                        Принять
+                    </a>
+                    <a href="{% url 'projects:reject_application' application.id %}"
+                       class="btn btn-sm btn-outline-danger flex-fill">
+                        Отклонить
+                    </a>
+                </div>
             </div>
-        </div>
-    {% empty %}
+        {% endfor %}
+    {% else %}
         <p>Заявок пока нет.</p>
-    {% endfor %}
+    {% endif %}
 </div>
+
 
     </div>
 </div>
