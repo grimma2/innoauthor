@@ -648,10 +648,16 @@ def accept_application(request, application_id):
         messages.error(request, "Только владелец проекта может принимать заявки.")
         return redirect('projects:my_projects')
     
-    application.project.teammembers.add(application.applicant)
+    # ✅ ВРЕМЕННО: используем invitations вместо team
+    ProjectInvitation.objects.create(
+        project=application.project,
+        invitee=application.applicant,
+        status='accepted'
+    )
     application.delete()
     messages.success(request, f"{application.applicant.username} добавлен в команду!")
     return redirect('projects:my_projects')
+
 
 
 
