@@ -269,7 +269,7 @@
                                     </div>
                                 </div>
                             </div>
-							<h5><font color="#11213B">Описание:</font></h5>
+							<h5><font color="#11213B">Поделиться:</font></h5>
                             <div class="project-description mb-4">
                                 <font color="#11213B">{{ project.description|linebreaks }}</font>
                             </div>
@@ -616,17 +616,6 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
-									
-									{% if user.is_authenticated and user != project.author and user in project.teammembers.all %}
-<div class="leave-team-button mt-3 text-right">
-    <form method="post" action="{% url 'projects:leaveteam' project.id %}" style="display: inline">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Выйти из проекта?')">
-            <i class="fa fa-sign-out-alt mr-1"></i> Выйти из проекта
-        </button>
-    </form>
-</div>
-{% endif %}
 
                                     {% if is_owner %}
                                     <div class="invitation-form mb-4">

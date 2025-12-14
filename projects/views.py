@@ -214,21 +214,6 @@ def project_detail(request, project_slug):
     # Check permissions
     is_owner = request.user == project.author
     
-    # Получаем только реальных членов команды (без автора)
-    team_members_only = User.objects.filter(
-        invitations__project=project, 
-        invitations__status='accepted'
-    ).exclude(id=project.author.id).distinct()
-
-    isowner = request.user == project.author
-    isteammember = request.user.is_authenticated and (
-        request.user in team_members_only or isowner
-    )
-
-    # Для шаблона передаем только членов команды без автора
-    teammembers = team_members_only
-
-    
     # Get team members
     team_members = User.objects.filter(
         Q(invitations__project=project, invitations__status='accepted') | 
@@ -645,14 +630,14 @@ def project_application(request, project_id):
 def accept_application(request, application_id):
     application = get_object_or_404(ProjectApplication, id=application_id)
     if request.user != application.project.author:
-        messages.error(request, "...")
+        messages.error(request, 'Нет прав')
         return redirect('projects:my_projects')
+    
+    # Добавляем в команду
     application.project.team.add(application.applicant)
     application.delete()
-    messages.success(request, f"{application.applicant.username}!")
+    messages.success(request, f'{application.applicant.username} принят в проект!')
     return redirect('projects:my_projects')
-
-
 
 @login_required
 def reject_application(request, application_id):
@@ -686,20 +671,8 @@ def removeteammember(request, project_id, user_id):
         return redirect('projects:project_detail', project_slug=project.slug)
     
     if request.method == 'POST':
-        project.teammembers.remove(user_to_remove)
+        project.team.remove(user_to_remove)
         messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
         return redirect('projects:project_detail', project_slug=project.slug)
     
-    return redirect('projects:project_detail', project_slug=project.slug)
-
-
-
-@login_required
-def leave_team(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    if request.user in project.teammembers.all() and request.user != project.author:
-        project.teammembers.remove(request.user)
-        messages.success(request, 'Вы вышли из проекта.')
-    else:
-        messages.error(request, 'Вы не являетесь участником проекта или вы автор.')
     return redirect('projects:project_detail', project_slug=project.slug)
