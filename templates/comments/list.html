@@ -19,7 +19,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="user-info">
     {% if comment.author and comment.author.username %}
-        <a href="{% url 'users:public_profile' comment.author.username %}" class="text-dark">
+        <a href="{% url 'users:public_profile' comment.author.username %}" >
             <strong>{{ comment.author.username }}</strong>
         </a>
 		<span class="text-muted ml-2"><font color="#504f5b">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
