@@ -201,7 +201,9 @@
                                     </div>
                                     <div>
                                         <span class="text-muted">
-                                            <i class="fa fa-user"></i> Автор:<a href="{% url 'users:public_profile' project.author.username %}"> {{ project.author.get_full_name|default:project.author.username }}</a>
+                                            <i class="fa fa-user"></i> Автор:<a href="{% url 'users:public_profile' project.author.username %}">
+    {{ project.author.username }}
+</a>
                                         </span>
                                         <br>
                                         <span class="text-muted">
@@ -215,17 +217,17 @@
                                     <span class="badge badge-secondary">Статус: {{ project.get_status_display }}</span>
                                 </div>
 								
-								<div class="mt-4 d-flex gap-3">
-    <a href="{% url 'projects:project_application' project.id %}"
-       class="btn btn-primary">
-        Подать заявку
-    </a>
+														<div class="mt-4 d-flex gap-3">
+							<a href="{% url 'projects:project_application' project.id %}"
+							   class="btn btn-primary">
+								Подать заявку
+							</a>
 
-    <a href="{% url 'projects:project_complaint' project.id %}"
-       class="btn btn-outline-danger">
-        Пожаловаться на проект
-    </a>
-</div>
+							<a href="{% url 'projects:project_complaint' project.id %}"
+							   class="btn btn-outline-danger">
+								Пожаловаться на проект
+							</a>
+						</div>
 								
                             </div>
 							
@@ -571,10 +573,9 @@
                                                         alt="{{ project.author.username }}" class="rounded-circle mr-2"
                                                         style="width: 40px; height: 40px; object-fit: cover;">
                                                     {% endif %}
-                                                    <a
-                                                        href="{% url 'users:public_profile' username=project.author.username %}">
-                                                        {{ project.author.get_full_name|default:project.author.username }}
-                                                    </a>
+                                                     <a href="{% url 'users:public_profile' project.author.username %}">
+														{{ project.author.username }}
+													</a>
                                                 </div>
                                                 <span class="badge badge-primary">Автор</span>
                                             </li>
@@ -594,9 +595,9 @@
                                                         alt="{{ member.username }}" class="rounded-circle mr-2"
                                                         style="width: 40px; height: 40px; object-fit: cover;">
                                                     {% endif %}
-                                                    <a href="{% url 'users:public_profile' username=member.username %}">
-                                                        {{ member.get_full_name|default:member.username }}
-                                                    </a>
+                                                    <a href="{% url 'users:public_profile' member.username %}">
+        {{ member.username }}
+    </a>
                                                 </div>
                                                 <span class="badge badge-secondary">Участник</span>
                                             </li>
