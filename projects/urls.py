@@ -52,7 +52,7 @@ urlpatterns = [
     path('contact1/', views.contact1, name='contact1'),
     
     path('project/<int:project_id>/removeteammember/<int:user_id>/', views.removeteammember, name='removeteammember'),
-    path('<int:project_id>/remove-team-member/<int:userid>/', views.remove_team_member, name='remove_team_member'),
+
          
-    path('<int:project_id>/leave-project/', views.leave_project, name='leave_project'),
+    path('project/<int:project_id>/leave-project/', views.leaveproject, name='leave_project'),
 ]
