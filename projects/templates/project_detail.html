@@ -600,9 +600,11 @@
 																</a>
                                                 </div>
                                                 <span class="badge badge-secondary">Участник</span>
-												
-
-
+												{% if isowner %}
+													<button type="button" class="btn btn-sm btn-danger ml-2" onclick="removeMember({{ member.id }})">
+													  <i class="fas fa-trash"></i>
+													</button>
+													{% endif %}
                                             </li>
                                             {% endif %}
                                             {% endfor %}
