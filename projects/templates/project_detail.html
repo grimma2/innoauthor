@@ -600,7 +600,7 @@
 																</a>
                                                 </div>
                                                 <span class="badge badge-secondary">Участник</span>
-												{% if isowner %}
+												{% if user == project.author %}
   <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
     {% csrf_token %}
     <button type="submit" class="btn btn-sm btn-danger ml-2">
@@ -608,6 +608,7 @@
     </button>
   </form>
 {% endif %}
+
 
 
                                             </li>
