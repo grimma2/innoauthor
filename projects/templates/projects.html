@@ -203,7 +203,9 @@
 							</font>
 							<div class="meta-info mb-3">
 								<small class="text-muted">
-									<i class="fa fa-user"></i> <a href="{% url 'users:public_profile' project.author.username %}">{{ project.author.get_full_name|default:project.author.username }}</a>
+									<i class="fa fa-user"></i> <a href="{% url 'users:public_profile' project.author.username %}">
+    {{ project.author.username }}
+</a>
 								</small>
 								<small class="text-muted ml-3">
 									<i class="fa fa-calendar"></i> {{ project.create_datetime|date:"d.m.Y H:i" }}
