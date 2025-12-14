@@ -214,6 +214,21 @@ def project_detail(request, project_slug):
     # Check permissions
     is_owner = request.user == project.author
     
+    # Получаем только реальных членов команды (без автора)
+    team_members_only = User.objects.filter(
+        invitations__project=project, 
+        invitations__status='accepted'
+    ).exclude(id=project.author.id).distinct()
+
+    isowner = request.user == project.author
+    isteammember = request.user.is_authenticated and (
+        request.user in team_members_only or isowner
+    )
+
+    # Для шаблона передаем только членов команды без автора
+    teammembers = team_members_only
+
+    
     # Get team members
     team_members = User.objects.filter(
         Q(invitations__project=project, invitations__status='accepted') | 
