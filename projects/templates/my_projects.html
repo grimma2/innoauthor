@@ -45,30 +45,45 @@
         </a>
 		<!-- НОВАЯ ВКЛАДКА ЗДЕСЬ (после блока приглашений) -->
 			<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
-				{% for application in project_applications %}
-				<div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
-						<div><strong><font color="#11213B">Проект:</font></strong><font color="#11213B"> {{ application.project.title }}</font></div>
+    <div class="row">
+        {% for application in project_applications %}
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="application-card bg-white p-3 rounded shadow-sm h-100">
+                    <div><strong>Проект:</strong> {{ application.project.title }}</div>
 
-						<div>
-							<strong><font color="#11213B">Отправитель:</font></strong>
-							<a href="{% url 'users:public_profile' application.applicant.username %}">
-								{{ application.applicant.username }}
-							</a>
-						</div>
+                    <div class="mt-1">
+                        <strong>Отправитель:</strong>
+                        <a href="{% url 'users:public_profile' application.applicant.username %}">
+                            {{ application.applicant.username }}
+                        </a>
+                    </div>
 
-						<div><strong><font color="#11213B">Сообщение:</font></strong><font color="#11213B"> {{ application.message }}</font></div>
+                    {% if application.message %}
+                        <div class="mt-2" style="max-height: 120px; overflow-y: auto;">
+                            <strong>Сообщение:</strong><br>
+                            {{ application.message }}
+                        </div>
+                    {% endif %}
 
-						<div class="mt-2">
-							<a href="{% url 'projects:accept_application' application.id %}" class="btn btn-sm btn-success">Принять</a>
-							<a href="{% url 'projects:reject_application' application.id %}" class="btn btn-sm btn-outline-danger">Отклонить</a>
-						</div>
-					</div>
-			{% empty %}
-				<p>Заявок пока нет.</p>
-			{% endfor %}
-
-
-			</div>
+                    <div class="mt-3 d-flex gap-2">
+                        <a href="{% url 'projects:accept_application' application.id %}"
+                           class="btn btn-sm btn-success flex-fill">
+                            Принять
+                        </a>
+                        <a href="{% url 'projects:reject_application' application.id %}"
+                           class="btn btn-sm btn-outline-danger flex-fill">
+                            Отклонить
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p>Заявок пока нет.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
     </li>
 </ul>
