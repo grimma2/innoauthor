@@ -36,10 +36,18 @@
         <li>
             <a href="{% url 'startpage:service' %}">Услуги</a>
         </li>
-        <li>
-            <a href="{% url 'projects:my_projects' %}">Мои проекты{% if pending_invitations_count > 0 %} <span
-                    class="badge badge-primary">{{ pending_invitations_count }}</span>{% endif %}</a>
-        </li>
+        <li class="nav-item">
+			<a class="nav-link {% if projects_notifications_total %}text-warning{% endif %}"
+			   href="{% url 'projects:my_projects' %}">
+				Мои проекты
+				{% if projects_notifications_total %}
+					<span class="badge badge-warning">
+						{{ projects_notifications_total }}
+					</span>
+				{% endif %}
+			</a>
+		</li>
+
         <li>
             <a href="{% url 'startpage:shop' %}">Партнёры</a>
         </li>

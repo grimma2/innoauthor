@@ -13,3 +13,25 @@ def pending_invitations(request):
         ).count()
         
     return context 
+    
+    
+def projects_notifications(request):
+    if not request.user.is_authenticated:
+        return {}
+
+    # Приглашения к пользователю
+    pending_invitations = ProjectInvitation.objects.filter(
+        invitee=request.user,
+        status='pending'
+    )
+
+    # Заявки в проекты, где он автор
+    project_applications = ProjectApplication.objects.filter(
+        project__author=request.user
+    )
+
+    return {
+        'pending_invitations_count': pending_invitations.count(),
+        'project_applications_count': project_applications.count(),
+        'projects_notifications_total': pending_invitations.count() + project_applications.count(),
+    }
