@@ -18,15 +18,15 @@
                 <div class="comment-content flex-grow-1" style="width: 80%;">
                     <div class="d-flex justify-content-between">
                         <div class="user-info">
-							{% if comment.user.username %}
-								<a href="{% url 'users:public_profile' comment.user.username %}" class="text-dark">
-									<strong>{{ comment.user.username }}</strong>
-								</a>
-								<span class="text-muted ml-2"><font color="#504f5b">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
-							{% else %}
-								<strong>Аноним</strong>
-							{% endif %}
-						</div>
+    {% if comment.author and comment.author.username %}
+        <a href="{% url 'users:public_profile' comment.author.username %}" class="text-dark">
+            <strong>{{ comment.author.username }}</strong>
+        </a>
+		<span class="text-muted ml-2"><font color="#504f5b">{{ comment.created_at|date:"d.m.Y H:i" }}</font></span>
+    {% else %}
+        <strong>Аноним</strong>
+    {% endif %}
+</div>
 
                         {% if request.user == comment.author or request.user.is_staff or request.user.is_superuser %}
                         <div class="comment-actions">
