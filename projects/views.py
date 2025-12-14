@@ -645,20 +645,12 @@ def project_application(request, project_id):
 def accept_application(request, application_id):
     application = get_object_or_404(ProjectApplication, id=application_id)
     if request.user != application.project.author:
-        messages.error(request, "Только владелец проекта может принимать заявки.")
+        messages.error(request, "...")
         return redirect('projects:my_projects')
-    
-    # ✅ ВРЕМЕННО: используем invitations вместо team
-    ProjectInvitation.objects.create(
-        project=application.project,
-        invitee=application.applicant,
-        status='accepted'
-    )
+    application.project.team.add(application.applicant)
     application.delete()
-    messages.success(request, f"{application.applicant.username} добавлен в команду!")
+    messages.success(request, f"{application.applicant.username}!")
     return redirect('projects:my_projects')
-
-
 
 
 
