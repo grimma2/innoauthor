@@ -23,7 +23,7 @@ urlpatterns = [
     path('project/<int:project_id>/delete/', views.delete_project, name='delete_project'),
 
     # Подача заявки в проект (по id проекта)
-    path('project/<int:project_id>/apply/', views.project_application, name='project_application'),
+    path('application/<int:application_id>/accept/', views.accept_application, name='accept_application'),
 
     # Жалоба на проект (по id проекта)
     path('project/<int:project_id>/complaint/', views.project_complaint, name='project_complaint'),

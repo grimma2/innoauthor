@@ -642,16 +642,17 @@ def project_application(request, project_id):
 
 
 @login_required
-def accept_application(request, applicationid):
-    application = get_object_or_404(ProjectApplication, id=applicationid)
+def acceptapplication(request, application_id):  # ← ИЗМЕНИТЬ: убрать подчеркивание
+    application = get_object_or_404(ProjectApplication, id=application_id)
     if request.user != application.project.author:
-        messages.error(request, "...")
-        return redirect("projects:myp_rojects")
-
+        messages.error(request, "Только владелец проекта может принимать заявки.")
+        return redirect('projects:my_projects')
     application.project.team.add(application.applicant)
     application.delete()
     messages.success(request, f"{application.applicant.username} добавлен в команду!")
-    return redirect("projects:my_projects")
+    return redirect('projects:my_projects')
+
+
 
 
 @login_required
