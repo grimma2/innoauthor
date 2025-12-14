@@ -668,11 +668,11 @@ def removeteammember(request, project_id, user_id):
     
     if request.user != project.author and not request.user.is_staff and not request.user.is_superuser:
         messages.error(request, 'У вас нет прав для удаления участников.')
-        return redirect('projects:projectdetail', project_slug=project.slug)
+        return redirect('projects:project_detail', project_slug=project.slug)
     
     if request.method == 'POST':
         project.team.remove(user_to_remove)
         messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
-        return redirect('projects:projectdetail', project_slug=project.slug)
+        return redirect('projects:project_detail', project_slug=project.slug)
     
-    return redirect('projects:projectdetail', project_slug=project.slug)
+    return redirect('projects:project_detail', project_slug=project.slug)
