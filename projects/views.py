@@ -202,7 +202,8 @@ def service1(request):
 def contact1(request):
     return render(request, 'glavfooter/contact.html')
 
-#def projectdetail(request, project_slug):
+# Добавляем представление для детального просмотра проекта
+def project_detail(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
     
     content_type = ContentType.objects.get_for_model(Project)
@@ -251,7 +252,6 @@ def contact1(request):
     }
     
     return render(request, 'projects/project_detail.html', context)
-
 
 @login_required
 def edit_project(request, project_id):
@@ -657,7 +657,7 @@ def public_profile(request, username):
     
     
 @login_required
-def removemember(request, project_id, member_id):  # ✅ Правильные имена
+def removemember(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(User, id=member_id)
     
@@ -665,14 +665,16 @@ def removemember(request, project_id, member_id):  # ✅ Правильные и
         messages.error(request, 'Только владелец проекта может удалять участников.')
         return redirect('projects:projectdetail', project_slug=project.slug)
     
-    if member == project.author:  # ✅ Правильное сравнение
+    if member == project.author:
         messages.error(request, 'Нельзя удалить владельца проекта.')
         return redirect('projects:projectdetail', project_slug=project.slug)
     
-    # ✅ Удаляем принятое приглашение
+    # Удаляем принятое приглашение
     ProjectInvitation.objects.filter(
-        project=project, invitee=member, status='accepted'
+        project=project, 
+        invitee=member, 
+        status='accepted'
     ).delete()
     
-    messages.success(request, f'Участник {member.username} удален из команды.')
+    messages.success(request, f'Участник {member.username} удален из команды!')
     return redirect('projects:projectdetail', project_slug=project.slug)
