@@ -606,7 +606,7 @@
                 <button type="submit" class="btn btn-sm btn-danger ml-2" onclick="return confirm('Удалить {{ member.username }}?')">Удалить</button>
             </form>
         {% elif user == member %}
-            <form method="post" action="{% url 'projects:leave_project' project.id %}" style="display: inline;">
+            <form method="post" action="{% url 'projects:leaveproject' project.id %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-sm btn-secondary ml-2" onclick="return confirm('Выйти из проекта?')">Выйти</button>
             </form>
