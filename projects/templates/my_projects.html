@@ -124,7 +124,7 @@
                                         <div class="user-info mb-2">
                                             <strong><font color="#11213B">Автор: <a
                                                     href="{% url 'users:public_profile' username=invitation.project.author.username %}">
-                                                    {{ invitation.project.author.get_full_name|default:invitation.project.author.username }}
+                                                    {{ project.author.username }}
                                                 </a></font></strong>
                                             {% if invitation.project.author.about %}
                                             <p class="small text-muted"><font color="#11213B">{{ invitation.project.author.about|truncatechars:100 }}</font></p>
