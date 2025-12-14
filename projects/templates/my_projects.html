@@ -52,7 +52,7 @@
 						<div>
 							<strong><font color="#11213B">Отправитель:</font></strong>
 							<a href="{% url 'users:public_profile' application.applicant.username %}">
-								<font color="#11213B">{{ application.applicant.username }}</font>
+								{{ application.applicant.username }}
 							</a>
 						</div>
 
