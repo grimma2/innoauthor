@@ -672,7 +672,7 @@ def removeteammember(request, project_id, user_id):
     
     if request.method == 'POST':
         project.team.remove(user_to_remove)
-        messages.success(request, f'Участник {user_to_remove.username} удален из команды.')
+        messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
         return redirect('projects:projectdetail', project_slug=project.slug)
     
     return redirect('projects:projectdetail', project_slug=project.slug)
