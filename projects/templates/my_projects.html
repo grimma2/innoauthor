@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 {% load static %}
 <head>
     <meta charset="UTF-8">
@@ -24,151 +24,118 @@
     <!-- Projects Section -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="mb-4">Мои проекты</h2>
+            <div class="col-lg-4">
+                <!-- 1 колонка - ПРОЕКТЫ -->
+                <h3 class="mb-4">Проекты</h3>
+                {% if projects %}
+                    <div class="list-group mb-4">
+                        {% for project in projects %}
+                            <a href="{% url 'projects:project_detail' project.slug %}" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ project.title }}</h5>
+                                    <small>{{ project.created_at|date:"d.m.Y" }}</small>
+                                </div>
+                                <p class="mb-1" style="word-wrap: break-word;">{{ project.description|truncatechars:100 }}</p>
+                                <small>
+                                    {% if project.author == request.user %}
+                                        <span class="badge badge-primary">Мой</span>
+                                    {% endif %}
+                                    {% if project.is_private %}
+                                        <span class="badge badge-warning"><i class="fa fa-lock"></i></span>
+                                    {% endif %}
+                                    {% for tag in project.tags.all %}
+                                        <span class="badge badge-info">{{ tag.name }}</span>
+                                    {% endfor %}
+                                </small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'projects:create_project' %}" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Создать проект
+                    </a>
+                {% else %}
+                    <div class="alert alert-info">
+                        У вас нет проектов. <a href="{% url 'projects:create_project' %}">Создать проект</a>.
+                    </div>
+                {% endif %}
+            </div>
 
-                <!-- Tabs for projects, invitations and applications -->
-                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab">Проекты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="invitations-tab" data-toggle="tab" href="#invitations" role="tab">
-                            Приглашения
-                            {% if pending_invitations %}
-                                <span class="badge badge-primary">{{ pending_invitations|length }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="applications-tab" data-toggle="tab" href="#applications" role="tab">
-                            Заявки
-                            {% if project_applications %}
-                                <span class="badge badge-info">{{ project_applications|length }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="myTabContent">
-                    <!-- Projects Tab -->
-                    <div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-                        {% if projects %}
-                            <div class="list-group mb-4">
-                                {% for project in projects %}
-                                    <a href="{% url 'projects:project_detail' project.slug %}" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{ project.title }}</h5>
-                                            <small>{{ project.created_at|date:"d.m.Y" }}</small>
-                                        </div>
-                                        <p class="mb-1" style="word-wrap: break-word;">{{ project.description|truncatechars:150 }}</p>
-                                        <small>
-                                            {% if project.author == request.user %}
-                                                <span class="badge badge-primary">Мой</span>
+            <div class="col-lg-4">
+                <!-- 2 колонка - ПРИГЛАШЕНИЯ -->
+                <h3 class="mb-4">
+                    Приглашения
+                    {% if pending_invitations %}
+                        <span class="badge badge-primary">{{ pending_invitations|length }}</span>
+                    {% endif %}
+                </h3>
+                {% if pending_invitations %}
+                    <div class="list-group mb-4">
+                        {% for invitation in pending_invitations %}
+                            <div class="list-group-item p-3 border rounded mb-2">
+                                <div class="d-flex">
+                                    <div class="avatar mr-2">
+                                        <a href="{% url 'users:public_profile' username=invitation.project.author.username %}">
+                                            {% if invitation.project.author.avatar %}
+                                                <img src="{{ invitation.project.author.avatar.url }}" alt="{{ invitation.project.author.username }}"
+                                                     class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                             {% else %}
-                                                <span class="badge badge-secondary">Чужой</span>
+                                                <img src="{% static 'img/default-avatar.png' %}" alt="{{ invitation.project.author.username }}"
+                                                     class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                             {% endif %}
-                                            {% if project.is_private %}
-                                                <span class="badge badge-warning"><i class="fa fa-lock"></i></span>
-                                            {% endif %}
-                                            {% for tag in project.tags.all %}
-                                                <span class="badge badge-info">{{ tag.name }}</span>
-                                            {% endfor %}
-                                        </small>
-                                    </a>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="alert alert-info">
-                                У вас нет проектов. <a href="{% url 'projects:create_project' %}">Создать проект</a>.
-                            </div>
-                        {% endif %}
-                        <a href="{% url 'projects:create_project' %}" class="btn btn-primary">
-                            <i class="fa fa-plus"></i> Создать проект
-                        </a>
-                    </div>
-
-                    <!-- Invitations Tab -->
-                    <div class="tab-pane fade" id="invitations" role="tabpanel" aria-labelledby="invitations-tab">
-                        {% if pending_invitations %}
-                            <div class="list-group mb-4">
-                                {% for invitation in pending_invitations %}
-                                    <div class="list-group-item">
-                                        <div class="d-flex">
-                                            <div class="avatar mr-3">
-                                                <a href="{% url 'users:public_profile' username=invitation.project.author.username %}">
-                                                    {% if invitation.project.author.avatar %}
-                                                        <img src="{{ invitation.project.author.avatar.url }}" alt="{{ invitation.project.author.username }}"
-                                                             class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                                                    {% else %}
-                                                        <img src="{% static 'img/default-avatar.png' %}" alt="{{ invitation.project.author.username }}"
-                                                             class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                                                    {% endif %}
-                                                </a>
-                                            </div>
-                                            <div class="invitation-content flex-grow-1">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-1" style="color: #11213B;">{{ invitation.project.title }}</h5>
-                                                    <small style="color: #11213B;">{{ invitation.sent_at|date:"d.m.Y" }}</small>
-                                                </div>
-                                                <p class="mb-1" style="color: #11213B;">{{ invitation.project.description|truncatechars:150 }}</p>
-                                                
-                                                <div class="user-info mb-2">
-                                                    <strong style="color: #11213B;">
-                                                        <a href="{% url 'users:public_profile' username=invitation.project.author.username %}">
-                                                            {{ invitation.project.author.get_full_name|default:invitation.project.author.username }}
-                                                        </a>
-                                                    </strong>
-                                                    {% if invitation.project.author.about %}
-                                                        <p class="small text-muted" style="color: #11213B;">{{ invitation.project.author.about|truncatechars:100 }}</p>
-                                                    {% endif %}
-                                                </div>
-                                                
-                                                <div class="mt-3">
-                                                    <a href="{% url 'projects:accept_invitation' invitation.token %}" class="btn btn-success btn-sm">Принять</a>
-                                                    <a href="{% url 'projects:decline_invitation' invitation.token %}" class="btn btn-danger btn-sm">Отклонить</a>
-                                                    <a href="{% url 'projects:project_detail' invitation.project.slug %}" class="btn btn-info btn-sm">Посмотреть</a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="alert alert-info">У вас нет приглашений.</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Applications Tab -->
-                    <div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
-                        {% if project_applications %}
-                            {% for application in project_applications %}
-                                <div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
-                                    <div>
-                                        <strong style="color: #11213B;">Проект:</strong>
-                                        <span style="color: #11213B;">{{ application.project.title }}</span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #11213B;">Заявитель:</strong>
-                                        <a href="{% url 'users:public_profile' application.applicant.username %}">
-                                            {{ application.applicant.username }}
                                         </a>
                                     </div>
-                                    <div>
-                                        <strong style="color: #11213B;">Сообщение:</strong>
-                                        <span style="color: #11213B;">{{ application.message }}</span>
-                                    </div>
-                                    <div class="mt-2">
-                                        <a href="{% url 'projects:accept_application' application.id %}" class="btn btn-sm btn-success">Принять</a>
-                                        <a href="{% url 'projects:reject_application' application.id %}" class="btn btn-sm btn-outline-danger">Отклонить</a>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1" style="color: #11213B;">{{ invitation.project.title }}</h6>
+                                        <small style="color: #11213B;">{{ invitation.sent_at|date:"d.m.Y" }}</small>
+                                        <p class="mb-2 small">{{ invitation.project.description|truncatechars:80 }}</p>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'projects:accept_invitation' invitation.token %}" class="btn btn-success">Принять</a>
+                                            <a href="{% url 'projects:decline_invitation' invitation.token %}" class="btn btn-danger">Отклонить</a>
+                                        </div>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-muted">У вас нет заявок на проекты.</p>
-                        {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
-                </div>
+                {% else %}
+                    <div class="alert alert-info">У вас нет приглашений.</div>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-4">
+                <!-- 3 колонка - ЗАЯВКИ -->
+                <h3 class="mb-4">
+                    Заявки
+                    {% if project_applications %}
+                        <span class="badge badge-info">{{ project_applications|length }}</span>
+                    {% endif %}
+                </h3>
+                {% if project_applications %}
+                    {% for application in project_applications %}
+                        <div class="application-card bg-white p-3 mb-3 border rounded shadow-sm">
+                            <div class="mb-1 small">
+                                <strong style="color: #11213B;">Проект:</strong> {{ application.project.title }}
+                            </div>
+                            <div class="mb-2 small">
+                                <strong style="color: #11213B;">От:</strong>
+                                <a href="{% url 'users:public_profile' application.applicant.username %}">
+                                    {{ application.applicant.username }}
+                                </a>
+                            </div>
+                            {% if application.message %}
+                                <div class="mb-3 small" style="color: #11213B;">
+                                    {{ application.message|truncatechars:100 }}
+                                </div>
+                            {% endif %}
+                            <div>
+                                <a href="{% url 'projects:accept_application' application.id %}" class="btn btn-sm btn-success mr-1">Принять</a>
+                                <a href="{% url 'projects:reject_application' application.id %}" class="btn btn-sm btn-outline-danger">Отклонить</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted small">У вас нет заявок на проекты.</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -197,9 +164,49 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer из оригинального проекта -->
     <footer class="footer footer-bg">
-        <!-- Footer content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footertitle">Лидер платформа</h3>
+                    <ul class="footerlink">
+                        <li><a href="{% url 'startpage:liderplatform' %}">Лидер платформа</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footertitle">Воркшоп</h3>
+                    <ul class="footerlink">
+                        <li><a href="{% url 'startpage:workshop' %}">Воркшоп</a></li>
+                        <li><a href="https://pay.cloudtips.ru/p925045f4">Поддержать проект</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footertitle">Документы</h3>
+                    <ul class="footerlink">
+                        <li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+                        <li><a href="{% url 'startpage:shop' %}">Магазин</a></li>
+                        <li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footertitle">Контакты</h3>
+                    <ul class="footerlink">
+                        <li><a href="{% url 'startpage:contact' %}">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-sm-flex justify-content-between footerbottom top-border">
+                <p><!-- Link back to Colorlib cant be removed. Template is licensed under CC BY 3.0. -->&copy;
+                <script>document.write(new Date().getFullYear());</script>
+                <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://t.me/shushpanovofficial" target="_blank">shushpanovofficial</a>
+                <!-- Link back to Colorlib cant be removed. Template is licensed under CC BY 3.0. --></p>
+                <ul class="social-icons mt-2 mt-sm-0">
+                    <li><a href="https://t.me/innoauthor" target="_blank"><i class="fab fa-telegram"></i></a></li>
+                    <li><a href="https://vk.com/innoauthor" target="_blank"><i class="fab fa-vk"></i></a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
@@ -207,16 +214,20 @@
     <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js' %}"></script>
     
     <script>
-        var dropToggle = $('.menuright li.hasul > .children > a');
-        dropToggle.onclick = function(e) {
-            dropToggle.not(this).closest('li').find('ul').slideUp(200);
-            this.closest('li').children('ul').slideToggle(200);
-            return false;
-        }
-        
-        $('.toggleicon').onclick = function() {
-            $('body').toggleClass('open');
-        }
+        $(document).ready(function() {
+            // Исправленное меню
+            var dropToggle = $('.menuright li.hasul > .children > a');
+            dropToggle.on('click', function(e) {
+                e.preventDefault();
+                dropToggle.not(this).closest('li').find('ul').slideUp(200);
+                $(this).closest('li').children('ul').slideToggle(200);
+                return false;
+            });
+            
+            $('.toggleicon').on('click', function() {
+                $('body').toggleClass('open');
+            });
+        });
     </script>
 
     <style>
@@ -228,6 +239,10 @@
         .card-title a:hover { color: #f9cc41 !important; }
         .btn-group { display: flex !important; opacity: 1 !important; visibility: visible !important; }
         .btn { opacity: 1 !important; visibility: visible !important; margin-bottom: 5px; }
+        .btn-primary { background-color: #007bff; border-color: #007bff; }
+        .btn-primary:hover { background-color: #0069d9; border-color: #0062cc; }
+        .btn-danger { background-color: #dc3545; border-color: #dc3545; }
+        .btn-danger:hover { background-color: #c82333; border-color: #bd2130; }
     </style>
 </body>
 </html>
