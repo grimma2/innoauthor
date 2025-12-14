@@ -49,12 +49,12 @@
 				<div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
 						<div><strong><font color="#11213B">Проект:</font></strong><font color="#11213B"> {{ application.project.title }}</font></div>
 
-						<div>
-							<strong><font color="#11213B">Отправитель:</font></strong>
-							<a href="{% url 'users:public_profile' application.applicant.username %}">
-								{{ application.applicant.username }}
-							</a>
-						</div>
+						{% if application.message %}
+    <div class="mt-2" style="max-height: 140px; overflow-y: auto; overflow-x: hidden;">
+        <strong>Сообщение:</strong><br>
+        {{ application.message }}
+    </div>
+{% endif %}
 
 						<div><strong><font color="#11213B">Сообщение:</font></strong><font color="#11213B"> {{ application.message }}</font></div>
 
