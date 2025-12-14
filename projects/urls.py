@@ -51,9 +51,8 @@ urlpatterns = [
     path('service1/', views.service1, name='service1'),
     path('contact1/', views.contact1, name='contact1'),
     
-    path('project/<int:project_id>/removeteammember/<int:userid>/', views.removeteammember, name='remove_team_member'),
+    path('project/<int:project_id>/removeteammember/<int:user_id>/', views.removeteammember, name='removeteammember'),
 
 
-         
-    path('project/<int:project_id>/leave-project/', views.leaveproject, name='leave_project'),
+
 ]
