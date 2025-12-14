@@ -642,17 +642,17 @@ def project_application(request, project_id):
 
 
 @login_required
-def accept_application(request, application_id):
-    application = get_object_or_404(ProjectApplication, id=application_id)
+def accept_application(request, applicationid):
+    application = get_object_or_404(ProjectApplication, id=applicationid)
     if request.user != application.project.author:
-        messages.error(request, 'Нет прав')
-        return redirect('projects:my_projects')
-    
-    # Добавляем в команду
-    application.project.team_members.add(application.applicant)
+        messages.error(request, "...")
+        return redirect("projects:myp_rojects")
+
+    application.project.team.add(application.applicant)
     application.delete()
-    messages.success(request, f'{application.applicant.username} принят в проект!')
-    return redirect('projects:my_projects')
+    messages.success(request, f"{application.applicant.username} добавлен в команду!")
+    return redirect("projects:my_projects")
+
 
 @login_required
 def reject_application(request, application_id):
