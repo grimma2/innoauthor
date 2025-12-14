@@ -659,4 +659,18 @@ def public_profile(request, username):
     return render(request, 'users/profile.html', context)
     
     
+@login_required
+def removeteammember(request, project_id, user_id):
+    project = get_object_or_404(Project, id=project_id)
+    user_to_remove = get_object_or_404(User, id=user_id)
     
+    if request.user != project.author and not request.user.is_staff and not request.user.is_superuser:
+        messages.error(request, 'Нет прав для удаления участников.')
+        return redirect('projects:projectdetail', project_slug=project.slug)
+    
+    if request.method == 'POST':
+        project.team.remove(user_to_remove)
+        messages.success(request, f'Участник {user_to_remove.username} удален из команды.')
+        return redirect('projects:projectdetail', project_slug=project.slug)
+    
+    return redirect('projects:projectdetail', project_slug=project.slug)

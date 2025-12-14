@@ -601,10 +601,12 @@
                                                 </div>
                                                 <span class="badge badge-secondary">Участник</span>
 												{% if isowner %}
-													<button type="button" class="btn btn-sm btn-danger ml-2" onclick="removeMember({{ member.id }})">
-													  <i class="fas fa-trash"></i>
-													</button>
-													{% endif %}
+  <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+  </form>
+{% endif %}
+
                                             </li>
                                             {% endif %}
                                             {% endfor %}
