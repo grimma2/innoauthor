@@ -633,11 +633,25 @@ def accept_application(request, application_id):
         messages.error(request, 'Нет прав')
         return redirect('projects:my_projects')
     
+    project = application.project
+    applicant = application.applicant
+    
+    # Проверяем, не в команде ли уже
+    if applicant in project.team.all():
+        messages.warning(request, f'{applicant.username} уже в команде')
+        application.delete()
+        return redirect('projects:project_detail', project_slug=project.slug)
+    
     # Добавляем в команду
-    application.project.team.add(application.applicant)
+    project.team.add(applicant)
+    project.save()
+    
+    # УДАЛЯЕМ заявку
     application.delete()
-    messages.success(request, f'{application.applicant.username} принят в проект!')
-    return redirect('projects:my_projects')
+    
+    messages.success(request, f'{applicant.username} принят в проект!')
+    return redirect('projects:project_detail', project_slug=project.slug)  # ← КРИТИЧНО: на детали!
+
 
 @login_required
 def reject_application(request, application_id):
