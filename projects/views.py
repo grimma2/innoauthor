@@ -215,10 +215,9 @@ def project_detail(request, project_slug):
     is_owner = request.user == project.author
     
     # Get team members
-    team_members = User.objects.filter(
-        Q(invitations__project=project, invitations__status='accepted') | 
-        Q(id=project.author.id)
-    )
+    team_members = project.team.all()
+    team_members = team_members | User.objects.filter(id=project.author.id)
+    is_team_member = (request.user == project.author) or (request.user in project.team.all())
     
     is_team_member = request.user in team_members
     
