@@ -90,19 +90,16 @@ def projects(request):
 @login_required
 @login_required
 def my_projects(request):
-    # Проекты, где я автор или принятый участник
     projects_list = Project.objects.filter(
         Q(author=request.user) |
-        Q(invitations__invitee=request.user, invitations__status='accepted')
+        Q(team=request.user)
     ).distinct()
 
-    # Приглашения ко мне
     pending_invitations = ProjectInvitation.objects.filter(
         invitee=request.user,
         status='pending'
     )
 
-    # Заявки в мои проекты
     project_applications = ProjectApplication.objects.filter(
         project__author=request.user
     )
@@ -631,25 +628,27 @@ def accept_application(request, application_id):
     if request.user != application.project.author:
         messages.error(request, 'Нет прав')
         return redirect('projects:my_projects')
-    
+
     project = application.project
     applicant = application.applicant
-    
-    # Проверяем, не в команде ли уже
+
     if applicant in project.team.all():
         messages.warning(request, f'{applicant.username} уже в команде')
         application.delete()
         return redirect('projects:project_detail', project_slug=project.slug)
-    
-    # Добавляем в команду
+
     project.team.add(applicant)
     project.save()
-    
-    # УДАЛЯЕМ заявку
+
+    # Удаляем любые приглашения этому пользователю в этот проект
+    ProjectInvitation.objects.filter(
+        project=project,
+        invitee=applicant
+    ).delete()
+
     application.delete()
-    
     messages.success(request, f'{applicant.username} принят в проект!')
-    return redirect('projects:project_detail', project_slug=project.slug)  # ← КРИТИЧНО: на детали!
+    return redirect('projects:project_detail', project_slug=project.slug)
 
 
 @login_required
