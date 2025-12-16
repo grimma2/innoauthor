@@ -158,26 +158,33 @@
 					
 					<div class="tab-pane fade" id="applications" role="tabpanel" aria-labelledby="applications-tab">
 				{% for application in project_applications %}
-				<div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
-						<div><strong><font color="#11213B">Проект:</font></strong><font color="#11213B"> {{ application.project.title }}</font></div>
+    <div class="application-card bg-white p-3 mb-3 rounded shadow-sm">
+        <div><strong><font color="#11213B">Проект:</font></strong><font color="#11213B"> {{ application.project.title }}</font></div>
 
-						<div>
-							<strong><font color="#11213B">Отправитель:</font></strong>
-							<a href="{% url 'users:public_profile' application.applicant.username %}">
-								{{ application.applicant.username }}
-							</a>
-						</div>
+        <div>
+            <strong><font color="#11213B">Отправитель:</font></strong>
+            <a href="{% url 'users:public_profile' application.applicant.username %}">
+                {{ application.applicant.username }}
+            </a>
+        </div>
 
-						<div><strong><font color="#11213B">Сообщение:</font></strong><font color="#11213B"> {{ application.message }}</font></div>
+        <div><strong><font color="#11213B">Сообщение:</strong></font><font color="#11213B"> {{ application.message }}</font></div>
 
-						<div class="mt-2">
-							<a href="{% url 'projects:accept_application' application.id %}" class="btn btn-sm btn-success">Принять</a>
-							<a href="{% url 'projects:reject_application' application.id %}" class="btn btn-sm btn-outline-danger">Отклонить</a>
-						</div>
-					</div>
-			{% empty %}
-				<p>Заявок пока нет.</p>
-			{% endfor %}
+        <div class="mt-2 d-flex gap-2">
+            <form method="post" action="{% url 'projects:accept_application' application.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-success">Принять</button>
+            </form>
+
+            <form method="post" action="{% url 'projects:reject_application' application.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Отклонить</button>
+            </form>
+        </div>
+    </div>
+{% empty %}
+    <p>Заявок пока нет.</p>
+{% endfor %}
 
 
 			</div>

@@ -90,30 +90,28 @@ def projects(request):
 @login_required
 @login_required
 def my_projects(request):
-    # Проекты где: автор ИЛИ в team ИЛИ accepted invitation
+    # Проекты, где я автор или принятый участник
     projects_list = Project.objects.filter(
         Q(author=request.user) |
-        Q(team=request.user) |  # ← НОВОЕ: через team!
         Q(invitations__invitee=request.user, invitations__status='accepted')
     ).distinct()
-    
-    # ТОЛЬКО реальные pending приглашения (НЕ заявки!)
+
+    # Приглашения ко мне
     pending_invitations = ProjectInvitation.objects.filter(
         invitee=request.user,
         status='pending'
-    ).select_related('project')
-    
-    # Заявки в МОИ проекты (для владельца)
+    )
+
+    # Заявки в мои проекты
     project_applications = ProjectApplication.objects.filter(
         project__author=request.user
     )
-    
+
     return render(request, 'my_projects.html', {
         'projects': projects_list,
         'pending_invitations': pending_invitations,
         'project_applications': project_applications,
     })
-
 
 
 @login_required
@@ -647,11 +645,8 @@ def accept_application(request, application_id):
     project.team.add(applicant)
     project.save()
     
-    # Удаляем ВСЕ связанные invitations/заявки
-    ProjectInvitation.objects.filter(
-        project=project, 
-        invitee=applicant
-    ).delete()
+    # УДАЛЯЕМ заявку
+    application.delete()
     
     messages.success(request, f'{applicant.username} принят в проект!')
     return redirect('projects:project_detail', project_slug=project.slug)  # ← КРИТИЧНО: на детали!
