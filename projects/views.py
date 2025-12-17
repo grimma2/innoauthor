@@ -635,28 +635,30 @@ def accept_application(request, application_id):
 @login_required
 def accept_application(request, application_id):
     application = get_object_or_404(ProjectApplication, id=application_id)
-    if request.user != application.project.author:
-        messages.error(request, 'Нет прав')
+
+    if application.project.author != request.user:
+        messages.error(request, 'У вас нет прав принимать заявки в этот проект.')
         return redirect('projects:my_projects')
-    
-    project = application.project
-    applicant = application.applicant
-    
-    # Проверяем, не в команде ли уже
-    if applicant in project.team.all():
-        messages.warning(request, f'{applicant.username} уже в команде')
+
+    if request.method == 'POST':
+        project = application.project
+        applicant = application.applicant
+
+        # Добавляем в команду
+        project.team.add(applicant)
+
+        # Удаляем ВСЕ приглашения этому пользователю в этот проект
+        ProjectInvitation.objects.filter(
+            project=project,
+            invitee=applicant
+        ).delete()
+
+        # Удаляем саму заявку
         application.delete()
+
         return redirect('projects:project_detail', project_slug=project.slug)
-    
-    # Добавляем в команду
-    project.team.add(applicant)
-    project.save()
-    
-    # УДАЛЯЕМ заявку
-    application.delete()
-    
-    messages.success(request, f'{applicant.username} принят в проект!')
-    return redirect('projects:project_detail', project_slug=project.slug)  # ← КРИТИЧНО: на детали!
+
+    return redirect('projects:my_projects')
 
 
 @login_required
