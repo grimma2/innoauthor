@@ -66,7 +66,7 @@ class Project(models.Model):
     project_photo = models.ImageField('Фото проекта', upload_to='static/img/projects', blank=True)
     slug = models.SlugField('URL', unique=True)
     tags = models.ManyToManyField(Tag, verbose_name='Теги', related_name='projects')
-    team = models.ManyToManyField(User, through=ProjectInvitation, verbose_name='Команда', related_name='projects')
+    team = models.ManyToManyField(User, verbose_name='Команда', related_name='projects_team', blank=True)
     status = models.CharField('Статус проекта', max_length=20, choices=STATUS_CHOICES, default='concept')
     is_private = models.BooleanField('Приватный', default=False)
 

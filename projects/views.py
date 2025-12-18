@@ -633,6 +633,7 @@ def accept_application(request, application_id):
 
 
 @login_required
+@login_required
 def accept_application(request, application_id):
     application = get_object_or_404(ProjectApplication, id=application_id)
 
@@ -642,23 +643,21 @@ def accept_application(request, application_id):
 
     if request.method == 'POST':
         project = application.project
-        applicant = application.applicant
+        applicant = application.applicant  # ← берём того, кто подал заявку
 
-        # Добавляем в команду
-        project.team.add(applicant)
+        project.team.add(applicant)  # ← добавляем в команду
 
-        # Удаляем ВСЕ приглашения этому пользователю в этот проект
-        ProjectInvitation.objects.filter(
+        ProjectInvitation.objects.filter(  # ← чистим лишние приглашения
             project=project,
             invitee=applicant
         ).delete()
 
-        # Удаляем саму заявку
-        application.delete()
+        application.delete()  # ← удаляем заявку
 
         return redirect('projects:project_detail', project_slug=project.slug)
 
     return redirect('projects:my_projects')
+
 
 
 @login_required
