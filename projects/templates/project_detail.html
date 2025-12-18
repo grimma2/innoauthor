@@ -557,7 +557,7 @@
                                 <!-- Team Tab -->
                                 <div class="tab-pane fade " id="team" role="tabpanel" aria-labelledby="team-tab">
                                     <h3><font color="#11213B">Команда проекта</font></h3>
-
+									<div class="table-responsive mb-4">
                                     <div class="team-members mb-4">
                                         <ul class="list-group ">
                                             <!-- Always show author first -->
@@ -599,7 +599,7 @@
 														{{ member.username }}
 																</a>
                                                 </div>
-                                                <span class="badge badge-secondary">Участник</span><br>
+                                                <span class="badge badge-secondary">Участник</span>
 												{% if user == project.author %}
   <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
     {% csrf_token %}
@@ -616,6 +616,7 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
+									</div>
 
                                     {% if is_owner %}
                                     <div class="invitation-form mb-4">
