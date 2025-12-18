@@ -559,7 +559,7 @@
                                     <h3><font color="#11213B">Команда проекта</font></h3>
 
                                     <div class="team-members mb-4">
-                                        <ul class="list-group thead-dark">
+                                        <ul class="list-group ">
                                             <!-- Always show author first -->
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center">
@@ -599,7 +599,7 @@
 														{{ member.username }}
 																</a>
                                                 </div>
-                                                <span class="badge badge-secondary">Участник</span>
+                                                <span class="badge badge-secondary">Участник</span><br>
 												{% if user == project.author %}
   <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
     {% csrf_token %}
