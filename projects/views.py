@@ -637,26 +637,26 @@ def accept_application(request, application_id):
     
     project = application.project
     applicant = application.applicant
-    
-    # Уже в команде
-    if applicant in project.team.all():
-        messages.warning(request, f'{applicant.username} уже в команде')
-        application.delete()
-        return redirect('projects:project_detail', project_slug=project.slug)
-    
-    # Добавляем в команду
-    project.team.add(applicant)
-    project.save()
 
-    # УДАЛЯЕМ ВСЕ ПРИГЛАШЕНИЯ этому пользователю в этот проект
+    # Если уже есть accepted‑приглашение — просто чистим заявку
+    invitation, created = ProjectInvitation.objects.get_or_create(
+        project=project,
+        invitee=applicant,
+        defaults={'status': 'accepted'}
+    )
+    if not created and invitation.status != 'accepted':
+        invitation.status = 'accepted'
+        invitation.save()
+
+    # Чистим лишние pending‑приглашения (если дубли были)
     ProjectInvitation.objects.filter(
         project=project,
         invitee=applicant
-    ).delete()
-    
+    ).exclude(id=invitation.id).delete()
+
     # Удаляем заявку
     application.delete()
-    
+
     messages.success(request, f'{applicant.username} принят в проект!')
     return redirect('projects:project_detail', project_slug=project.slug)
 
