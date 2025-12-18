@@ -597,16 +597,7 @@
                                                     {% endif %}
                                                     <a href="{% url 'users:public_profile' member.username %}">
 														{{ member.username }}
-																</a><br>
-																{% if user == project.author %}
-  <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-sm btn-danger ml-2">
-      Удалить
-    </button>
-  </form>
-{% endif %}
-
+																</a>
                                                 </div>
                                                 <span class="badge badge-secondary">Участник</span>
 												
@@ -618,6 +609,14 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
+									{% if user == project.author %}
+  <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-sm btn-danger ml-2">
+      Удалить
+    </button>
+  </form>
+{% endif %}
 									</div>
 
                                     {% if is_owner %}
