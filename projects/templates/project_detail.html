@@ -598,8 +598,7 @@
                                                     <a href="{% url 'users:public_profile' member.username %}">
 														{{ member.username }}
 																</a>
-                                                </div>
-                                                <span class="badge badge-secondary">Участник</span>
+																 <span class="badge badge-secondary">Участник</span>
 												{% if user == project.author %}
   <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
     {% csrf_token %}
@@ -609,6 +608,8 @@
   </form>
 {% endif %}
 
+                                                </div>
+                                               
 
 
                                             </li>
