@@ -601,7 +601,6 @@
                                                 </div>
                                                 <!-- Замените содержимое после <a>{{ member.username }}</a> -->
 <div>
-    <span class="badge badge-secondary mr-2">Участник</span>
     {% if user == project.author %}
     <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
         {% csrf_token %}
