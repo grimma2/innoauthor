@@ -625,35 +625,7 @@ def project_complaint(request, project_id):
 
 
 
-@login_required
-def accept_application(request, application_id):
-    application = get_object_or_404(ProjectApplication, id=application_id)
 
-    # 1) проверка прав: только автор проекта
-    if application.project.author != request.user:
-        messages.error(request, 'У вас нет прав принимать заявки в этот проект.')
-        return redirect('projects:my_projects')
-
-    if request.method == 'POST':
-        project = application.project
-        applicant = application.applicant
-
-        # 1) добавить пользователя в команду, без дублей
-        project.team.add(applicant)
-
-        # 3) удалить все приглашения этому пользователю в этот проект, чтобы не было дублей
-        ProjectInvitation.objects.filter(
-            project=project,
-            invitee=applicant
-        ).delete()
-
-        # 2) удалить саму заявку
-        application.delete()
-
-        # 4) редирект на страницу проекта, чтобы в project_detail сразу появился участник
-        return redirect('projects:project_detail', project_slug=project.slug)
-
-    return redirect('projects:my_projects')
 
 
 @login_required
