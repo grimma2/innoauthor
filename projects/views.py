@@ -329,73 +329,96 @@ def edit_project(request, project_id):
 def invite_member(request, project_id):
     """Send invitation to a user to join the project"""
     project = get_object_or_404(Project, id=project_id)
-    
-    # Only the project owner can send invitations
+
+    # Только автор проекта может приглашать участников
     if request.user != project.author:
         messages.error(request, 'Только автор проекта может приглашать участников.')
         return redirect('projects:project_detail', project_slug=project.slug)
-    
+
     if request.method == 'POST':
         form = InvitationForm(request.POST)
         if form.is_valid():
             invitation = form.save(commit=False)
             invitation.project = project
-            
-            # Check if email already invited to this project
+
+            # Проверка по email: уже есть "висящее" приглашение
             if ProjectInvitation.objects.filter(
-                project=project, 
-                invitee_email=invitation.invitee_email, 
+                project=project,
+                invitee_email=invitation.invitee_email,
                 status='pending'
             ).exists():
-                messages.warning(request, f'Пользователь с email {invitation.invitee_email} уже приглашен в этот проект.')
+                messages.warning(
+                    request,
+                    f'Пользователь с email {invitation.invitee_email} уже приглашен в этот проект.'
+                )
                 return redirect('projects:project_detail', project_slug=project.slug)
-            
-            # Check if user with this email already exists
+
+            # Пытаемся найти пользователя по email
             try:
                 user = User.objects.get(email=invitation.invitee_email)
                 invitation.invitee = user
-                
-                # Check if user is already a team member or the author
-                if ProjectInvitation.objects.filter(
-                    project=project, 
-                    invitee=user, 
-                    status='accepted'
-                ).exists() or user == project.author:
-                    messages.warning(request, f'Пользователь {user.username} уже является участником проекта.')
+
+                # 1) Уже в команде или автор → приглашение НЕ создаём
+                if user == project.author or user in project.team.all():
+                    messages.warning(
+                        request,
+                        f'Пользователь {user.username} уже является участником проекта.'
+                    )
                     return redirect('projects:project_detail', project_slug=project.slug)
-                    
+
+                # 2) Уже есть заявка от этого пользователя в этот проект → не дублируем
+                if ProjectApplication.objects.filter(
+                    project=project,
+                    applicant=user
+                ).exists():
+                    messages.warning(
+                        request,
+                        f'У пользователя {user.username} уже есть заявка в этот проект.'
+                    )
+                    return redirect('projects:project_detail', project_slug=project.slug)
+
+                # 3) Уже есть другое pending‑приглашение этому пользователю
+                if ProjectInvitation.objects.filter(
+                    project=project,
+                    invitee=user,
+                    status='pending'
+                ).exists():
+                    messages.warning(
+                        request,
+                        f'Пользователю {user.username} уже отправлено приглашение.'
+                    )
+                    return redirect('projects:project_detail', project_slug=project.slug)
+
             except User.DoesNotExist:
                 messages.warning(request, f'Пользователя с таким email не существует.')
                 return redirect('projects:project_detail', project_slug=project.slug)
 
+            # Если все проверки прошли — сохраняем приглашение
             invitation.save()
-            
-            # Generate invitation URL
+
             invite_url = f"{request.scheme}://{request.get_host()}/projects/invitations/accept/{invitation.token}"
-            
-            # Prepare email context
             email_context = {
                 'project': project,
                 'inviter': request.user,
                 'invite_url': invite_url,
             }
-            
-            # Render email templates
             html_message = render_to_string('emails/invite.html', email_context)
             plain_message = strip_tags(html_message)
-            
-            # Send email
+
             try:
                 send_mail(
-                    subject=f'Приглашение в проект "{project.title}" на InnAuthor',
+                    subject=f'Приглашение в проект \"{project.title}\" на InnAuthor',
                     message=plain_message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[invitation.invitee_email],
                     html_message=html_message,
                     fail_silently=False,
                 )
-            except Exception as e:
-                messages.error(request, f'Ошибка при отправке приглашения, возможно такого email не существует.')
+            except Exception:
+                messages.error(
+                    request,
+                    'Ошибка при отправке приглашения, возможно такого email не существует.'
+                )
                 return redirect('projects:project_detail', project_slug=project.slug)
 
             messages.success(request, f'Приглашение отправлено на {invitation.invitee_email}')
@@ -403,8 +426,9 @@ def invite_member(request, project_id):
         else:
             for error in form.errors.values():
                 messages.error(request, error)
-    
+
     return redirect('projects:project_detail', project_slug=project.slug)
+
 
 @login_required
 def accept_invitation(request, token):
