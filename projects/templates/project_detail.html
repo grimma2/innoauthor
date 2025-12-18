@@ -599,15 +599,18 @@
 														{{ member.username }}
 																</a>
                                                 </div>
-                                                <span class="badge badge-secondary">Участник</span>
-												{% if user == project.author %}
-  <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-sm btn-danger ml-2">
-      Удалить
-    </button>
-  </form>
-{% endif %}
+                                                <!-- Замените содержимое после <a>{{ member.username }}</a> -->
+<div>
+    <span class="badge badge-secondary mr-2">Участник</span>
+    {% if user == project.author %}
+    <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash"></i>
+        </button>
+    </form>
+    {% endif %}
+</div>
 
 
 
