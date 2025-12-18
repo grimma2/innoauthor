@@ -638,7 +638,7 @@ def accept_application(request, application_id):
     project = application.project
     applicant = application.applicant
     
-    # Проверяем, не в команде ли уже
+    # Уже в команде
     if applicant in project.team.all():
         messages.warning(request, f'{applicant.username} уже в команде')
         application.delete()
@@ -647,12 +647,19 @@ def accept_application(request, application_id):
     # Добавляем в команду
     project.team.add(applicant)
     project.save()
+
+    # УДАЛЯЕМ ВСЕ ПРИГЛАШЕНИЯ этому пользователю в этот проект
+    ProjectInvitation.objects.filter(
+        project=project,
+        invitee=applicant
+    ).delete()
     
-    # УДАЛЯЕМ заявку
+    # Удаляем заявку
     application.delete()
     
     messages.success(request, f'{applicant.username} принят в проект!')
-    return redirect('projects:project_detail', project_slug=project.slug)  # ← КРИТИЧНО: на детали!
+    return redirect('projects:project_detail', project_slug=project.slug)
+
 
 
 @login_required
