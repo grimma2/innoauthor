@@ -6,11 +6,15 @@ from uuid import uuid4
 
 User = get_user_model()
 
+
+
 # ← ВАЛИДАТОР РАЗМЕРА ФОТО (добавить ВЕРХОМ файла)
-def validate_photo_size(image):
+def validate_project_photo(image):
     max_size = 5 * 1024 * 1024  # 5MB
     if image.size > max_size:
-        raise ValidationError(f'Фото слишком большое! Максимум 5MB. Текущее: {image.size / 1024 / 1024:.1f}MB')
+        raise ValidationError('Фото проекта: максимум 5MB. Текущее: %.1fMB' % (image.size / 1024 / 1024))
+
+
 
 class ProjectInvitation(models.Model):
     STATUS_CHOICES = [
