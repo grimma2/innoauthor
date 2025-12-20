@@ -136,18 +136,10 @@ def create_project(request):
                 }
             })
             
-        # Проверка размера фото (1 МБ)
-        if project_photo and project_photo.size > 1024 * 1024:
-            messages.error(request, 'Размер фото не должен превышать 1 МБ')
-            tags = Tag.objects.all()
-            return render(request, 'create_project.html', {
-                'tags': tags,
-                'form_data': {
-                    'title': title,
-                    'description': description,
-                    'tag_ids': tag_ids
-                }
-            })
+        if project_photo and project_photo.size > 1048576:
+            messages.error(request, 'Фото превышает 1 МБ. Выберите файл поменьше.')
+            return render(request, 'create_project.html', {'tags': tags})
+
         
         if title and description:
             project = Project.objects.create(
