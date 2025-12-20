@@ -1,159 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 {% load static %}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>ИнноАвтор</title>
-	<link href="{% static 'img/icon.png' %}" rel="icon">
-	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+{% block title %}Контакты - ИнноАвтор{% endblock %}
 
-	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
-	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
-	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
-	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
+{% block content %}
+<div class="container mt-5 mb-5">
+	<div class="row mb-5">
+		<div class="col-lg-10 mx-auto">
+			<h1 class="text-center mb-5">Контакты</h1>
 
-<body>
-
-	{% include 'includes/header.html' %}
-
-	<br><br><br><br>
-
-	<section class="section-margin">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-md-4 col-lg-3 mb-4 mb-md-0">
-					<div class="media contact-info">
-						<span class="contact-info__icon"><i class="lnr lnr-home"></i></span>
-						<div class="media-body">
-							<h3>Москва Российская Федерация</h3>
-							<p>Ул Авиамоторная 10</p>
+			<div class="card mb-5">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 class="mb-4"><font color="#11213B">Свяжитесь с нами</font></h3>
+							<form method="post" action="{% url 'startpage:contact' %}">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="name"><font color="#11213B">Ваше имя*</font></label>
+									<input type="text" class="form-control" id="name" name="name" required>
+								</div>
+								<div class="form-group">
+									<label for="email"><font color="#11213B">Email*</font></label>
+									<input type="email" class="form-control" id="email" name="email" required>
+								</div>
+								<div class="form-group">
+									<label for="subject"><font color="#11213B">Тема*</font></label>
+									<input type="text" class="form-control" id="subject" name="subject">
+								</div>
+								<div class="form-group">
+									<label for="message"><font color="#11213B">Сообщение*</font></label>
+									<textarea class="form-control" id="message" name="message" rows="5"
+										required></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary"><font color="#11213B">Отправить сообщение</font></button>
+							</form>
 						</div>
-					</div>
-					<div class="media contact-info">
-						<span class="contact-info__icon"><i class="lnr lnr-phone-handset"></i></span>
-						<div class="media-body">
-							<h3><a href="tel:79771611006">+7 (977) 161 1006</a></h3>
-							<p>Звоните с 9:00 до 18:00 по МСК</p>
-						</div>
-					</div>
-					<div class="media contact-info">
-						<span class="contact-info__icon"><i class="lnr lnr-envelope"></i></span>
-						<div class="media-body">
-							<h3><a href="mailto:shushpanov-official@yandex.ru">shushpanov-official@yandex.ru</a></h3>
-							<p>Отправляйте запрос в любое время!</p>
+						<div class="col-md-6">
+							<h3 class="mb-4"><font color="#11213B">Наши контакты</font></h3>
+							<p><i class="fas fa-map-marker-alt mr-2"></i><font color="#11213B"> Москва, Россия</font></p>
+							<p><i class="fas fa-envelope mr-2"></i> <a
+									href="mailto:innoauthor@mail.ru">innoauthor@mail.ru</a></p>
+							<p><i class="fab fa-telegram mr-2"></i> <a href="https://t.me/innoauthor"
+									target="_blank">@sevendayswiththebureau</a></p>
+							<p><i class="fab fa-vk mr-2"></i> <a href="https://vk.com/innoauthor"
+									target="_blank">vk.com/7daywithburo</a></p>
+
+							<h4 class="mt-5 mb-3"><font color="#11213B">Социальные сети</font></h4>
+							<div class="social-links">
+								<a href="https://t.me/innoauthor" target="_blank"
+									class="btn btn-primary mr-2"><i class="fab fa-telegram"></i><font color="#11213B"> Telegram</font></a>
+								<a href="https://vk.com/innoauthor" target="_blank" class="btn btn-primary"><i
+										class="fab fa-vk"></i><font color="#11213B"> ВКонтакте</font></a>
+										
+						
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8 col-lg-9">
-					<form action="#/" class="form-contact">
-						<div class="row">
-							<div class="col-lg-5">
-								<div class="form-group">
-									<input class="form-control" name="name" type="text" placeholder="Логин" required>
-								</div>
-								<div class="form-group">
-									<input class="form-control" name="email" type="email" placeholder="Ваша почта"
-										required>
-								</div>
-								<div class="form-group">
-									<input class="form-control" name="subject" type="text" placeholder="Тема обращения">
-								</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<h3 class="mb-4"><font color="#11213B">Часто задаваемые вопросы</font></h3>
+
+					<div class="accordion" id="faqAccordion">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0"><font color="#11213B">
+									<button class="btn btn-link" type="button" data-toggle="collapse"
+										data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										<font color="#11213B">Как зарегистрироваться на платформе?</font>
+									</button></font>
+								</h2>
 							</div>
-							<div class="col-lg-7">
-								<div class="form-group">
-									<textarea class="form-control different-control w-100" name="textarea" id="textarea"
-										cols="30" rows="6" placeholder="Текст обращения"></textarea>
+
+							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+								data-parent="#faqAccordion">
+								<div class="card-body"><font color="#11213B">
+									Для регистрации на платформе перейдите на страницу "Регистрация", 
+									заполните необходимые поля и подтвердите свой email. 
+									После этого вы сможете пользоваться всеми функциями платформы.</font>
 								</div>
 							</div>
 						</div>
-						<div class="form-group text-center text-md-right">
-							<button type="submit" class="btn active btn--leftBorder">Отправить сообщение</button>
+
+						<div class="card">
+							<div class="card-header" id="headingTwo">
+								<h2 class="mb-0"><font color="#11213B">
+									<button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+										data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										<font color="#11213B">Как создать проект?</font>
+									</button></font>
+								</h2>
+							</div>
+							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+								data-parent="#faqAccordion">
+								<div class="card-body"><font color="#11213B">
+									После входа в систему перейдите в раздел "Проекты", нажмите кнопку "Создать новый
+									проект" и заполните форму с описанием вашего проекта. Вы можете добавить фото,
+									описание и выбрать теги, чтобы другие пользователи могли легче найти ваш проект.</font>
+								</div>
+							</div>
 						</div>
-					</form>
+
+						<div class="card">
+							<div class="card-header" id="headingThree">
+								<h2 class="mb-0"><font color="#11213B">
+									<button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+										data-target="#collapseThree" aria-expanded="false"
+										aria-controls="collapseThree"><font color="#11213B">
+										<font color="#11213B">Как присоединиться к проекту?</font>
+									</font></button></font>
+								</h2>
+							</div>
+							<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+								data-parent="#faqAccordion">
+								<div class="card-body"><font color="#11213B">
+									Вы можете просматривать доступные проекты в разделе "Проекты". Чтобы присоединиться
+									к проекту, вам нужно получить приглашение от автора проекта. После получения
+									приглашения на ваш email, вы сможете принять или отклонить его в разделе "Мои</font>
+									проекты".
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</div>
+{% endblock %}
 
-
-	<footer class="footer footer-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-					<h3 class="footer__title">Организация</h3>
-					<ul class="footer__link">
-						<li><a href="{% url 'indexglav:liderplatform1' %}">Структура платформы</a></li>
-					</ul>
-				</div>
-				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-					<h3 class="footer__title">Полезные ссылки</h3>
-					<ul class="footer__link">
-						<li><a href="{% url 'indexglav:workshop1' %}">Вакансии</a></li>
-						<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
-
-					</ul>
-				</div>
-				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-					<h3 class="footer__title">Для пользователей</h3>
-					<ul class="footer__link">
-						<li><a href="{% url 'indexglav:documents1' %}">Документы</a></li>
-						<li><a href="{% url 'indexglav:shop1' %}">Партнёры</a></li>
-						<li><a href="{% url 'indexglav:service1' %}">Услуги</a></li>
-					</ul>
-				</div>
-				<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-					<h3 class="footer__title">Информация</h3>
-					<ul class="footer__link">
-						<li><a href="{% url 'indexglav:contact1' %}">Связаться с нами</a></li>
-					</ul>
-				</div>
-				
-			</div>
-			<div class="d-sm-flex justify-content-between footer__bottom top-border">
-				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					ИнноАвтор &copy;
-					<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
-						class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://colorlib.com"
-						target="_blank">shushpanov_official</a>
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				</p>
-				<ul class="social-icons mt-2 mt-sm-0">
-
-					<li><a href="https://t.me/innoauthor" target="_blank"><i
-									class='fab fa-telegram'></i></a></li>
-
-						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
-
-
-
-	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
-	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
-	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
-
-	<script>
-		var dropToggle = $('.menu_right > li').has('ul').children('a');
-		dropToggle.on('click', function () {
-			dropToggle.not(this).closest('li').find('ul').slideUp(200);
-			$(this).closest('li').children('ul').slideToggle(200);
-			return false;
-		});
-
-		$(".toggle_icon").on('click', function () {
-			$('body').toggleClass("open");
-		});
-	</script>
-</body>
-
-</html>
+{% block extra_js %}
+<!-- Дополнительный JS не требуется, форма отправляется стандартным POST -->
+{% endblock %}
