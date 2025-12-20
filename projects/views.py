@@ -269,8 +269,7 @@ def edit_project(request, project_id):
         description = request.POST.get('description')
         project_photo = request.FILES.get('project_photo')
         tag_ids = request.POST.getlist('tags')
-        budget = request.POST.get('budget')
-        budget = int(budget) if budget else None
+        
         
         # Проверка уникальности названия
         if title and title != project.title and Project.objects.filter(title=title).exists():
@@ -282,7 +281,7 @@ def edit_project(request, project_id):
                 'formdata': {
                     'title': title,
                     'description': description,
-                    'budget': budget,
+                    
                     'tag_ids': tag_ids
                 },
                 'team_members': project.team.all()  # ← НОВОЕ
@@ -295,8 +294,7 @@ def edit_project(request, project_id):
             project.description = description
         if project_photo:
             project.project_photo = project_photo
-        if budget is not None:
-            project.budget = budget
+        
         
         if title and title != project.title:
             project.slug = cyrillic_slugify(title)
@@ -318,7 +316,7 @@ def edit_project(request, project_id):
         'formdata': {
             'title': project.title,
             'description': project.description,
-            'budget': project.budget,
+            
         },
         'team_members': team_members  # ← НОВОЕ - передаем участников в шаблон
     }
