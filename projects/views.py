@@ -689,13 +689,17 @@ def removeteammember(request, project_id, user_id):
     project = get_object_or_404(Project, id=project_id)
     user_to_remove = get_object_or_404(User, id=user_id)
     
-    if request.user != project.author and not request.user.is_staff and not request.user.is_superuser:
+    # ✅ НОВЫЕ ПРАВИЛА
+    if request.user != project.author and user_to_remove != request.user:
         messages.error(request, 'У вас нет прав для удаления участников.')
         return redirect('projects:project_detail', project_slug=project.slug)
     
     if request.method == 'POST':
         project.team.remove(user_to_remove)
-        messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
+        if user_to_remove == request.user:
+            messages.success(request, 'Вы успешно вышли из проекта.')
+        else:
+            messages.success(request, f'Участник {user_to_remove.username} удалён из команды.')
         return redirect('projects:project_detail', project_slug=project.slug)
     
     return redirect('projects:project_detail', project_slug=project.slug)
