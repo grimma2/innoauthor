@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from indexglav.models import Tag
 from uuid import uuid4
-
+from django.core.validators import FileExtensionValidator
 User = get_user_model()
 
 
