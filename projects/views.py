@@ -136,10 +136,13 @@ def create_project(request):
                 }
             })
             
-        if 'project_photo' in request.FILES:
-            project_photo = request.FILES['project_photo']
-            if project_photo.size > 1024 * 1024:  # 1 МБ
-                messages.error(request, 'Размер фото не должен превышать 1 МБ')
+        # 🔥 ВСТАВЬТЕ ЗДЕСЬ (замените вашу старую проверку)
+        project_photo = request.FILES.get('project_photo')
+        if project_photo:
+            photo_size = len(project_photo.read())
+            project_photo.seek(0)
+            if photo_size > 1024 * 1024:
+                messages.error(request, f'Фото слишком большое: {photo_size/1024/1024:.1f} МБ')
                 tags = Tag.objects.all()
                 return render(request, 'create_project.html', {
                     'tags': tags,
@@ -149,6 +152,7 @@ def create_project(request):
                         'tag_ids': tag_ids
                     }
                 })
+        # 🔥 КОНЕЦ ВСТАВКИ
 
         
         if title and description:
