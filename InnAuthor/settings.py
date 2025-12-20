@@ -32,8 +32,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 #DEBUG = os.getenv('DEBUG', 'False').strip().lower() in ['true', '1', 'yes']
 DEBUG = True
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
