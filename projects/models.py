@@ -6,6 +6,12 @@ from uuid import uuid4
 
 User = get_user_model()
 
+# ← ВАЛИДАТОР РАЗМЕРА ФОТО (добавить ВЕРХОМ файла)
+def validate_photo_size(image):
+    max_size = 5 * 1024 * 1024  # 5MB
+    if image.size > max_size:
+        raise ValidationError(f'Фото слишком большое! Максимум 5MB. Текущее: {image.size / 1024 / 1024:.1f}MB')
+
 class ProjectInvitation(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Ожидает ответа'),
@@ -83,18 +89,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-class ProjectComplaint(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='complaints')
-    complainant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_complaints')
-    reason = models.TextField(verbose_name='Причина жалобы')
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        verbose_name = 'Жалоба на проект'
-        verbose_name_plural = 'Жалобы на проекты'
-    
-    def __str__(self):
-        return f'Жалоба на {self.project.title} от {self.complainant.username}'
+
 
 
 class ProjectApplication(models.Model):
