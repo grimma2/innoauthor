@@ -8,11 +8,13 @@ User = get_user_model()
 
 
 
-# ← ВАЛИДАТОР РАЗМЕРА ФОТО (добавить ВЕРХОМ файла)
-def validate_project_photo(image):
-    max_size = 5 * 1024 * 1024  # 5MB
-    if image.size > max_size:
-        raise ValidationError('Фото проекта: максимум 5MB. Текущее: %.1fMB' % (image.size / 1024 / 1024))
+class Project(models.Model):
+    project_photo = models.ImageField(
+        upload_to='projects/',
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'])]
+    )
 
 
 
