@@ -199,12 +199,16 @@
                 $('body').toggleClass("open");
             });
 			
-			document.getElementById('project_photo').onchange = function() {
-				if (this.files[0]?.size > 1048576) {
-					alert('Фото больше 1 МБ! Выберите поменьше.');
-					this.value = '';
-				}
-			}
+			document.addEventListener('DOMContentLoaded', function() {
+				var photoInput = document.getElementById('project_photo');
+				photoInput.addEventListener('change', function(e) {
+					var file = e.target.files[0];
+					if (file && file.size > 1048576) {  // 1 МБ
+						alert('❌ Фото ' + Math.round(file.size/1024/1024*10)/10 + ' МБ. Нужен файл до 1 МБ!');
+						e.target.value = '';
+					}
+				});
+			});
         });
     </script>
 
