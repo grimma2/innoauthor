@@ -8,9 +8,7 @@ User = get_user_model()
 
 
 
-def validate_project_photo(image):
-    if image.size > 1048576:  # 1 МБ
-        raise ValidationError('Размер фото не должен превышать 1 МБ')
+
 
 class ProjectInvitation(models.Model):
     STATUS_CHOICES = [
@@ -75,7 +73,6 @@ class Project(models.Model):
     team = models.ManyToManyField(User, through=ProjectInvitation, verbose_name='Команда', related_name='projects')
     status = models.CharField('Статус проекта', max_length=20, choices=STATUS_CHOICES, default='concept')
     is_private = models.BooleanField('Приватный', default=False)
-    project_photo = models.ImageField(upload_to='projects/', validators=[validate_project_photo], blank=True, null=True)
 
     class Meta:
         verbose_name = 'Проект'
@@ -89,7 +86,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-        
 
 
 

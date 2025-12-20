@@ -163,12 +163,6 @@ def create_project(request):
             messages.success(request, 'Проект успешно создан!')
             return redirect('projects:project_detail', project_slug=project.slug)
             
-        if project_photo:
-            if project_photo.size > 1048576:
-            messages.error(request, 'Фото проекта превышает 1 МБ')
-            return render(request, 'create_project.html', {'tags': tags})
-
-            
     tags = Tag.objects.all()
     return render(request, 'create_project.html', {'tags': tags})
 
@@ -324,11 +318,6 @@ def edit_project(request, project_id):
         
         messages.success(request, 'Проект успешно обновлен!')
         return redirect('projects:project_detail', project_slug=project.slug)
-        
-        if project_photo:
-            if project_photo.size > 1048576:
-            messages.error(request, 'Фото проекта превышает 1 МБ')
-            return render(request, 'create_project.html', {'tags': tags})
     
     # GET запрос - показываем форму
     tags = Tag.objects.all()
