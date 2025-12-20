@@ -11,8 +11,8 @@
                     <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label><font color="#11213B">Сообщение владельцу (необязательно)</font></label>
-                            <textarea name="message" class="form-control" rows="4" placeholder="Расскажите о вашем опыте..."></textarea>
+                           <label><font color="#11213B">Сообщение владельцу (макс. 100 символов)</font></label>
+							<textarea name="message" class="form-control" rows="4" maxlength="100" placeholder="Расскажите о вашем опыте..."></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-block">
