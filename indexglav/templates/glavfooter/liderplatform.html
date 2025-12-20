@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>ИнноАвтор</title>
 	<link href="{% static 'img/icon.png' %}" rel="icon">
 	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
@@ -17,86 +16,127 @@
 	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
 	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
 	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
 </head>
-
 <body>
 
 	{% include 'includes/header.html' %}
 
-
-	<section class="about section-margin mb-5">
+  	<section class="about section-margin mb-5">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-5">
 					<div class="about__img text-center text-md-left mb-5 mb-md-0">
-						<img class="img-fluid" src="img/mike.png" alt="">
-						<a href="#/" class="about__img__date text-center">
-							<h3>5</h3>
-							<p>Лет <br> Создаем проекты будущего</p>
-						</a>
-					</div>
+							<img class="img-fluid" src="{% static 'img/mike.png'%}"   alt="">
+							<a href="#/" class="about__img__date text-center">
+								<h5>Желаю вашему проекту вырасти и стать нашим общим будущим.</h5>
+								<i>Создатель ИнноАвтор <br> Шушпанов Михаил Константинович</i>
+							</a>
+						</div>
 				</div>
 				<div class="col-md-7 pl-xl-5">
 					<div class="section-intro">
 						<h4 class="section-intro__title">Про нашу команду</h4>
-						<h2 class="section-intro__subtitle">Наш проект был <br> создан в 2019</h2>
+						<h2 class="section-intro__subtitle">Наша команда была <br> создана в 2019</h2>
 					</div>
-					<p>За это время мы значительно смогли расширить свои возможности и теперь готовы поделиться со всем
-						миром нашим успехом.</p>
-					<p>Мы готовы сотрудничать и совместными усилиями прийти к победе. Главное не оставлять свои идеи и
-						бороться за них до конца</p>
-				</div>
+					<p>Команда разработчиков платформы ИнноАвтор — это наша команда новаторов, превращающих инновационные идеи в
+					реальные проекты и создающих уникальную экосистему для реализации инноваций. Мы не просто создаём технологические решения,
+					а формируем пространство, где каждый может воплотить свои прорывные задумки, используя современные инструменты и процессы.
+
+Наша команда обладает глубоким техническим опытом, что позволяет создавать надёжные, масштабируемые и удобные платформы. 
+Наша работа направлена на облегчение пути для инноваторов, 
+обеспечивая поддержку от идеи до её воплощения.
+
+ИнноАвтор — это больше, чем просто платформа. Это мощный инструмент для вдохновения, поддержки и развития инновационных проектов, где
+ технологии и креативность идут рука об руку. Мы помогаем каждому пользователю раскрыть потенциал своих идей, превращая их в реальные
+ технологии и решения, которые могут изменить рынок и общество.
+
+Наша миссия — ускорять научно-технический прогресс и создавать условия для внедрения инноваций, поддерживая разработчиков и стартапы на 
+всех этапах пути. Такой подход делает нас настоящими лидерами в сфере инновационных платформ и примером того, как инновации могут быть
+ реализованы эффективно и с душой.
+
+Наша команда — движущая сила прогресса, создающая будущее, где инновации становятся доступными и понятными каждому, кто хочет менять
+ мир! Продолжайте вдохновлять и создавать вместе с нами!</p>
+					
 			</div>
 		</div>
 	</section>
+	
 
 
 
+	
 
-
-
-
+	
 
 	<section class="testimonial section-margin">
 		<div class="container">
+			
+
+			<br>
+			
 			<div class="section-intro">
-				<h4 class="section-intro__title">Раздел</h4>
-				<h2 class="section-intro__subtitle bottom-border">Наша администрация платформы</h2>
+				<h4 class="section-intro__title"><font color="#FF9027">Специалисты</font></h4>
+				<h2 class="section-intro__subtitle bottom-border">Наши Юристы</h2>
 			</div>
-
-			<div class="owl-carousel owl-theme testimonialCarousel">
-				<div class="item">
-					<div class="media testimonial__slide">
-						<img class="img-fluid mr-4" src="img/testimonial.png" width="120" height="125" alt="">
-						<div class="media-body">
-							<blockquote>
-								“Петров Петр Иванович.”
-							</blockquote>
-							<h3>Директор по Маркетингу</h3>
-							<p>ИнноАвтор</p>
-						</div>
+			
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+				
+				<a href="#" target="_blank">
+				  <div class="media service__single">
+					<span class="service__singleIcon"><i class="ti-package"></i></span>
+					<div class="media-body">
+					  <h3><font color="#ffffff">Шушпанов Михаил Константинович</font></h3>
+					  <p><font color="#ffffff">Юристконсультант</font>
+					  </p>
 					</div>
+				  </div>
+				  
+				  </a>
 				</div>
-
-
-
+        
+				
+        
 			</div>
+			<br>
+			
+			<div class="section-intro">
+				<h4 class="section-intro__title"><font color="#FF9027">Раздел</font></h4>
+				<h2 class="section-intro__subtitle bottom-border">Благодарность</h2>
+			</div>
+			<h4 class="section-intro__title">Шушпанов Михаил </h4>
+			<h4 class="section-intro__title">Максимова Яна</h4>
+			<h4 class="section-intro__title">Саражинский Никита </h4> 
+			<h4 class="section-intro__title">Макаров Андрей</h4>
+			<h4 class="section-intro__title">Коновалов Николай</h4>
+			<h4 class="section-intro__title">Беляев Алексей</h4>
+			<h4 class="section-intro__title">Лысенкова Ирина</h4>
+			<h4 class="section-intro__title">Окаль Дмитрий</h4>
+			<h4 class="section-intro__title">Пехов Александр</h4>
+			<h4 class="section-intro__title">Врабий Диана</h4>
+			<h4 class="section-intro__title">Сергеев Сергей</h4>
+			<h4 class="section-intro__title">Запышнюк Анастасия</h4>
+			<h4 class="section-intro__title">Ерин Денис</h4>
+			<h4 class="section-intro__title">Челла Андрей</h4>
+
+			
 		</div>
 	</section>
 
 
-	<div class="progress-table-wrap">
-		<div class="progress-table">
-		<font color="#11213B">
-			<h3><font color="#11213B">Страны в которых мы работаем:</font></h3>
-			<div class="table-head"><font color="#11213B">
+				<div class="progress-table-wrap">
+					<font color="#11213B">
+					<div class="progress-table">
+					<h3><font color="#11213B">Страны в которых мы работаем:</font></h3>
+						<div class="table-head"><font color="#11213B">
 				
 				</font>
 			</div>
-			<div class="table-row">
+						<div class="table-row">
 				<div class="serial">01</div>
-				<div class="country"> <img src="img/elements/f1.jpg" alt="flag">Россия</div>
+				<div class="country"> Россия</div>
 				<div class="visit">300</div>
 				<div class="percentage">
 					<div class="progress">
@@ -106,11 +146,12 @@
 					</div>
 				</div>
 			</div>
-			</font>
-		</div>
-	</div>
+						
+					</div>
+					</font>
+				</div>
 
-
+  
 
 	<footer class="footer footer-bg">
 			<div class="container">
@@ -167,55 +208,54 @@
 		</footer>
 
 
-	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>	
 	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
 	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
 
 	<script>
 		var testimonialCarousel = $('.testimonialCarousel');
-		testimonialCarousel.owlCarousel({
-			loop: true,
-			margin: 80,
-			startPosition: 2,
-			nav: false,
-			responsiveClass: true,
-			responsive: {
-				0: {
-					items: 1
-				},
-				1000: {
-					items: 2,
-					loop: true
-				}
-			}
-		});
+      testimonialCarousel.owlCarousel({
+      loop:true,
+      margin:80,
+      startPosition: 2,
+      nav: false,
+      responsiveClass:true,
+      responsive:{
+        0:{
+            items:1
+        },
+        1000:{
+            items:2,
+            loop:true
+        }
+      }
+    });
 
-		var heroCarousel = $('.heroCarousel');
-		heroCarousel.owlCarousel({
-			loop: true,
-			margin: 10,
-			nav: false,
-			startPosition: 1,
-			responsiveClass: true,
-			responsive: {
-				0: {
-					items: 1
-				}
-			}
-		});
+    var heroCarousel = $('.heroCarousel');
+      heroCarousel.owlCarousel({
+      loop:true,
+      margin:10,
+      nav: false,
+      startPosition: 1,
+      responsiveClass:true,
+      responsive:{
+        0:{
+            items:1
+        }
+      }
+	});
 
-		var dropToggle = $('.menu_right > li').has('ul').children('a');
-		dropToggle.on('click', function () {
-			dropToggle.not(this).closest('li').find('ul').slideUp(200);
-			$(this).closest('li').children('ul').slideToggle(200);
-			return false;
-		});
+	var dropToggle = $('.menu_right > li').has('ul').children('a');
+	dropToggle.on('click', function() {
+		dropToggle.not(this).closest('li').find('ul').slideUp(200);
+		$(this).closest('li').children('ul').slideToggle(200);
+		return false;
+	});
 
-		$(".toggle_icon").on('click', function () {
-			$('body').toggleClass("open");
-		});
+	$( ".toggle_icon" ).on('click', function() {
+		$( 'body' ).toggleClass( "open" );
+	});
 
 	</script>
 </body>
-
 </html>
