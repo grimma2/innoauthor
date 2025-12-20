@@ -198,6 +198,13 @@
             $(".toggle_icon").on('click', function () {
                 $('body').toggleClass("open");
             });
+			
+			document.getElementById('project_photo').onchange = function() {
+				if (this.files[0]?.size > 1048576) {
+					alert('Фото больше 1 МБ! Выберите поменьше.');
+					this.value = '';
+				}
+			}
         });
     </script>
 
