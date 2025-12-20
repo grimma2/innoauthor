@@ -305,6 +305,25 @@ def edit_project(request, project_id):
                 },
                 'team_members': project.team.all()  # ← НОВОЕ
             })
+            
+            
+        # 🔥 ВСТАВЬТЕ ЗДЕСЬ (замените вашу старую проверку)
+        project_photo = request.FILES.get('project_photo')
+        if project_photo:
+            photo_size = len(project_photo.read())
+            project_photo.seek(0)
+            if photo_size > 1024 * 1024:
+                messages.error(request, f'Фото слишком большое: {photo_size/1024/1024:.1f} МБ')
+                tags = Tag.objects.all()
+                return render(request, 'create_project.html', {
+                    'tags': tags,
+                    'form_data': {
+                        'title': title,
+                        'description': description,
+                        'tag_ids': tag_ids
+                    }
+                })
+        # 🔥 КОНЕЦ ВСТАВКИ
         
         # Обновление полей
         if title:
