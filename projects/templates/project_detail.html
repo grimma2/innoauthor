@@ -602,6 +602,7 @@
                                                 <!-- Замените содержимое после <a>{{ member.username }}</a> -->
 <div>
     {% if user == project.author %}
+    <!-- Автор: УДАЛИТЬ любого -->
     <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;">
         {% csrf_token %}
         <button type="submit" class="btn btn-sm btn-danger">
@@ -609,18 +610,19 @@
         </button>
     </form>
     {% endif %}
-	
-	<!-- Кнопка ВЫЙТИ (только для членов команды, не автора) -->
-{% if user != project.author and member == user %}
-<form method="post" action="{% url 'projects:removeteammember' project.id user.id %}" style="display: inline;" 
-      onsubmit="return confirm('Вы уверены, что хотите выйти из проекта?')">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-sm btn-secondary ml-1">
-        <i class="fas fa-sign-out-alt"></i>
-    </button>
-</form>
-{% endif %}
+    
+    <!-- Участник: ВЫЙТИ из своей строки -->
+    {% if user != project.author and member == user %}
+    <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;" 
+          onsubmit="return confirm('Вы уверены, что хотите выйти из проекта?')">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-secondary ml-1">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </form>
+    {% endif %}
 </div>
+
 
 
 
