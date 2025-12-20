@@ -8,14 +8,6 @@ User = get_user_model()
 
 
 
-class Project(models.Model):
-    project_photo = models.ImageField(
-        upload_to='projects/',
-        blank=True,
-        null=True,
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'])]
-    )
-
 
 
 class ProjectInvitation(models.Model):
