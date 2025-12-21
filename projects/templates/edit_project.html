@@ -99,18 +99,7 @@
                                 <i class="fa fa-save"></i> Сохранить изменения
                             </button>
 							
-							<!-- НОВЫЕ КНОПКИ -->
-<div class="mt-4 p-3 border rounded bg-light">
-    <h5><i class="fa fa-users text-primary"></i> Действия с проектом</h5>
-    <div class="btn-group">
-        <a href="{% url 'projects:project_application' project.id %}" class="btn btn-success btn-lg">
-            <i class="fa fa-handshake"></i> Подать заявку
-        </a><br>
-        <a href="{% url 'projects:project_complaint' project.id %}" class="btn btn-warning btn-lg ml-2">
-            <i class="fa fa-exclamation-triangle"></i> Подать жалобу
-        </a>
-    </div>
-</div>
+							
                             <a href="{% url 'projects:project_detail' project_slug=project.slug %}"
                                 class="btn btn-secondary">
                                 <i class="fa fa-times"></i> Отмена
