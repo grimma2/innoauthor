@@ -133,7 +133,7 @@
                             <h6>{{ member.get_full_name|default:member.username }}</h6>
                             <small class="text-muted">{{ member.email }}</small>
                             {% if user == project.author %}
-                                <form method="post" action="{% url 'projects:remove_team_member' project.id member.id %}" style="display: inline;" onsubmit="return confirm('Удалить {{ member.username }} из команды?')">
+                                <form method="post" action="{% url 'projects:removeteammember' project.id member.id %}" style="display: inline;" onsubmit="return confirm('Удалить {{ member.username }} из команды?')">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger btn-sm mt-2">
                                         <i class="fa fa-trash"></i> Удалить
