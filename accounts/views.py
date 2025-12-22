@@ -51,7 +51,7 @@ def accounts(request):
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email],
                 html_message=html_message,
-                fail_silently=False,
+                fail_silently=True,
             )
             
             messages.success(request, 'Регистрация успешна! Пожалуйста, проверьте вашу почту для подтверждения аккаунта.')
