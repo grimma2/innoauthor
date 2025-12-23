@@ -4,8 +4,8 @@ from .models import Project, ProjectInvitation, Task, ProjectApplication, Projec
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'is_private', 'create_datetime', 'slug')
-    list_filter = ('is_private', 'tags', 'create_datetime', 'author')
+    list_display = ('title', 'status', 'author', 'is_private', 'create_datetime', 'slug')
+    list_filter = ('status', 'is_private', 'tags', 'create_datetime', 'author')
     search_fields = ('title', 'description', 'author__username')
     prepopulated_fields = {'slug': ('title',)}
     filter_horizontal = ('tags',)

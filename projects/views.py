@@ -87,7 +87,7 @@ def projects(request):
         'paginator': paginator
     })
 
-@login_required
+
 @login_required
 def my_projects(request):
     # Проекты, где я автор или принятый участник

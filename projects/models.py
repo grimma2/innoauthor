@@ -61,6 +61,7 @@ class Project(models.Model):
         ('concept', 'Идея'),
         ('launch', 'Рабочая модель'),
         ('ready_project', 'Готовый проект'),
+        ('business', 'Бизнес'),  # ← НОВОЕ
     ]
     
     title = models.CharField('Название проекта', max_length=200)
