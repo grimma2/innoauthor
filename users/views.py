@@ -99,38 +99,4 @@ def public_profile(request, username):
         'profile_user': user
     })
 
-def register_user(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        password = request.POST.get('password')
-        
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'Пользователь с таким email уже существует.')
-            return render(request, 'accounts/register.html')
-        
-        user = User.objects.create_user(
-            email=email, username=username,
-            first_name=first_name, last_name=last_name,
-            password=password
-        )
-        user.is_active = False  # Блокируем до подтверждения
-        user.generate_verification_token()
-        user.save()
-        
-        # Формируем verification_url ПРАВИЛЬНО
-        verification_url = request.scheme + '://' + request.get_host() + '/verify/' + str(user.verification_token)
-        
-        subject = 'Подтвердите email - ИнноАвтор'
-        html_message = render_to_string('emails/verify_email.html', {
-            'user': user,
-            'verification_url': verification_url
-        })
-        send_mail(subject, strip_tags(html_message), 'innoauthor@mail.ru', [email], html_message=html_message, fail_silently=False)
-        
-        messages.success(request, 'Регистрация прошла успешно! Проверьте почту для подтверждения.')
-        return redirect('users:login')
-    
-    return render(request, 'accounts/register.html')
+
