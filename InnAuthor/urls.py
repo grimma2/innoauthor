@@ -25,6 +25,7 @@ from . import settings
 
 
 urlpatterns = [
+    path('verify/<uuid:token>/', users_views.verify_email, name='verify_email'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls', namespace="users")),
     path('', include('startpage.urls', namespace="startpage")),
