@@ -51,3 +51,6 @@ networks:
 
 volumes:
   postgres_data:
+
+innoapp:
+  command: gunicorn your_project.wsgi:application --timeout 120 --workers 3
