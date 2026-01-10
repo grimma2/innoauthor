@@ -53,12 +53,12 @@ services:
       
   celery:
     build: .
-    command: celery -A InnAuthor worker --loglevel=info  # InnAuthor → твой settings модуль (InnAuthor или innoauthor)
+        command: celery -A InnAuthor.celery worker -l info  # InnAuthor.celery — точный путь из settings
     volumes:
-      - .:/code
+        - .:/code
     depends_on:
-      - redis
-      - innauthor_db
+        - redis
+        - innauthor_db
   redis:
     image: redis:alpine
 
