@@ -26,11 +26,15 @@ services:
     env_file:
       - .env
     # ВАЖНО: DNS для доступа к api.perplexity.ai
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
     networks:
-      - fastprogs_network
+        default:
+            driver: bridge
+    dns:
+        - 8.8.8.8
+        - 77.88.8.8  # Yandex DNS
+    extra_hosts:
+      - "smtp.yandex.ru:77.88.8.1"
+
 
   innauthor_db:
     image: postgres:15
@@ -57,3 +61,5 @@ networks:
 
 volumes:
   postgres_data:
+
+
