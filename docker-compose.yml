@@ -32,7 +32,8 @@ services:
     dns:
         - 8.8.8.8
         - 77.88.8.8  # Yandex DNS
-    
+    extra_hosts:
+      - "smtp.yandex.ru:77.88.8.1"
 
 
   innauthor_db:
